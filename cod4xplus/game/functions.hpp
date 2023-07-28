@@ -41,4 +41,11 @@ namespace game::functions
     typedef void (__cdecl* ClientEndFrame_t)(game::structs::gentity_s* ent);
     const ClientEndFrame_t ClientEndFrame = reinterpret_cast<ClientEndFrame_t>(0x004A97E0);
 
+    //R_EndFrame
+    typedef void(__cdecl* R_BeginFrame_t)();
+    const R_BeginFrame_t R_BeginFrame = reinterpret_cast<R_BeginFrame_t>(0x005F75A0);
+
+    //R_EndFrame
+    typedef void(__cdecl* R_EndFrame_t)();
+    const R_EndFrame_t R_EndFrame = reinterpret_cast<R_EndFrame_t>(0x005F7680);
 }

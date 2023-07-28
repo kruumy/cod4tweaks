@@ -1,5 +1,8 @@
 #pragma once
 
+
+#define	MAX_STRING_CHARS	1024	
+
 namespace game::structs
 {
 	enum trType_t
@@ -1935,5 +1938,305 @@ namespace game::structs
 		int vehicleFrame;
 	}; // should be right
 
+
+	struct Message
+	{
+		int startTime;
+		int endTime;
+	};
+
+	struct MessageLine
+	{
+		int messageIndex;
+		int textBufPos;
+		int textBufSize;
+		int typingStartTime;
+		int lastTypingSoundTime;
+		int flags;
+	};
+
+	struct MessageWindow
+	{
+		MessageLine* lines;
+		Message* messages;
+		char* circularTextBuffer;
+		int textBufSize;
+		int lineCount;
+		int padding;
+		int scrollTime;
+		int fadeIn;
+		int fadeOut;
+		int textBufPos;
+		int firstLineIndex;
+		int activeLineCount;
+		int messageIndex;
+	};
+
+	struct field_t
+	{
+		int cursor;
+		int scroll;
+		int drawWidth;
+		int widthInPixels;
+		float charHeight;
+		int fixedSize;
+		char buffer[256];
+	};
+
+
+	struct MessageBuffer
+	{
+		char gamemsgText[4][2048];
+		MessageWindow gamemsgWindows[4];
+		MessageLine gamemsgLines[4][12];
+		Message gamemsgMessages[4][12];
+		char miniconText[4096];
+		MessageWindow miniconWindow;
+		MessageLine miniconLines[100];
+		Message miniconMessages[100];
+		char errorText[1024];
+		MessageWindow errorWindow;
+		MessageLine errorLines[5];
+		Message errorMessages[5];
+	};
+
+	struct Console
+	{
+		int initialized;
+		MessageWindow consoleWindow;
+		MessageLine consoleLines[1024];
+		Message consoleMessages[1024];
+		char consoleText[32768];
+		char textTempLine[512];
+		unsigned int lineOffset;
+		int displayLineOffset;
+		int prevChannel;
+		bool outputVisible;
+		int fontHeight;
+		int visibleLineCount;
+		int visiblePixelWidth;
+		float screenMin[2];
+		float screenMax[2];
+		MessageBuffer messageBuffer[1];
+		float color[4];
+	};
+
+	struct cachedSnapshot_t
+	{
+		int archivedFrame;
+		int time;
+		int num_entities;
+		int first_entity;
+		int num_clients;
+		int first_client;
+		int usesDelta;
+	};
+
+	struct statData_t
+	{
+		unsigned char bytedata[2000];
+		int longdata[1547];
+	};
+
+	enum clientConnectState_t 
+	{
+		CS_FREE,		// can be reused for a new connection
+		CS_ZOMBIE,		// client has been disconnected, but don't reuse
+		// connection for a couple seconds
+		CS_CONNECTED,		// has been assigned to a client_t, but no gamestate yet
+		CS_PRIMED,		// gamestate has been sent, but client hasn't sent a usercmd
+		CS_ACTIVE		// client is fully in game
+	};
+
+	struct stats_t
+	{
+		int checksum;
+		statData_t data;
+	};
+
+
+	struct reliableCommands_t 
+	{
+		char command[MAX_STRING_CHARS];
+		int cmdTime;
+		int cmdType;
+	};
+
+	typedef int		fileHandle_t;
+
+
+	struct clientSnapshot_t 
+	{//(0x2146c);
+		playerState_s	ps;			//0x2146c
+		int		num_entities;
+		int		num_clients;		// (0x2f68)
+		int		first_entity;		// (0x2f6c)into the circular sv_packet_entities[]
+		int		first_client;
+		// the entities MUST be in increasing state number
+		// order, otherwise the delta compression will fail
+		unsigned int	messageSent;		// (0x243e0 | 0x2f74) time the message was transmitted
+		unsigned int	messageAcked;		// (0x243e4 | 0x2f78) time the message was acked
+		int		messageSize;		// (0x243e8 | 0x2f7c)   used to rate drop packets
+		int		serverTime;
+	} ;//size: 0x2f84
+
+
+#pragma pack(push, 1)
+	struct voices_t
+	{
+		char num;
+		char data[256];
+		int dataLen;
+	};
+#pragma pack(pop)
+
+	struct client_t
+	{
+		clientConnectState_t state;
+		int sendAsActive;
+		int deltaMessage;
+		bool rateDelayed;
+		netchan_t netchan;
+		float predictedOrigin[3];
+		int predictedOriginServerTime;
+		const char* dropReason;
+		char userinfo[1024];
+		reliableCommands_t reliableCommands[128];
+		int reliableSequence;
+		int reliableAcknowledge;
+		int reliableSent;
+		int messageAcknowledge;
+		int gamestateMessageNum;
+		int challenge;
+		usercmd_s lastUsercmd;
+		int lastClientCommand;
+		char lastClientCommandString[1024];
+		gentity_s* gentity;
+		char shortname[16];
+		int wwwDl_var01;
+		char downloadName[64];
+		fileHandle_t download;
+		int downloadSize;
+		int downloadCount;
+		int downloadClientBlock;
+		int downloadCurrentBlock;
+		int downloadXmitBlock;
+		unsigned char* downloadBlocks[8];
+		int downloadBlockSize[8];
+		bool downloadEOF;
+		int downloadSendTime;
+		char wwwDownloadURL[256];
+		bool wwwDownload;
+		bool wwwDownloadStarted;
+		bool wwwDl_var02;
+		bool wwwDl_var03;
+		int nextReliableTime;
+		int floodprotect;
+		int lastPacketTime;
+		int lastConnectTime;
+		int nextSnapshotTime;
+		int timeoutCount;
+		clientSnapshot_t frames[32];
+		int ping;
+		int rate;
+		int snapshotMsec;
+		int unknown6;
+		int pureAuthentic;
+		unsigned char unsentBuffer[131072];
+		unsigned char fragmentBuffer[2048];
+		char pbguid[33];
+		unsigned char pad;
+		unsigned __int16 clscriptid;
+		int canNotReliable;
+		int serverId;
+		voices_t voicedata[40];
+		int unsentVoiceData;
+		unsigned char mutedClients[64];
+		unsigned char hasVoip;
+		stats_t stats;
+		unsigned char receivedstats;
+		unsigned char pad2[2];
+	};
+
+
+	struct archivedEntityShared_t
+	{
+		int svFlags;
+		int clientMask[2];
+		float absmin[3];
+		float absmax[3];
+	};
+
+	struct archivedEntity_t
+	{
+		entityState_s s;
+		archivedEntityShared_t r;
+	};
+
+	struct archivedSnapshot_t
+	{
+		int start;
+		int size;
+	};
+
+	struct cachedClient_t
+	{
+		int playerStateExists;
+		clientState_s cs;
+		playerState_s ps;
+	};
+
+	struct challenge_t
+	{
+		netadr_t adr;
+		int challenge;
+		int time;
+		int pingTime;
+		int firstTime;
+		int firstPing;
+		bool connected;
+		char guid[36];
+	};
+
+	struct tempBanSlot_t
+	{
+		int banTime;
+		char guid[32];
+	};
+
+
+	struct serverStatic_t
+	{
+		cachedSnapshot_t cachedSnapshotFrames[512];
+		archivedEntity_t cachedSnapshotEntities[0x4000];
+		bool initialized;
+		int time;
+		int snapFlagServerBit;
+		client_t clients[64];
+		int numSnapshotEntities;
+		int numSnapshotClients;
+		int nextSnapshotEntities;
+		int nextSnapshotClients;
+		entityState_s snapshotEntities[0x2A000];
+		clientState_s snapshotClients[0x20000];
+		int nextArchivedSnapshotFrames;
+		archivedSnapshot_t archivedSnapshotFrames[1200];
+		unsigned char archivedSnapshotBuffer[0x2000000];
+		int nextArchivedSnapshotBuffer;
+		int nextCachedSnapshotEntities;
+		int nextCachedSnapshotClients;
+		int nextCachedSnapshotFrames;
+		cachedClient_t cachedSnapshotClients[0x1000];
+		int nextHeartbeatTime;
+		int nextStatusResponseTime;
+		challenge_t challenges[1024];
+		netadr_t redirectAddress;
+		netadr_t authorizeAddress;
+		char OOBProf[1504];
+		tempBanSlot_t tempBans[16];
+		int field_14850;
+		float mapCenter[3];
+		char field_14860[112];
+	};
 
 }

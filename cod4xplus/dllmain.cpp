@@ -9,6 +9,7 @@
 #include "modules/handleargs.hpp"
 #include "deps/MinHook.h"
 #include "utils/MinHookObject.hpp"
+#include "game/globals.hpp"
 
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
@@ -18,6 +19,21 @@ DWORD WINAPI ThreadProc(LPVOID lpParameter)
     modules::handleargs::ApplyArgs(utils::cmdparser(reinterpret_cast<char*>(GetCommandLineA())));
     std::cout << "Arguments Applied" << std::endl;
 
+    while (true)
+    {
+        if (game::globals::svs)
+        {
+            for (size_t i = 0; i < 64; i++)
+            {
+                if (game::globals::svs->clients[i].predictedOrigin[0])
+                {
+                    std::cout << i << " - " << game::globals::svs->clients[i].predictedOrigin[0] << ", " << game::globals::svs->clients[i].predictedOrigin[1] << ", " << game::globals::svs->clients[i].predictedOrigin[2] << std::endl;
+                }
+                
+            }
+        }
+        Sleep(100);
+    }
 
 
 

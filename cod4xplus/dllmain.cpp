@@ -21,17 +21,18 @@ DWORD WINAPI ThreadProc(LPVOID lpParameter)
 
     while (true)
     {
-        if (game::globals::svs)
+        if (game::globals::cg_Entities)
         {
-            for (size_t i = 0; i < 64; i++)
+            for (size_t i = 0; i < *game::globals::cg_maxPlayers; i++)
             {
-                if (game::globals::svs->clients[i].predictedOrigin[0])
+                if (game::globals::cg_Entities[i].isAlive)
                 {
-                    std::cout << i << " - " << game::globals::svs->clients[i].predictedOrigin[0] << ", " << game::globals::svs->clients[i].predictedOrigin[1] << ", " << game::globals::svs->clients[i].predictedOrigin[2] << std::endl;
+                    std::cout << game::globals::clientInfo[i].name << " - " << game::globals::cg_Entities[i].clientNum << " - " << game::globals::cg_Entities[i].lerpOrigin[0] << ", " << game::globals::cg_Entities[i].lerpOrigin[1] << ", " << game::globals::cg_Entities[i].lerpOrigin[2] << std::endl;
                 }
                 
             }
         }
+        
         Sleep(100);
     }
 

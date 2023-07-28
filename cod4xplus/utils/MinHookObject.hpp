@@ -7,7 +7,7 @@ namespace utils
 	class MinHookObject
 	{
 	public:
-		MinHookObject(LPVOID pTarget, LPVOID pDetour, bool enable = true)
+		MinHookObject(T pTarget, T pDetour, bool enable = true)
 		{
 			this->pTarget = pTarget;
 			this->pDetour = pDetour;
@@ -17,7 +17,7 @@ namespace utils
 				MH_Initialize();
 				isInitialized = true;
 			}
-			MH_CreateHook(pTarget, pDetour, reinterpret_cast<LPVOID*>(&ppOriginal));
+			MH_CreateHook((LPVOID)pTarget, (LPVOID)pDetour, reinterpret_cast<LPVOID*>(&ppOriginal));
 			if (enable)
 			{
 				EnableHook();
@@ -31,7 +31,7 @@ namespace utils
 		{
 			if (!isEnabled)
 			{
-				MH_EnableHook(pTarget);
+				MH_EnableHook((LPVOID)pTarget);
 				isEnabled = true;
 			}
 		}
@@ -40,7 +40,7 @@ namespace utils
 		{
 			if (isEnabled)
 			{
-				MH_DisableHook(pTarget);
+				MH_DisableHook((LPVOID)pTarget);
 				isEnabled = false;
 			}
 
@@ -55,8 +55,8 @@ namespace utils
 		}
 
 	private:
-		LPVOID pTarget;
-		LPVOID pDetour;
+		T pTarget;
+		T pDetour;
 		T ppOriginal;
 		bool isEnabled;
 		static inline bool isInitialized = false;

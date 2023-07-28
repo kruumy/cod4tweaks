@@ -100,7 +100,6 @@ namespace game::structs
 		int attachedVehSeat;
 		unsigned char hideWeapon;
 		unsigned char usingKnife;
-		char pad3[2];
 	}clientInfo_t;
 #pragma pack(pop)
 

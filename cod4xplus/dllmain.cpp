@@ -10,17 +10,6 @@
 #include "deps/MinHook.h"
 #include "utils/MinHookObject.hpp"
 
-game::structs::gentity_s* gSpawn();
-
-utils::MinHookObject<game::functions::G_Spawn_t> hook(game::functions::G_Spawn, &gSpawn, true);
-
-game::structs::gentity_s* gSpawn()
-{
-    std::cout << "G_spawn" << std::endl;
-    return hook.GetOriginalFunc()();
-
-}
-
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {

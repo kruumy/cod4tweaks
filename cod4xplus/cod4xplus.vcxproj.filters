@@ -62,6 +62,9 @@
     <ClInclude Include="utils\MinHookObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game\globals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="deps\libMinHook.x86.lib" />

@@ -164,6 +164,7 @@
     <ClInclude Include="deps\MinHook.h" />
     <ClInclude Include="game\dvars.hpp" />
     <ClInclude Include="game\functions.hpp" />
+    <ClInclude Include="game\globals.hpp" />
     <ClInclude Include="game\structs.hpp" />
     <ClInclude Include="modules\handleargs.hpp" />
     <ClInclude Include="modules\windowed_fullscreen.hpp" />

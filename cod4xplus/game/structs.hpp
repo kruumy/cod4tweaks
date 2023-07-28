@@ -820,6 +820,27 @@ namespace game::structs
 		gentity_s* nextFree;
 	};
 
+	enum netadrtype_t
+	{
+		NA_BOT = 0x0,
+		NA_BAD = 0x1,
+		NA_LOOPBACK = 0x2,
+		NA_BROADCAST = 0x3,
+		NA_IP = 0x4,
+		NA_IPX = 0x5,
+		NA_BROADCAST_IPX = 0x6,
+	};
+
+
+	struct netadr_t
+	{
+		netadrtype_t type;
+		char ip[4];
+		unsigned __int16 port;
+		char ipx[10];
+	};
+
+
 
 	enum dvar_flags : unsigned short
 	{
@@ -906,4 +927,1013 @@ namespace game::structs
 		dvar_s* next;
 		dvar_s* hashNext;
 	};
+
+	struct clSnapshot_t
+	{
+		int valid;
+		int snapFlags;
+		int serverTime;
+		int messageNum;
+		int deltaNum;
+		int ping;
+		int cmdNum;
+		playerState_s ps;
+		int numEntities;
+		int numClients;
+		int parseEntitiesNum;
+		int parseClientsNum;
+		int serverCommandNum;
+	};
+
+	struct gameState_t
+	{
+		int stringOffsets[2442];
+		char stringData[131072];
+		int dataCount;
+	};
+
+	enum StanceState
+	{
+		CL_STANCE_STAND = 0x0,
+		CL_STANCE_CROUCH = 0x1,
+		CL_STANCE_PRONE = 0x2,
+	};
+
+	struct ClientArchiveData
+	{
+		int serverTime;
+		float origin[3];
+		float velocity[3];
+		int bobCycle;
+		int movementDir;
+		float viewangles[3];
+	};
+
+	struct outPacket_t
+	{
+		int p_cmdNumber;
+		int p_serverTime;
+		int p_realtime;
+	};
+
+	struct clientActive_t
+	{
+		bool usingAds;
+		int timeoutcount;
+		clSnapshot_t snap;
+		bool alwaysFalse;
+		int serverTime;
+		int oldServerTime;
+		int oldFrameServerTime;
+		int serverTimeDelta;
+		int oldSnapServerTime;
+		int extrapolatedSnapshot;
+		int newSnapshots;
+		gameState_t gameState;
+		char mapname[64];
+		int parseEntitiesNum;
+		int parseClientsNum;
+		int mouseDx[2];
+		int mouseDy[2];
+		int mouseIndex;
+		bool stanceHeld;
+		StanceState stance;
+		StanceState stancePosition;
+		int stanceTime;
+		int cgameUserCmdWeapon;
+		int cgameUserCmdOffHandIndex;
+		float cgameFOVSensitivityScale;
+		float cgameMaxPitchSpeed;
+		float cgameMaxYawSpeed;
+		float cgameKickAngles[3];
+		float cgameOrigin[3];
+		float cgameVelocity[3];
+		float cgameViewangles[3];
+		int cgameBobCycle;
+		int cgameMovementDir;
+		int cgameExtraButtons;
+		int cgamePredictedDataServerTime;
+		float viewangles[3];
+		int serverId;
+		int skelTimeStamp;
+		volatile int skelMemPos;
+		char skelMemory[262144];
+		char* skelMemoryStart;
+		bool allowedAllocSkel;
+		__declspec(align(4)) usercmd_s cmds[128];
+		int cmdNumber;
+		ClientArchiveData clientArchive[256];
+		int clientArchiveIndex;
+		outPacket_t outPackets[32];
+		clSnapshot_t snapshots[32];
+		entityState_s entityBaselines[1024];
+		entityState_s parseEntities[2048];
+		clientState_s parseClients[2048];
+		int corruptedTranslationFile;
+		char translationVersion[256];
+		float vehicleViewYaw;
+		float vehicleViewPitch;
+	};
+
+	struct clientLogo_t
+	{
+		int startTime;
+		int duration;
+		int fadein;
+		int fadeout;
+		void* material[2];// Material*
+	};
+
+	struct serverInfo_t
+	{
+		struct netadr_t adrr;
+		char allowAnonymous;
+		char bPassword;
+		char pure;
+		char consoleDisabled;
+		char netType;
+		char clients;
+		char maxClients;
+		char dirty;
+		char friendlyfire;
+		char killcam;
+		char hardware;
+		char mod;
+		char voice;
+		char punkbuster;
+		char requestCount;
+		bool unk;
+		__int16 unk2;
+		__int16 minPing;
+		__int16 maxPing;
+		__int16 ping;
+		char pad_0x002C[0x5]; //0x002C
+		char hostName[32];
+		char mapName[32];
+		char game[24];
+		char gameType[16];
+		char pad_0x0099[0x3]; //0x0099
+	}; //Size=0x009C
+
+	struct __declspec(align(4)) vidConfig_t
+	{
+		unsigned int sceneWidth;
+		unsigned int sceneHeight;
+		unsigned int displayWidth;
+		unsigned int displayHeight;
+		unsigned int displayFrequency;
+		int isFullscreen;
+		float aspectRatioWindow;
+		float aspectRatioScenePixel;
+		float aspectRatioDisplayPixel;
+		unsigned int maxTextureSize;
+		unsigned int maxTextureMaps;
+		bool deviceSupportsGamma;
+	};
+
+	struct trDebugLine_t
+	{
+		float start[3];
+		float end[3];
+		float color[4];
+		int depthTest;
+	};
+
+	struct clientDebugLineInfo_t
+	{
+		int max;
+		int num;
+		trDebugLine_t* lines;
+		int* durations;
+	};
+
+	struct trDebugString_t
+	{
+		float xyz[3];
+		float color[4];
+		float scale;
+		char text[96];
+	};
+
+
+	struct clientDebugStringInfo_t
+	{
+		int max;
+		int num;
+		trDebugString_t* strings;
+		int* durations;
+	};
+
+	struct clientDebug_t
+	{
+		int prevFromServer;
+		int fromServer;
+		clientDebugStringInfo_t clStrings;
+		clientDebugStringInfo_t svStringsBuffer;
+		clientDebugStringInfo_t svStrings;
+		clientDebugLineInfo_t clLines;
+		clientDebugLineInfo_t svLinesBuffer;
+		clientDebugLineInfo_t svLines;
+	};
+
+	
+	
+	struct clientStatic_t
+	{
+		int quit;
+		int hunkUsersStarted;
+		char servername[256];
+		int rendererStarted;
+		int soundStarted;
+		int uiStarted;
+		int frametime;
+		int realtime;
+		int realFrametime;
+		clientLogo_t logo;
+		float mapCenter[3];
+		int numlocalservers;
+		serverInfo_t localServers[128];
+		int ui_displayedServerAmount;
+		int ui_totalServerAmount;
+		int ui_someothercrap;
+		int waitglobalserverresponse;
+		int numglobalservers;
+		serverInfo_t globalServers[20000];
+		int numfavoriteservers;
+		serverInfo_t favoriteServers[128];
+		int pingUpdateSource;
+		netadr_t updateServer;
+		char updateChallenge[1024];
+		char updateInfoString[1024];
+		netadr_t authorizeServer;
+		void* whiteMaterial; // Material*
+		void* consoleMaterial; // Material*
+		void* consoleFont; // Font_s*
+		char autoupdateServerNames[5][64];
+		netadr_t autoupdateServer;
+		vidConfig_t vidConfig;
+		clientDebug_t debug;
+		int download;
+		char downloadTempName[256];
+		char downloadName[256];
+		int downloadNumber;
+		int downloadBlock;
+		int downloadCount;
+		int downloadSize;
+		char downloadList[1024];
+		int downloadRestart;
+		int gameDirChanged;
+		int wwwDlDisconnected;
+		int wwwDlInProgress;
+		int downloadFlags;
+		char originalDownloadName[64];
+		float debugRenderPos[3];
+	};
+
+	struct netProfilePacket_t
+	{
+		int iTime;
+		int iSize;
+		int bFragment;
+	};
+
+	struct netProfileStream_t
+	{
+		netProfilePacket_t packets[60];
+		int iCurrPacket;
+		int iBytesPerSecond;
+		int iLastBPSCalcTime;
+		int iCountedPackets;
+		int iCountedFragments;
+		int iFragmentPercentage;
+		int iLargestPacket;
+		int iSmallestPacket;
+	};
+
+	struct netProfileInfo_t
+	{
+		netProfileStream_t send;
+		netProfileStream_t recieve;
+	};
+
+	enum netsrc_t
+	{
+		NS_CLIENT1 = 0x0,
+		NS_SERVER = 0x1,
+		NS_MAXCLIENTS = 0x1,
+		NS_PACKET = 0x2,
+	};
+
+
+	struct netchan_t
+	{
+		int outgoingSequence;
+		netsrc_t sock;
+		int dropped;
+		int incomingSequence;
+		netadr_t remoteAddress;
+		int qport;
+		int fragmentSequence;
+		int fragmentLength;
+		char* fragmentBuffer;
+		int fragmentBufferSize;
+		int unsentFragments;
+		int unsentFragmentStart;
+		int unsentLength;
+		char* unsentBuffer;
+		int unsentBufferSize;
+		netProfileInfo_t prof;
+	};
+
+
+	struct clientConnection_t
+	{
+		int qport;
+		int clientNum;
+		int lastPacketSentTime;
+		int lastPacketTime;
+		netadr_t serverAddress;
+		int connectTime;
+		int connectPacketCount;
+		char serverMessage[256];
+		int challenge;
+		int checksumFeed;
+		int reliableSequence;
+		int reliableAcknowledge;
+		char reliableCommands[128][1024];
+		int serverMessageSequence;
+		int serverCommandSequence;
+		int lastExecutedServerCommand;
+		char serverCommands[128][1024];
+		bool isServerRestarting;
+		int lastClientArchiveIndex;
+		char demoName[64];
+		int demorecording;
+		int demoplaying;
+		int isTimeDemo;
+		int demowaiting;
+		int firstDemoFrameSkipped;
+		int demofile;
+		int timeDemoLog;
+		int timeDemoFrames;
+		int timeDemoStart;
+		int timeDemoPrev;
+		int timeDemoBaseTime;
+		netchan_t netchan;
+		char netchanOutgoingBuffer[2048];
+		char netchanIncomingBuffer[131072];
+		netProfileInfo_t OOBProf;
+		char statPacketsToSend;
+		int statPacketSendTime[7];
+	};
+
+	enum DemoType
+	{
+		DEMO_TYPE_NONE = 0x0,
+		DEMO_TYPE_CLIENT = 0x1,
+		DEMO_TYPE_SERVER = 0x2,
+	};
+
+	enum CubemapShot
+	{
+		CUBEMAPSHOT_NONE = 0x0,
+		CUBEMAPSHOT_RIGHT = 0x1,
+		CUBEMAPSHOT_LEFT = 0x2,
+		CUBEMAPSHOT_BACK = 0x3,
+		CUBEMAPSHOT_FRONT = 0x4,
+		CUBEMAPSHOT_UP = 0x5,
+		CUBEMAPSHOT_DOWN = 0x6,
+		CUBEMAPSHOT_COUNT = 0x7,
+	};
+
+	struct snapshot_s
+	{
+		int snapFlags;
+		int ping;
+		int serverTime;
+		playerState_s ps;
+		int numEntities;
+		int numClients;
+		entityState_s entities[512];
+		clientState_s clients[64];
+		int serverCommandSequence;
+	};
+
+	struct GfxSkinCacheEntry
+	{
+		unsigned int frameCount;
+		int skinnedCachedOffset;
+		unsigned __int16 numSkinnedVerts;
+		unsigned __int16 ageCount;
+	};
+
+	struct cpose_t
+	{
+		unsigned __int16 lightingHandle;
+		char eType;
+		char eTypeUnion;
+		char localClientNum;
+		int cullIn;
+		char isRagdoll;
+		int ragdollHandle;
+		int killcamRagdollHandle;
+		int physObjId;
+		float origin[3];
+		float angles[3];
+		GfxSkinCacheEntry skinCacheEntry;
+		//$EAE81CC4C8A7A2F7E95AA09AC9F9F9C0 ___u12;
+		char pad[0x24];
+	};
+
+	struct centity_s
+	{
+		cpose_t pose;
+		LerpEntityState currentState;
+		entityState_s nextState;
+		bool nextValid;
+		bool bMuzzleFlash;
+		bool bTrailMade;
+		int previousEventSequence;
+		int miscTime;
+		float lightingOrigin[3];
+		void* tree; // XAnimTree_s
+	};
+
+	struct playerEntity_t
+	{
+		float fLastWeaponPosFrac;
+		int bPositionToADS;
+		float vPositionLastOrg[3];
+		float fLastIdleFactor;
+		float vLastMoveOrg[3];
+		float vLastMoveAng[3];
+	};
+
+	struct GfxDepthOfField
+	{
+		float viewModelStart;
+		float viewModelEnd;
+		float nearStart;
+		float nearEnd;
+		float farStart;
+		float farEnd;
+		float nearBlur;
+		float farBlur;
+	};
+
+	struct GfxFilm
+	{
+		bool enabled;
+		float brightness;
+		float contrast;
+		float desaturation;
+		bool invert;
+		float tintDark[3];
+		float tintLight[3];
+	};
+
+	struct GfxImageLoadDef
+	{
+		char levelCount;
+		char flags;
+		__int16 dimensions[3];
+		int format;
+		int resourceSize;
+		char data[1];
+	};
+
+	union GfxTexture
+	{
+		void* basemap; // IDirect3DBaseTexture9*
+		void* map; // IDirect3DTexture9*
+		void* volmap; // IDirect3DVolumeTexture9*
+		void* cubemap; // IDirect3DCubeTexture9* 
+		GfxImageLoadDef* loadDef;
+		void* data;
+	};
+
+	enum MapType
+	{
+		MAPTYPE_NONE = 0x0,
+		MAPTYPE_INVALID1 = 0x1,
+		MAPTYPE_INVALID2 = 0x2,
+		MAPTYPE_2D = 0x3,
+		MAPTYPE_3D = 0x4,
+		MAPTYPE_CUBE = 0x5,
+		MAPTYPE_COUNT = 0x6,
+	};
+
+	struct Picmip
+	{
+		char platform[2];
+	};
+
+	struct CardMemory
+	{
+		int platform[2];
+	};
+	struct GfxImage
+	{
+		MapType mapType;
+		GfxTexture texture;
+		Picmip picmip;
+		bool noPicmip;
+		char semantic;
+		char track;
+		CardMemory cardMemory;
+		unsigned __int16 width;
+		unsigned __int16 height;
+		unsigned __int16 depth;
+		char category;
+		bool delayLoadPixels;
+		const char* name;
+	};
+
+	struct __declspec(align(4)) GfxLightImage
+	{
+		GfxImage* image;
+		char samplerState;
+	};
+
+	struct GfxLightDef
+	{
+		const char* name;
+		GfxLightImage attenuation;
+		int lmapLookupStart;
+	};
+
+	struct GfxLight
+	{
+		char type;
+		char canUseShadowMap;
+		char unused[2];
+		float color[3];
+		float dir[3];
+		float origin[3];
+		float radius;
+		float cosHalfFovOuter;
+		float cosHalfFovInner;
+		int exponent;
+		unsigned int spotShadowIndex;
+		GfxLightDef* def;
+	};
+
+	struct GfxGlow
+	{
+		bool enabled;
+		float bloomCutoff;
+		float bloomDesaturation;
+		float bloomIntensity;
+		float radius;
+	};
+
+	struct GfxViewport
+	{
+		int x;
+		int y;
+		int width;
+		int height;
+	};
+
+	struct refdef_s
+	{
+		unsigned int x;
+		unsigned int y;
+		unsigned int width;
+		unsigned int height;
+		float tanHalfFovX;
+		float tanHalfFovY;
+		float vieworg[3];
+		float viewaxis[3][3];
+		float viewOffset[3];
+		int time;
+		float zNear;
+		float blurRadius;
+		GfxDepthOfField dof;
+		GfxFilm film;
+		GfxGlow glow;
+		GfxLight primaryLights[255];
+		GfxViewport scissorViewport;
+		bool useScissorViewport;
+		int localClientNum;
+	};
+
+	struct score_t
+	{
+		int client;
+		int score;
+		int ping;
+		int deaths;
+		int team;
+		int kills;
+		int rank;
+		int assists;
+		void* hStatusIcon; // Material*
+		void* hRankIcon; // Material*
+	};
+
+	enum InvalidCmdHintType
+	{
+		INVALID_CMD_NONE = 0x0,
+		INVALID_CMD_NO_AMMO_BULLETS = 0x1,
+		INVALID_CMD_NO_AMMO_FRAG_GRENADE = 0x2,
+		INVALID_CMD_NO_AMMO_SPECIAL_GRENADE = 0x3,
+		INVALID_CMD_NO_AMMO_FLASH_GRENADE = 0x4,
+		INVALID_CMD_STAND_BLOCKED = 0x5,
+		INVALID_CMD_CROUCH_BLOCKED = 0x6,
+		INVALID_CMD_TARGET_TOO_CLOSE = 0x7,
+		INVALID_CMD_LOCKON_REQUIRED = 0x8,
+		INVALID_CMD_NOT_ENOUGH_CLEARANCE = 0x9,
+	};
+
+	struct viewDamage_t
+	{
+		int time;
+		int duration;
+		float yaw;
+	};
+
+	struct shellshock_t
+	{
+		void* parms; //shellshock_parms_t
+		int startTime;
+		int duration;
+		int loopEndTime;
+		float sensitivity;
+		float viewDelta[2];
+		int hasSavedScreen;
+	};
+
+	struct $F6DFD6D87F75480A1EF1906639406DF5
+	{
+		int time;
+		int duration;
+	};
+
+
+	struct scr_animtree_t
+	{
+		void* anims; //XAnim_s
+	};
+
+	struct snd_alias_list_t
+	{
+		/*const char *aliasName;
+		snd_alias_t *head;
+		int count;*/
+	};
+
+	struct animScriptCommand_t
+	{
+		__int16 bodyPart[2];
+		__int16 animIndex[2];
+		__int16 animDuration[2];
+		snd_alias_list_t* soundAlias;
+	};
+
+	struct animScriptCondition_t
+	{
+		int index;
+		unsigned int value[2];
+	};
+
+	struct animScriptItem_t
+	{
+		int numConditions;
+		animScriptCondition_t conditions[10];
+		int numCommands;
+		animScriptCommand_t commands[8];
+	};
+
+	struct animScript_t
+	{
+		int numItems;
+		animScriptItem_t* items[128];
+	};
+
+	struct __declspec(align(8)) animation_s
+	{
+		char name[64];
+		int initialLerp;
+		float moveSpeed;
+		int duration;
+		int nameHash;
+		int flags;
+		__int64 movetype;
+		int noteType;
+	};
+
+	struct __declspec(align(8)) animScriptData_t
+	{
+		animation_s animations[512];
+		unsigned int numAnimations;
+		animScript_t scriptAnims[1][43];
+		animScript_t scriptCannedAnims[1][43];
+		animScript_t scriptStateChange[1][1];
+		animScript_t scriptEvents[21];
+		animScriptItem_t scriptItems[2048];
+		int numScriptItems;
+		scr_animtree_t animTree;
+		unsigned __int16 torsoAnim;
+		unsigned __int16 legsAnim;
+		unsigned __int16 turningAnim;
+		snd_alias_list_t* (__cdecl* soundAlias)(const char*);
+		int(__cdecl* playSoundAlias)(int, snd_alias_list_t*);
+	};
+	struct $0867E0FC4F8157A276DAB76B1612E229
+	{
+		scr_animtree_t tree;
+		int torso; //scr_anim_s
+		int legs; //scr_anim_s
+		int turning; //scr_anim_s
+	};
+
+	struct lerpFrame_t
+	{
+		float yawAngle;
+		int yawing;
+		float pitchAngle;
+		int pitching;
+		int animationNumber;
+		void* animation; //animation_s
+		int animationTime;
+		float oldFramePos[3];
+		float animSpeedScale;
+		int oldFrameSnapshotTime;
+	};
+
+	struct clientControllers_t
+	{
+		float angles[6][3];
+		float tag_origin_angles[3];
+		float tag_origin_offset[3];
+	};
+
+	struct __declspec(align(4)) clientInfo_t
+	{
+		int infoValid;
+		int nextValid;
+		int clientNum;
+		char name[16];
+		team_t team;
+		team_t oldteam;
+		int rank;
+		int prestige;
+		int perks;
+		int score;
+		int location;
+		int health;
+		char model[64];
+		char attachModelNames[6][64];
+		char attachTagNames[6][64];
+		lerpFrame_t legs;
+		lerpFrame_t torso;
+		float lerpMoveDir;
+		float lerpLean;
+		float playerAngles[3];
+		int leftHandGun;
+		int dobjDirty;
+		clientControllers_t control;
+		unsigned int clientConditions[10][2];
+		void* pXAnimTree; //XAnimTree_s
+		int iDObjWeapon;
+		char weaponModel;
+		int stanceTransitionTime;
+		int turnAnimEndTime;
+		char turnAnimType;
+		int attachedVehEntNum;
+		int attachedVehSlotIndex;
+		bool hideWeapon;
+		bool usingKnife;
+	};
+
+
+	struct bgs_t
+	{
+		animScriptData_t animScriptData;
+		$0867E0FC4F8157A276DAB76B1612E229 generic_human;
+		int time;
+		int latestSnapshotTime;
+		int frametime;
+		int anim_user;
+		void* (__cdecl* GetXModel)(const char*); // XModel*
+		void* CreateDObj; //void(__cdecl* CreateDObj)(DObjModel_s*, unsigned __int16, XAnimTree_s*, int, int, clientInfo_t*);
+		unsigned __int16 AttachWeapon; //unsigned __int16 (__cdecl *AttachWeapon)(DObjModel_s *, unsigned __int16, clientInfo_t *);
+		void* DObj; //DObj_s *(__cdecl *GetDObj)(int, int);
+		void(__cdecl* SafeDObjFree)(int, int);
+		void* (__cdecl* AllocXAnim)(int);
+		clientInfo_t clientinfo[64];
+	};
+
+	struct visionSetVars_t
+	{
+		bool glowEnable;
+		float glowBloomCutoff;
+		float glowBloomDesaturation;
+		float glowBloomIntensity0;
+		float glowBloomIntensity1;
+		float glowRadius0;
+		float glowRadius1;
+		float glowSkyBleedIntensity0;
+		float glowSkyBleedIntensity1;
+		bool filmEnable;
+		float filmBrightness;
+		float filmContrast;
+		float filmDesaturation;
+		bool filmInvert;
+		float filmLightTint[3];
+		float filmDarkTint[3];
+	};
+
+	enum visionSetLerpStyle_t
+	{
+		VISIONSETLERP_UNDEFINED = 0x0,
+		VISIONSETLERP_NONE = 0x1,
+		VISIONSETLERP_TO_LINEAR = 0x2,
+		VISIONSETLERP_TO_SMOOTH = 0x3,
+		VISIONSETLERP_BACKFORTH_LINEAR = 0x4,
+		VISIONSETLERP_BACKFORTH_SMOOTH = 0x5,
+	};
+
+	struct visionSetLerpData_t
+	{
+		int timeStart;
+		int timeDuration;
+		visionSetLerpStyle_t style;
+	};
+
+	struct $BE9F66374A020A9809EEAF403416A176
+	{
+		float aimSpreadScale;
+	};
+
+	struct hudElemSoundInfo_t
+	{
+		int lastPlayedTime;
+	};
+
+	struct cg_s
+	{
+		int clientNum;
+		int localClientNum;
+		DemoType demoType;
+		CubemapShot cubemapShot;
+		int cubemapSize;
+		int renderScreen;
+		int latestSnapshotNum;
+		int latestSnapshotTime;
+		snapshot_s* snap;
+		snapshot_s* nextSnap;
+		snapshot_s activeSnapshots[2];
+		float frameInterpolation;
+		int frametime;
+		int time;
+		int oldTime;
+		int physicsTime;
+		int mapRestart;
+		int renderingThirdPerson;
+		playerState_s predictedPlayerState;
+		centity_s predictedPlayerEntity;
+		playerEntity_t playerEntity;
+		int predictedErrorTime;
+		float predictedError[3];
+		float landChange;
+		int landTime;
+		float heightToCeiling;
+		refdef_s refdef;
+		float refdefViewAngles[3];
+		float lastVieworg[3];
+		float swayViewAngles[3];
+		float swayAngles[3];
+		float swayOffset[3];
+		int iEntityLastType[1024];
+		void* pEntityLastXModel[1024]; // XModel*
+		float zoomSensitivity;
+		bool isLoading;
+		char objectiveText[1024];
+		char scriptMainMenu[256];
+		int scoresRequestTime;
+		int numScores;
+		int teamScores[4];
+		int teamPings[4];
+		int teamPlayers[4];
+		score_t scores[64];
+		int scoreLimit;
+		int showScores;
+		int scoreFadeTime;
+		int scoresTop;
+		int scoresOffBottom;
+		int scoresBottom;
+		int drawHud;
+		int crosshairClientNum;
+		int crosshairClientLastTime;
+		int crosshairClientStartTime;
+		int identifyClientNum;
+		int cursorHintIcon;
+		int cursorHintTime;
+		int cursorHintFade;
+		int cursorHintString;
+		int lastClipFlashTime;
+		InvalidCmdHintType invalidCmdHintType;
+		int invalidCmdHintTime;
+		int lastHealthPulseTime;
+		int lastHealthLerpDelay;
+		int lastHealthClient;
+		float lastHealth;
+		float healthOverlayFromAlpha;
+		float healthOverlayToAlpha;
+		int healthOverlayPulseTime;
+		int healthOverlayPulseDuration;
+		int healthOverlayPulsePhase;
+		bool healthOverlayHurt;
+		int healthOverlayLastHitTime;
+		float healthOverlayOldHealth;
+		int healthOverlayPulseIndex;
+		int proneBlockedEndTime;
+		int lastStance;
+		int lastStanceChangeTime;
+		int lastStanceFlashTime;
+		int voiceTime;
+		unsigned int weaponSelect;
+		int weaponSelectTime;
+		unsigned int weaponLatestPrimaryIdx;
+		int prevViewmodelWeapon;
+		int equippedOffHand;
+		viewDamage_t viewDamage[8];
+		int damageTime;
+		float damageX;
+		float damageY;
+		float damageValue;
+		float viewFade;
+		int weapIdleTime;
+		int nomarks;
+		int v_dmg_time;
+		float v_dmg_pitch;
+		float v_dmg_roll;
+		float fBobCycle;
+		float xyspeed;
+		float kickAVel[3];
+		float kickAngles[3];
+		float offsetAngles[3];
+		float gunPitch;
+		float gunYaw;
+		float gunXOfs;
+		float gunYOfs;
+		float gunZOfs;
+		float vGunOffset[3];
+		float vGunSpeed[3];
+		float viewModelAxis[4][3];
+		float rumbleScale;
+		float compassNorthYaw;
+		float compassNorth[2];
+		void* compassMapMaterial; // Material*
+		float compassMapUpperLeft[2];
+		float compassMapWorldSize[2];
+		int compassFadeTime;
+		int healthFadeTime;
+		int ammoFadeTime;
+		int stanceFadeTime;
+		int sprintFadeTime;
+		int offhandFadeTime;
+		int offhandFlashTime;
+		shellshock_t shellshock;
+		$F6DFD6D87F75480A1EF1906639406DF5 testShock;
+		int holdBreathTime;
+		int holdBreathInTime;
+		int holdBreathDelay;
+		float holdBreathFrac;
+		float radarProgress;		// correct offset
+		float selectedLocation[2];
+		SprintState sprintStates;	// 5 ints
+		//int packetAnalysisFrameCount;
+		//char bitsSent[100][13];
+		//int entBitsUsed[10][18];
+		//int numEntsSent[10][18];
+		//int numEntFields[10][18]; ?? // 7 inbetween selectedLocation and bgs
+		//int numSnapshots;
+		//int adsViewErrorDone;
+		//int inKillCam;
+		int _unk01;
+		int _unk02;
+		bgs_t bgs;	// first name root
+		cpose_t viewModelPose;
+		visionSetVars_t visionSetPreLoaded[4];
+		char visionSetPreLoadedName[4][64];
+		visionSetVars_t visionSetFrom[2];
+		visionSetVars_t visionSetTo[2];
+		visionSetVars_t visionSetCurrent[2];
+		visionSetLerpData_t visionSetLerpData[2];
+		char visionNameNaked[64];
+		char visionNameNight[64];
+		int extraButtons;
+		int lastActionSlotTime;
+		bool playerTeleported;
+		int stepViewStart;
+		float stepViewChange;
+		$BE9F66374A020A9809EEAF403416A176 lastFrame;
+		hudElemSoundInfo_t hudElemSound[32];
+		int vehicleFrame;
+	}; // should be right
+
+
 }

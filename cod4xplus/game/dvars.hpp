@@ -59,5 +59,25 @@ namespace game::dvars
 		0, 
 		r_techtype_enum.size(),
 		r_techtype_enum.data(), 
-		game::structs::dvar_flags::none);
+		game::structs::dvar_flags::none
+	);
+
+
+	const game::structs::dvar_s* r_player_material = game::functions::Dvar_RegisterString_Wrapped
+	(
+		"r_player_material",
+		"Change player rendering material",
+		"none",
+		game::structs::dvar_flags::none
+	);
+
+	const game::structs::dvar_s* r_player_techtype = game::functions::Dvar_RegisterEnum_Wrapped
+	(
+		"r_player_techtype",
+		"Change player rendering technique",
+		0,
+		r_techtype_enum.size(),
+		r_techtype_enum.data(),
+		game::structs::dvar_flags::none
+	);
 }

@@ -6,13 +6,13 @@
 
 namespace modules::renderer
 {
-	int R_SetMaterial(game::structs::GfxCmdBufContext* context, game::structs::GfxDrawSurf* drawSurf, game::structs::MaterialTechniqueType techType);
+	int R_SetMaterial();
 	
 	utils::MinHookObject<game::functions::R_SetMaterial_t> hook(game::functions::R_SetMaterial,&R_SetMaterial, true);
 
-	int R_SetMaterial(game::structs::GfxCmdBufContext* context, game::structs::GfxDrawSurf* drawSurf, game::structs::MaterialTechniqueType techType)
+	int R_SetMaterial()
 	{
 
-		return hook.GetOriginalFunc()(context, drawSurf, techType);
+		return hook.GetOriginalFunc()();
 	}
 }

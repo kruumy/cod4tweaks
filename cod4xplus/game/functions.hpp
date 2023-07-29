@@ -21,7 +21,7 @@ namespace game::functions
     const R_InitGraphicsApi_t R_InitGraphicsApi = reinterpret_cast<R_InitGraphicsApi_t>(0x005F4CC0);
 
     //Cbuf_AddText
-    typedef void (*Cbuf_AddText_t)();
+    typedef void (*Cbuf_AddText_t)(); // __usercall const char* text <eax>, int local_client_num <ecx>
     const Cbuf_AddText_t Cbuf_AddText_Internal = reinterpret_cast<Cbuf_AddText_t>(0x4F8D90);
     void Cbuf_AddText(const char* text, int local_client_num);
 
@@ -38,7 +38,7 @@ namespace game::functions
     const R_EndFrame_t R_EndFrame = reinterpret_cast<R_EndFrame_t>(0x005F7680);
 
     //R_SetMaterial
-    typedef int(__cdecl* R_SetMaterial_t)(game::structs::GfxCmdBufContext* context, game::structs::GfxDrawSurf* drawSurf, game::structs::MaterialTechniqueType techType);
+    typedef int(__cdecl* R_SetMaterial_t)(); // __usercall MaterialTechniqueType <esi>
     const R_SetMaterial_t R_SetMaterial = reinterpret_cast<R_SetMaterial_t>(0x00648F10);
 
     //Material_RegisterHandle

@@ -1,5 +1,7 @@
 #pragma once
+
 #include "structs.hpp"
+
 namespace game::globals
 {
 	const int* cg_maxPlayers = reinterpret_cast<int*>(0x74AA48);

@@ -1,6 +1,7 @@
 #include "renderer.hpp"
 #include "../game/globals.hpp"
 #include "../game/functions.hpp"
+#include <string>
 #include <cstdint>
 
 // A lot of this comes from https://github.com/xoxor4d/iw3xo-dev/blob/develop/src/components/modules/_renderer.cpp
@@ -61,6 +62,42 @@ void modules::renderer::switch_material(modules::renderer::switch_material_t* sw
 	switch_material(swm, game::functions::Material_RegisterHandle(material_name, 3));
 }
 
+bool modules::renderer::is_material_for_xmodel(game::structs::Material* material)
+{
+	return std::string(material->info.name).starts_with("mc/");
+}
+
+bool modules::renderer::is_material_for_skybox(game::structs::Material* material)
+{
+	return std::string(material->info.name).starts_with("wc/sky");
+}
+
+bool modules::renderer::is_material_not_players(game::structs::Material* material)
+{
+	std::string nameStr(material->info.name);
+	return nameStr.find("weapon") == std::string::npos &&
+		nameStr.find("wpn") == std::string::npos &&
+		nameStr.find("viewmodel") == std::string::npos &&
+		!nameStr.starts_with("scope_overlay") &&
+		nameStr.find("gmz") == std::string::npos &&
+		!nameStr.starts_with("mc/mtl_usmc") &&
+		!nameStr.starts_with("mc/mtl_arab") &&
+		!nameStr.starts_with("mc/mtl_opforce") &&
+		!nameStr.starts_with("mc/mtl_op_force") &&
+		!nameStr.starts_with("mc/mtl_sas") &&
+		!nameStr.starts_with("mc/mtl_desert_") &&
+		!nameStr.starts_with("mc/mtl_viewhands") &&
+		!nameStr.starts_with("mc/mtl_viewsleeves") &&
+		!nameStr.starts_with("mc/mtl_marine") &&
+		!nameStr.starts_with("mc/mtl_wpn") &&
+		!nameStr.starts_with("mc/mtl_ghillie") &&
+		!nameStr.starts_with("mc/mtl_head") &&
+		!nameStr.starts_with("mc/mtl_bodies") &&
+		nameStr.find("_sp") == std::string::npos &&
+		nameStr.find("_mp") == std::string::npos;
+}
+
+
 int R_SetMaterial(game::structs::MaterialTechniqueType techType, game::structs::GfxCmdBufSourceState* src, game::structs::GfxCmdBufState* state, game::structs::GfxDrawSurf drawSurf)
 {
 	modules::renderer::switch_material_t mat = {};
@@ -72,9 +109,12 @@ int R_SetMaterial(game::structs::MaterialTechniqueType techType, game::structs::
 
 	if (mat.current_material)
 	{
-		mat.technique_type = game::structs::TECHNIQUE_WIREFRAME_SOLID;
-		mat.switch_technique_type = true;
-
+		if (modules::renderer::is_material_not_players(mat.current_material))
+		{
+			mat.technique_type = game::structs::TECHNIQUE_WIREFRAME_SHADED;
+			mat.switch_technique_type = true;
+		}
+		
 
 		if (!mat.switch_material && !mat.switch_technique && !mat.switch_technique_type)
 		{

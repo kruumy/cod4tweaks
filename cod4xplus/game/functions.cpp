@@ -16,3 +16,18 @@ void game::functions::Cbuf_AddText(const char* text, int local_client_num)
     }
 }
 
+game::structs::dvar_s* game::functions::Dvar_RegisterString_Wrapped(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags)
+{
+    const auto dvar = Dvar_FindMalleableVar(dvar_name);
+    if (!dvar)
+    {
+        return Dvar_RegisterString(dvar_name, game::structs::string, flags, description, default_value, 0, 0, 0, 0, 0);
+    }
+    else
+    {
+        return dvar;
+    }
+
+    
+}
+

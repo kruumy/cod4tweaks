@@ -11,8 +11,8 @@
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {
-    utils::console::Init();
-    std::cout << "Console Initialized" << std::endl;
+    //utils::console::Init();
+    //std::cout << "Console Initialized" << std::endl;
     modules::handleargs::ApplyArgs(utils::cmdparser(reinterpret_cast<char*>(GetCommandLineA())));
     std::cout << "Arguments Applied" << std::endl;
 

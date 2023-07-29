@@ -154,7 +154,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="game\dvars.cpp" />
     <ClCompile Include="game\functions.cpp" />
     <ClCompile Include="modules\handleargs.cpp" />
     <ClCompile Include="modules\renderer.cpp" />

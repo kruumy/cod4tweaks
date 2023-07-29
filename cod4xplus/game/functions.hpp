@@ -40,4 +40,9 @@ namespace game::functions
     //Material_RegisterHandle
     typedef game::structs::Material* (__cdecl* Material_RegisterHandle_t)(const char* fontName, int fontSize);
     const Material_RegisterHandle_t Material_RegisterHandle = reinterpret_cast<Material_RegisterHandle_t>(0x5F2A80);
+
+    //Dvar_RegisterString
+    typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterString_t)(const char* dvar_name, game::structs::dvar_type type_string, std::uint16_t flags, const char* description, const char* default_value, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t null4, std::int32_t null5);
+    const Dvar_RegisterString_t Dvar_RegisterString = reinterpret_cast<Dvar_RegisterString_t>(0x56C130);
+    game::structs::dvar_s* Dvar_RegisterString_Wrapped(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags);
 }

@@ -1,6 +1,7 @@
 #include "renderer.hpp"
 #include "../game/globals.hpp"
 #include "../game/functions.hpp"
+#include "../game/dvars.hpp"
 #include <string>
 #include <cstdint>
 
@@ -109,12 +110,19 @@ int R_SetMaterial(game::structs::MaterialTechniqueType techType, game::structs::
 
 	if (mat.current_material)
 	{
-		if (modules::renderer::is_material_not_players(mat.current_material))
+		if (game::dvars::r_world_material && game::dvars::r_world_material->current.string )
 		{
-			mat.technique_type = game::structs::TECHNIQUE_WIREFRAME_SHADED;
-			mat.switch_technique_type = true;
+			std::string currentMat(game::dvars::r_world_material->current.string);
+			if (currentMat != "none")
+			{
+				if (modules::renderer::is_material_not_players(mat.current_material))
+				{
+					mat.technique_type = game::structs::TECHNIQUE_UNLIT;
+					modules::renderer::switch_material(&mat, currentMat.c_str());
+				}
+			}
+			
 		}
-		
 
 		if (!mat.switch_material && !mat.switch_technique && !mat.switch_technique_type)
 		{

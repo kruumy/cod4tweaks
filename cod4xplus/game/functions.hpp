@@ -36,4 +36,12 @@ namespace game::functions
     //R_EndFrame
     typedef void(__cdecl* R_EndFrame_t)();
     const R_EndFrame_t R_EndFrame = reinterpret_cast<R_EndFrame_t>(0x005F7680);
+
+    //R_SetMaterial
+    typedef int(__cdecl* R_SetMaterial_t)(game::structs::GfxCmdBufContext* context, game::structs::GfxDrawSurf* drawSurf, game::structs::MaterialTechniqueType techType);
+    const R_SetMaterial_t R_SetMaterial = reinterpret_cast<R_SetMaterial_t>(0x00648F10);
+
+    //Material_RegisterHandle
+    typedef game::structs::Material* (__cdecl* Material_RegisterHandle_t)(const char* fontName, int fontSize);
+    const Material_RegisterHandle_t Material_RegisterHandle = reinterpret_cast<Material_RegisterHandle_t>(0x5F2A80);
 }

@@ -36,6 +36,9 @@
     <ClCompile Include="modules\renderer.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="modules\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\MinHook.h">

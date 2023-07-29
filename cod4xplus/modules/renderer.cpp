@@ -112,16 +112,26 @@ int R_SetMaterial(game::structs::MaterialTechniqueType techType, game::structs::
 	{
 		if (game::dvars::r_world_material && game::dvars::r_world_material->current.string )
 		{
-			std::string currentMat(game::dvars::r_world_material->current.string);
-			if (currentMat != "none")
+			std::string selected_material_name(game::dvars::r_world_material->current.string);
+			if (selected_material_name != "none")
 			{
 				if (modules::renderer::is_material_not_players(mat.current_material))
 				{
 					mat.technique_type = game::structs::TECHNIQUE_UNLIT;
-					modules::renderer::switch_material(&mat, currentMat.c_str());
+					modules::renderer::switch_material(&mat, selected_material_name.c_str());
 				}
 			}
-			
+		}
+
+		if (game::dvars::r_world_techtype && game::dvars::r_world_techtype->current.integer)
+		{
+			if (modules::renderer::is_material_not_players(mat.current_material))
+			{
+				int value = game::dvars::r_world_techtype->current.integer;
+				value--;
+				mat.technique_type = (game::structs::MaterialTechniqueType)value;
+				mat.switch_technique_type = true;
+			}
 		}
 
 		if (!mat.switch_material && !mat.switch_technique && !mat.switch_technique_type)

@@ -31,3 +31,16 @@ game::structs::dvar_s* game::functions::Dvar_RegisterString_Wrapped(const char* 
     
 }
 
+game::structs::dvar_s* game::functions::Dvar_RegisterEnum_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags)
+{
+    const auto dvar = Dvar_FindMalleableVar(dvar_name);
+    if (!dvar)
+    {
+        return Dvar_RegisterEnum(dvar_name, game::structs::enumeration, flags, description, default_value, 0, 0, 0, enum_size, enum_data);
+    }
+    else
+    {
+        return dvar;
+    }
+}
+

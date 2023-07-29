@@ -45,4 +45,9 @@ namespace game::functions
     typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterString_t)(const char* dvar_name, game::structs::dvar_type type_string, std::uint16_t flags, const char* description, const char* default_value, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t null4, std::int32_t null5);
     const Dvar_RegisterString_t Dvar_RegisterString = reinterpret_cast<Dvar_RegisterString_t>(0x56C130);
     game::structs::dvar_s* Dvar_RegisterString_Wrapped(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags);
+
+    //Dvar_RegisterEnum
+    typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterEnum_t)(const char* dvar_name, game::structs::dvar_type type_enum, std::uint16_t flags, const char* description, std::int32_t default_index, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t enumSize, const char** enum_data);
+    const Dvar_RegisterEnum_t Dvar_RegisterEnum = reinterpret_cast<Dvar_RegisterEnum_t>(0x56C130);
+    game::structs::dvar_s* Dvar_RegisterEnum_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags);
 }

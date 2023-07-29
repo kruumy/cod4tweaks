@@ -26,6 +26,7 @@ namespace utils
 		~MinHookObject()
 		{
 			DisableHook();
+			MH_RemoveHook((LPVOID)pTarget);
 		}
 		void EnableHook()
 		{

@@ -50,4 +50,20 @@ namespace game::functions
     typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterEnum_t)(const char* dvar_name, game::structs::dvar_type type_enum, std::uint16_t flags, const char* description, std::int32_t default_index, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t enumSize, const char** enum_data);
     const Dvar_RegisterEnum_t Dvar_RegisterEnum = reinterpret_cast<Dvar_RegisterEnum_t>(0x56C130);
     game::structs::dvar_s* Dvar_RegisterEnum_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags);
+
+    //DB_GetAllXAssetOfType
+    typedef void(__cdecl* DB_GetAllXAssetOfType_t)(game::structs::XAssetType type, game::structs::XAssetHeader* assets, int maxCount);
+    const DB_GetAllXAssetOfType_t DB_GetAllXAssetOfType = reinterpret_cast<DB_GetAllXAssetOfType_t>(0x00489950);
+
+    //DB_EnumXAssets
+    typedef void(__cdecl* DB_EnumXAssets_t)(game::structs::XAssetType type, void(__cdecl* func)(game::structs::XAssetHeader* __struct_ptr, void*), void* inData, bool includeOverride);
+    const DB_EnumXAssets_t DB_EnumXAssets = reinterpret_cast<DB_EnumXAssets_t>(0x00489120);
+
+    //DB_PrintAssetName
+    typedef void(__cdecl* DB_PrintAssetName_t)(game::structs::XAssetHeader* header, void* data);
+    const DB_PrintAssetName_t DB_PrintAssetName = reinterpret_cast<DB_PrintAssetName_t>(0x00488E30);
+    
+    //Com_Printf
+    typedef void(__cdecl* Com_Printf_t)(int channel, const char* Format, ...);
+    const Com_Printf_t Com_Printf = reinterpret_cast<Com_Printf_t>(0x004FCBC0);
 }

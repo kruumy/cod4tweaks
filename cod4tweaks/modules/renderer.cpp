@@ -1,6 +1,5 @@
 #include "renderer.hpp"
 #include "../game/globals.hpp"
-#include "../game/functions.hpp"
 #include "../game/dvars.hpp"
 #include <string>
 #include <cstdint>

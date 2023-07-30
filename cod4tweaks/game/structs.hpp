@@ -1936,4 +1936,1844 @@ namespace game::structs
 		int skinnedCacheReachedThreshold;
 		float waterFloatTime;
 	};
+
+	enum XAssetType
+	{
+		ASSET_TYPE_XMODELPIECES = 0x0,
+		ASSET_TYPE_PHYSPRESET = 0x1,
+		ASSET_TYPE_XANIMPARTS = 0x2,
+		ASSET_TYPE_XMODEL = 0x3,
+		ASSET_TYPE_MATERIAL = 0x4,
+		ASSET_TYPE_PIXELSHADER = 0x5,
+		ASSET_TYPE_TECHNIQUE_SET = 0x6,
+		ASSET_TYPE_IMAGE = 0x7,
+		ASSET_TYPE_SOUND = 0x8,
+		ASSET_TYPE_SOUND_CURVE = 0x9,
+		ASSET_TYPE_CLIPMAP = 0xA,
+		ASSET_TYPE_CLIPMAP_PVS = 0xB,
+		ASSET_TYPE_COMWORLD = 0xC,
+		ASSET_TYPE_GAMEWORLD_SP = 0xD,
+		ASSET_TYPE_GAMEWORLD_MP = 0xE,
+		ASSET_TYPE_MAP_ENTS = 0xF,
+		ASSET_TYPE_GFXWORLD = 0x10,
+		ASSET_TYPE_LIGHT_DEF = 0x11,
+		ASSET_TYPE_UI_MAP = 0x12,
+		ASSET_TYPE_FONT = 0x13,
+		ASSET_TYPE_MENULIST = 0x14,
+		ASSET_TYPE_MENU = 0x15,
+		ASSET_TYPE_LOCALIZE_ENTRY = 0x16,
+		ASSET_TYPE_WEAPON = 0x17,
+		ASSET_TYPE_SNDDRIVER_GLOBALS = 0x18,
+		ASSET_TYPE_FX = 0x19,
+		ASSET_TYPE_IMPACT_FX = 0x1A,
+		ASSET_TYPE_AITYPE = 0x1B,
+		ASSET_TYPE_MPTYPE = 0x1C,
+		ASSET_TYPE_CHARACTER = 0x1D,
+		ASSET_TYPE_XMODELALIAS = 0x1E,
+		ASSET_TYPE_RAWFILE = 0x1F,
+		ASSET_TYPE_STRINGTABLE = 0x20,
+		ASSET_TYPE_COUNT = 0x21,
+		ASSET_TYPE_STRING = 0x21,
+		ASSET_TYPE_ASSETLIST = 0x22,
+	};
+
+	struct XModelPiece
+	{
+		XModel* model;
+		float offset[3];
+	};
+
+	struct XModelPieces
+	{
+		const char* name;
+		int numpieces;
+		XModelPiece* pieces;
+	};
+
+	union XAnimIndices
+	{
+		char* _1;
+		unsigned __int16* _2;
+		void* data;
+	};
+
+	union XAnimDynamicIndices
+	{
+		char _1[1];
+		unsigned __int16 _2[1];
+	};
+
+#pragma pack(push, 4)
+	struct XAnimDeltaPartQuatDataFrames
+	{
+		__int16(*frames)[2];
+		XAnimDynamicIndices indices;
+	};
+#pragma pack(pop)
+
+	union XAnimDynamicFrames
+	{
+		char(*_1)[3];
+		unsigned __int16(*_2)[3];
+	};
+
+#pragma pack(push, 4)
+	struct XAnimPartTransFrames
+	{
+		float mins[3];
+		float size[3];
+		XAnimDynamicFrames frames;
+		XAnimDynamicIndices indices;
+	};
+#pragma pack(pop)
+
+
+	union XAnimPartTransData
+	{
+		XAnimPartTransFrames frames;
+		float frame0[3];
+	};
+
+	struct XAnimPartTrans
+	{
+		unsigned __int16 size;
+		char smallTrans;
+		__declspec(align(2)) XAnimPartTransData u;
+	};
+
+	union XAnimDeltaPartQuatData
+	{
+		XAnimDeltaPartQuatDataFrames frames;
+		__int16 frame0[2];
+	};
+
+	struct XAnimDeltaPartQuat
+	{
+		unsigned __int16 size;
+		__declspec(align(4)) XAnimDeltaPartQuatData u;
+	};
+
+	struct XAnimDeltaPart
+	{
+		XAnimPartTrans* trans;
+		XAnimDeltaPartQuat* quat;
+	};
+
+#pragma pack(push, 4)
+	struct XAnimNotifyInfo
+	{
+		unsigned __int16 name;
+		float time;
+	};
+#pragma pack(pop)
+
+#pragma pack(push, 4)
+	struct XAnimParts
+	{
+		const char* name;
+		unsigned __int16 dataByteCount;
+		unsigned __int16 dataShortCount;
+		unsigned __int16 dataIntCount;
+		unsigned __int16 randomDataByteCount;
+		unsigned __int16 randomDataIntCount;
+		unsigned __int16 numframes;
+		bool bLoop;
+		bool bDelta;
+		char boneCount[12];
+		char notifyCount;
+		char assetType;
+		bool pad;
+		unsigned int randomDataShortCount;
+		unsigned int indexCount;
+		float framerate;
+		float frequency;
+		unsigned __int16* names;
+		char* dataByte;
+		__int16* dataShort;
+		int* dataInt;
+		__int16* randomDataShort;
+		char* randomDataByte;
+		int* randomDataInt;
+		XAnimIndices indices;
+		XAnimNotifyInfo* notify;
+		XAnimDeltaPart* deltaPart;
+	};
+
+#pragma pack(push, 4)
+	struct XMALOOPREGION
+	{
+		unsigned int LoopStart;
+		unsigned int LoopEnd;
+		char LoopSubframeEnd;
+		char LoopSubframeSkip;
+	};
+#pragma pack(pop)
+
+	union $9D91AD7FD1BA7330B7FA3BAC24377F35
+	{
+		char NumStreams;
+		char ChannelCount;
+	};
+
+#pragma pack(push, 4)
+	struct XAUDIOXMAFORMAT
+	{
+		unsigned int SampleRate;
+		char ChannelCount;
+		char DecodeBufferSize;
+	};
+#pragma pack(pop)
+
+	union $A2A60DCC2C958E872EECE00B123AF832
+	{
+		XAUDIOXMAFORMAT Stream[6];
+		unsigned int SampleRate;
+	};
+
+	struct XAUDIOSOURCEFORMAT
+	{
+		char SampleType;
+		__declspec(align(4)) $9D91AD7FD1BA7330B7FA3BAC24377F35 ___u1;
+		__declspec(align(4)) $A2A60DCC2C958E872EECE00B123AF832 ___u2;
+	};
+
+	struct XaIwXmaDataInfo
+	{
+		int totalMsec;
+	};
+
+	struct XAUDIOPACKET_ALIGNED
+	{
+		char* pBuffer;
+		unsigned int BufferSize;
+		unsigned int LoopCount;
+		XMALOOPREGION XMALoop[6];
+		char* pContext;
+	};
+
+	struct XaSeekTable
+	{
+		int size;
+		unsigned int* data;
+	};
+
+	struct XaSound
+	{
+		XAUDIOPACKET_ALIGNED packet;
+		XAUDIOSOURCEFORMAT format;
+		XaIwXmaDataInfo xaIwXmaDataInfo;
+		XaSeekTable seekTable;
+	};
+
+#pragma pack(pop)
+
+	enum snd_alias_type_t
+	{
+		SAT_UNKNOWN = 0x0,
+		SAT_LOADED = 0x1,
+		SAT_STREAMED = 0x2,
+		SAT_PRIMED = 0x3,
+		SAT_COUNT = 0x4,
+	};
+
+#pragma pack(push, 4)
+	struct SoundFile
+	{
+		const char* dir;
+		const char* name;
+		XaSound* fileMem;
+		char isStreamFound;
+		snd_alias_type_t type;
+	};
+#pragma pack(pop)
+
+	struct SndCurve
+	{
+		const char* filename;
+		int knotCount;
+		float knots[8][2];
+	};
+
+#pragma pack(push, 4)
+	struct XAUDIOCHANNELMAPENTRY
+	{
+		char InputChannel;
+		char OutputChannel;
+		float Volume;
+	};
+#pragma pack(pop)
+
+#pragma pack(push, 4)
+	struct XAUDIOCHANNELMAP
+	{
+		char EntryCount;
+		XAUDIOCHANNELMAPENTRY* paEntries;
+	};
+#pragma pack(pop)
+
+
+#pragma pack(push, 4)
+	struct SpeakerMap
+	{
+		bool isDefault;
+		const char* name;
+		XAUDIOCHANNELMAP channelMaps[2][2];
+	};
+#pragma pack(pop)
+
+
+	const struct snd_alias_t
+	{
+		const char* aliasName;
+		const char* subtitle;
+		const char* secondaryAliasName;
+		const char* chainAliasName;
+		SoundFile* soundFile;
+		int sequence;
+		float volMin;
+		float volMax;
+		float pitchMin;
+		float pitchMax;
+		float distMin;
+		float distMax;
+		int flags;
+		float slavePercentage;
+		float probability;
+		float lfePercentage;
+		float centerPercentage;
+		int startDelay;
+		SndCurve* volumeFalloffCurve;
+		float envelopMin;
+		float envelopMax;
+		float envelopPercentage;
+		SpeakerMap* speakerMap;
+	};
+
+
+	struct snd_alias_list_t
+	{
+		const char* aliasName;
+		snd_alias_t* head;
+		int count;
+	};
+
+	struct cStaticModelWritable
+	{
+		unsigned __int16 nextModelInWorldSector;
+	};
+
+	struct dmaterial_t
+	{
+		char material[64];
+		int surfaceFlags;
+		int contentFlags;
+	};
+
+	struct cNode_t
+	{
+		cplane_s* plane;
+		__int16 children[2];
+	};
+
+#pragma pack(push, 4)
+	struct cStaticModel_s
+	{
+		cStaticModelWritable writable;
+		XModel* xmodel;
+		float origin[3];
+		float invScaledAxis[3][3];
+		float absmin[3];
+		float absmax[3];
+	};
+#pragma pack(pop)
+
+#pragma pack(push, 4)
+	struct cLeaf_t
+	{
+		unsigned __int16 firstCollAabbIndex;
+		unsigned __int16 collAabbCount;
+		int brushContents;
+		int terrainContents;
+		float mins[3];
+		float maxs[3];
+		int leafBrushNode;
+		__int16 cluster;
+	};
+#pragma pack(pop)
+
+	struct cLeafBrushNodeLeaf_t
+	{
+		unsigned __int16* brushes;
+	};
+
+	struct cLeafBrushNodeChildren_t
+	{
+		float dist;
+		float range;
+		unsigned __int16 childOffset[2];
+	};
+
+	union cLeafBrushNodeData_t
+	{
+		cLeafBrushNodeLeaf_t leaf;
+		cLeafBrushNodeChildren_t children;
+	};
+
+#pragma pack(push, 2)
+	struct cLeafBrushNode_s
+	{
+		char axis;
+		__int16 leafBrushCount;
+		int contents;
+		cLeafBrushNodeData_t data;
+	};
+#pragma pack(pop)
+
+	struct CollisionBorder
+	{
+		float distEq[3];
+		float zBase;
+		float zSlope;
+		float start;
+		float length;
+	};
+
+#pragma pack(push, 4)
+	struct CollisionPartition
+	{
+		char triCount;
+		char borderCount;
+		int firstTri;
+		CollisionBorder* borders;
+	};
+#pragma pack(pop)
+
+	union CollisionAabbTreeIndex
+	{
+		int firstChildIndex;
+		int partitionIndex;
+	};
+
+
+	struct CollisionAabbTree
+	{
+		float origin[3];
+		float halfSize[3];
+		unsigned __int16 materialIndex;
+		unsigned __int16 childCount;
+		CollisionAabbTreeIndex u;
+	};
+
+	struct cmodel_t
+	{
+		float mins[3];
+		float maxs[3];
+		float radius;
+		cLeaf_t leaf;
+	};
+
+	struct __declspec(align(16)) cbrush_t
+	{
+		float mins[3];
+		int contents;
+		float maxs[3];
+		unsigned int numsides;
+		cbrushside_t* sides;
+		__int16 axialMaterialNum[2][3];
+		char* baseAdjacentSide;
+		__int16 firstAdjacentSideOffsets[2][3];
+		char edgeCount[2][3];
+	};
+
+	struct MapEnts
+	{
+		const char* name;
+		char* entityString;
+		int numEntityChars;
+	};
+
+	enum DynEntityType
+	{
+		DYNENT_TYPE_INVALID = 0x0,
+		DYNENT_TYPE_CLUTTER = 0x1,
+		DYNENT_TYPE_DESTRUCT = 0x2,
+		DYNENT_TYPE_COUNT = 0x3,
+	};
+
+	struct FxSpawnDefLooping
+	{
+		int intervalMsec;
+		int count;
+	};
+
+	struct FxIntRange
+	{
+		int base;
+		int amplitude;
+	};
+
+	struct FxSpawnDefOneShot
+	{
+		FxIntRange count;
+	};
+
+	union FxSpawnDef
+	{
+		FxSpawnDefLooping looping;
+		FxSpawnDefOneShot oneShot;
+	};
+
+	struct FxFloatRange
+	{
+		float base;
+		float amplitude;
+	};
+
+	struct FxElemAtlas
+	{
+		char behavior;
+		char index;
+		char fps;
+		char loopCount;
+		char colIndexBits;
+		char rowIndexBits;
+		__int16 entryCount;
+	};
+
+	struct FxElemVec3Range
+	{
+		float base[3];
+		float amplitude[3];
+	};
+
+	struct FxElemVelStateInFrame
+	{
+		FxElemVec3Range velocity;
+		FxElemVec3Range totalDelta;
+	};
+
+
+	const struct FxElemVelStateSample
+	{
+		FxElemVelStateInFrame local;
+		FxElemVelStateInFrame world;
+	};
+
+	struct FxElemVisualState
+	{
+		char color[4];
+		float rotationDelta;
+		float rotationTotal;
+		float size[2];
+		float scale;
+	};
+
+	const struct FxElemVisStateSample
+	{
+		FxElemVisualState base;
+		FxElemVisualState amplitude;
+	};
+
+	union FxEffectDefRef
+	{
+		struct FxEffectDef* handle;
+		const char* name;
+	};
+
+	struct FxElemMarkVisuals
+	{
+		Material* materials[2];
+	};
+
+	union FxElemVisuals
+	{
+		const void* anonymous;
+		Material* material;
+		XModel* model;
+		FxEffectDefRef effectDef;
+		const char* soundName;
+	};
+
+	struct FxTrailVertex
+	{
+		float pos[2];
+		float normal[2];
+		float texCoord;
+	};
+
+	union FxElemDefVisuals
+	{
+		FxElemMarkVisuals* markArray;
+		FxElemVisuals* array;
+		FxElemVisuals instance;
+	};
+
+	struct FxTrailDef
+	{
+		int scrollTimeMsec;
+		int repeatDist;
+		int splitDist;
+		int vertCount;
+		FxTrailVertex* verts;
+		int indCount;
+		unsigned __int16* inds;
+	};
+
+	struct FxTrailSegmentDrawState
+	{
+		FxTrailDef* trailDef;
+		float posWorld[3];
+		float basis[2][3];
+		float rotation;
+		float size[2];
+		float uCoord;
+		char color[4];
+	};
+
+
+	const struct FxElemDef
+	{
+		int flags;
+		FxSpawnDef spawn;
+		FxFloatRange spawnRange;
+		FxFloatRange fadeInRange;
+		FxFloatRange fadeOutRange;
+		float spawnFrustumCullRadius;
+		FxIntRange spawnDelayMsec;
+		FxIntRange lifeSpanMsec;
+		FxFloatRange spawnOrigin[3];
+		FxFloatRange spawnOffsetRadius;
+		FxFloatRange spawnOffsetHeight;
+		FxFloatRange spawnAngles[3];
+		FxFloatRange angularVelocity[3];
+		FxFloatRange initialRotation;
+		FxFloatRange gravity;
+		FxFloatRange reflectionFactor;
+		FxElemAtlas atlas;
+		char elemType;
+		char visualCount;
+		char velIntervalCount;
+		char visStateIntervalCount;
+		FxElemVelStateSample* velSamples;
+		FxElemVisStateSample* visSamples;
+		FxElemDefVisuals visuals;
+		float collMins[3];
+		float collMaxs[3];
+		FxEffectDefRef effectOnImpact;
+		FxEffectDefRef effectOnDeath;
+		FxEffectDefRef effectEmitted;
+		FxFloatRange emitDist;
+		FxFloatRange emitDistVariance;
+		FxTrailDef* trailDef;
+		char sortOrder;
+		char lightingFrac;
+		char unused[2];
+	};
+
+	struct FxEffectDef
+	{
+		const char* name;
+		int flags;
+		int totalSize;
+		int msecLoopingLife;
+		int elemDefCountLooping;
+		int elemDefCountOneShot;
+		int elemDefCountEmission;
+		FxElemDef* elemDefs;
+	};
+
+	struct DynEntityDef
+	{
+		DynEntityType type;
+		GfxPlacement pose;
+		XModel* xModel;
+		unsigned __int16 brushModel;
+		unsigned __int16 physicsBrushModel;
+		FxEffectDef* destroyFx;
+		XModelPieces* destroyPieces;
+		PhysPreset* physPreset;
+		int health;
+		PhysMass mass;
+		int contents;
+	};
+
+	struct DynEntityPose
+	{
+		GfxPlacement pose;
+		float radius;
+	};
+
+	struct DynEntityClient
+	{
+		int physObjId;
+		unsigned __int16 flags;
+		unsigned __int16 lightingHandle;
+		int health;
+	};
+
+	struct DynEntityColl
+	{
+		unsigned __int16 sector;
+		unsigned __int16 nextEntInSector;
+		float linkMins[2];
+		float linkMaxs[2];
+	};
+
+#pragma pack(push, 4)
+	struct clipMap_t
+	{
+		const char* name;
+		int planeCount;
+		cplane_s* planes;
+		unsigned int numStaticModels;
+		cStaticModel_s* staticModelList;
+		unsigned int numMaterials;
+		dmaterial_t* materials;
+		unsigned int numBrushSides;
+		cbrushside_t* brushsides;
+		unsigned int numBrushEdges;
+		char* brushEdges;
+		unsigned int numNodes;
+		cNode_t* nodes;
+		unsigned int numLeafs;
+		cLeaf_t* leafs;
+		unsigned int leafbrushNodesCount;
+		cLeafBrushNode_s* leafbrushNodes;
+		unsigned int numLeafBrushes;
+		unsigned __int16* leafbrushes;
+		unsigned int numLeafSurfaces;
+		unsigned int* leafsurfaces;
+		unsigned int vertCount;
+		float(*verts)[3];
+		int triCount;
+		unsigned __int16* triIndices;
+		char* triEdgeIsWalkable;
+		int borderCount;
+		CollisionBorder* borders;
+		int partitionCount;
+		CollisionPartition* partitions;
+		int aabbTreeCount;
+		CollisionAabbTree* aabbTrees;
+		unsigned int numSubModels;
+		cmodel_t* cmodels;
+		unsigned __int16 numBrushes;
+		cbrush_t* brushes;
+		int numClusters;
+		int clusterBytes;
+		char* visibility;
+		int vised;
+		MapEnts* mapEnts;
+		cbrush_t* box_brush;
+		cmodel_t box_model;
+		unsigned __int16 dynEntCount[2];
+		DynEntityDef* dynEntDefList[2];
+		DynEntityPose* dynEntPoseList[2];
+		DynEntityClient* dynEntClientList[2];
+		DynEntityColl* dynEntCollList[2];
+		unsigned int checksum;
+	};
+#pragma pack(pop)
+
+	struct ComPrimaryLight
+	{
+		char type;
+		char canUseShadowMap;
+		char exponent;
+		char unused;
+		float color[3];
+		float dir[3];
+		float origin[3];
+		float radius;
+		float cosHalfFovOuter;
+		float cosHalfFovInner;
+		float cosHalfFovExpanded;
+		float rotationLimit;
+		float translationLimit;
+		const char* defName;
+	};
+
+	struct ComWorld
+	{
+		const char* name;
+		int isInUse;
+		unsigned int primaryLightCount;
+		ComPrimaryLight* primaryLights;
+	};
+
+	struct pathnode_t;
+
+	struct pathnode_transient_t
+	{
+		int iSearchFrame;
+		pathnode_t* pNextOpen;
+		pathnode_t* pPrevOpen;
+		pathnode_t* pParent;
+		float fCost;
+		float fHeuristic;
+		float costFactor;
+	};
+
+	enum nodeType
+	{
+		NODE_BADNODE = 0x0,
+		NODE_PATHNODE = 0x1,
+		NODE_COVER_STAND = 0x2,
+		NODE_COVER_CROUCH = 0x3,
+		NODE_COVER_CROUCH_WINDOW = 0x4,
+		NODE_COVER_PRONE = 0x5,
+		NODE_COVER_RIGHT = 0x6,
+		NODE_COVER_LEFT = 0x7,
+		NODE_COVER_WIDE_RIGHT = 0x8,
+		NODE_COVER_WIDE_LEFT = 0x9,
+		NODE_CONCEALMENT_STAND = 0xA,
+		NODE_CONCEALMENT_CROUCH = 0xB,
+		NODE_CONCEALMENT_PRONE = 0xC,
+		NODE_REACQUIRE = 0xD,
+		NODE_BALCONY = 0xE,
+		NODE_SCRIPTED = 0xF,
+		NODE_NEGOTIATION_BEGIN = 0x10,
+		NODE_NEGOTIATION_END = 0x11,
+		NODE_TURRET = 0x12,
+		NODE_GUARD = 0x13,
+		NODE_NUMTYPES = 0x14,
+	};
+
+	struct pathlink_s
+	{
+		float fDist;
+		unsigned __int16 nodeNum;
+		char disconnectCount;
+		char negotiationLink;
+		char ubBadPlaceCount[4];
+	};
+
+	struct pathnode_constant_t
+	{
+		nodeType type;
+		unsigned __int16 spawnflags;
+		unsigned __int16 targetname;
+		unsigned __int16 script_linkName;
+		unsigned __int16 script_noteworthy;
+		unsigned __int16 target;
+		unsigned __int16 animscript;
+		int animscriptfunc;
+		float vOrigin[3];
+		float fAngle;
+		float forward[2];
+		float fRadius;
+		float minUseDistSq;
+		__int16 wOverlapNode[2];
+		__int16 wChainId;
+		__int16 wChainDepth;
+		__int16 wChainParent;
+		unsigned __int16 totalLinkCount;
+		pathlink_s* Links;
+	};
+
+	struct pathnode_dynamic_t
+	{
+		struct sentient_s* pOwner;
+		int iFreeTime;
+		int iValidTime[3];
+		int inPlayerLOSTime;
+		__int16 wLinkCount;
+		__int16 wOverlapCount;
+		__int16 turretEntNumber;
+		__int16 userCount;
+	};
+
+	struct pathnode_t
+	{
+		pathnode_constant_t constant;
+		pathnode_dynamic_t dynamic;
+		pathnode_transient_t transient;
+	};
+
+	struct pathnode_tree_nodes_t
+	{
+		int nodeCount;
+		pathnode_t** nodes;
+	};
+
+	union pathnode_tree_info_t
+	{
+		struct pathnode_tree_t* child[2];
+		struct pathnode_tree_nodes_t s;
+	};
+
+	struct pathnode_tree_t
+	{
+		int axis;
+		float dist;
+		pathnode_tree_info_t u;
+	};
+
+	struct PathData
+	{
+		unsigned int nodeCount;
+		pathnode_t* nodes;
+		unsigned int chainNodeCount;
+		unsigned __int16* chainNodeForNode;
+		unsigned __int16* nodeForChainNode;
+		int visBytes;
+		char* pathVis;
+		int nodeTreeCount;
+		pathnode_tree_t* nodeTree;
+	};
+
+#pragma pack(push, 2)
+	struct Glyph
+	{
+		unsigned __int16 letter;
+		char x0;
+		char y0;
+		char dx;
+		char pixelWidth;
+		char pixelHeight;
+		float s0;
+		float t0;
+		float s1;
+		float t1;
+	};
+#pragma pack(pop)
+
+	struct GameWorldSp
+	{
+		const char* name;
+		PathData path;
+	};
+
+	struct Font_s
+	{
+		const char* fontName;
+		int pixelHeight;
+		int glyphCount;
+		Material* material;
+		Material* glowMaterial;
+		Glyph* glyphs;
+	};
+
+	struct GameWorldMp
+	{
+		const char* name;
+	};
+
+	struct rectDef_s
+	{
+		float x;
+		float y;
+		float w;
+		float h;
+		int horzAlign;
+		int vertAlign;
+	};
+
+	struct windowDef_t
+	{
+		const char* name;
+		rectDef_s rect;
+		rectDef_s rectClient;
+		const char* group;
+		int style;
+		int border;
+		int ownerDraw;
+		int ownerDrawFlags;
+		float borderSize;
+		int staticFlags;
+		int dynamicFlags[4];
+		int nextTime;
+		float foreColor[4];
+		float backColor[4];
+		float borderColor[4];
+		float outlineColor[4];
+		Material* background;
+	};
+
+	struct ItemKeyHandler
+	{
+		int key;
+		const char* action;
+		ItemKeyHandler* next;
+	};
+
+	union operandInternalDataUnion
+	{
+		int intVal;
+		float floatVal;
+		const char* string;
+	};
+
+	enum operationEnum
+	{
+		OP_NOOP = 0x0,
+		OP_RIGHTPAREN = 0x1,
+		OP_MULTIPLY = 0x2,
+		OP_DIVIDE = 0x3,
+		OP_MODULUS = 0x4,
+		OP_ADD = 0x5,
+		OP_SUBTRACT = 0x6,
+		OP_NOT = 0x7,
+		OP_LESSTHAN = 0x8,
+		OP_LESSTHANEQUALTO = 0x9,
+		OP_GREATERTHAN = 0xA,
+		OP_GREATERTHANEQUALTO = 0xB,
+		OP_EQUALS = 0xC,
+		OP_NOTEQUAL = 0xD,
+		OP_AND = 0xE,
+		OP_OR = 0xF,
+		OP_LEFTPAREN = 0x10,
+		OP_COMMA = 0x11,
+		OP_BITWISEAND = 0x12,
+		OP_BITWISEOR = 0x13,
+		OP_BITWISENOT = 0x14,
+		OP_BITSHIFTLEFT = 0x15,
+		OP_BITSHIFTRIGHT = 0x16,
+		OP_SIN = 0x17,
+		OP_FIRSTFUNCTIONCALL = 0x17,
+		OP_COS = 0x18,
+		OP_MIN = 0x19,
+		OP_MAX = 0x1A,
+		OP_MILLISECONDS = 0x1B,
+		OP_DVARINT = 0x1C,
+		OP_DVARBOOL = 0x1D,
+		OP_DVARFLOAT = 0x1E,
+		OP_DVARSTRING = 0x1F,
+		OP_STAT = 0x20,
+		OP_UIACTIVE = 0x21,
+		OP_FLASHBANGED = 0x22,
+		OP_SCOPED = 0x23,
+		OP_SCOREBOARDVISIBLE = 0x24,
+		OP_INKILLCAM = 0x25,
+		OP_PLAYERFIELD = 0x26,
+		OP_SELECTINGLOCATION = 0x27,
+		OP_TEAMFIELD = 0x28,
+		OP_OTHERTEAMFIELD = 0x29,
+		OP_MARINESFIELD = 0x2A,
+		OP_OPFORFIELD = 0x2B,
+		OP_MENUISOPEN = 0x2C,
+		OP_WRITINGDATA = 0x2D,
+		OP_INLOBBY = 0x2E,
+		OP_INPRIVATEPARTY = 0x2F,
+		OP_PRIVATEPARTYHOST = 0x30,
+		OP_PRIVATEPARTYHOSTINLOBBY = 0x31,
+		OP_ALONEINPARTY = 0x32,
+		OP_ADSJAVELIN = 0x33,
+		OP_WEAPLOCKBLINK = 0x34,
+		OP_WEAPATTACKTOP = 0x35,
+		OP_WEAPATTACKDIRECT = 0x36,
+		OP_SECONDSASTIME = 0x37,
+		OP_TABLELOOKUP = 0x38,
+		OP_LOCALIZESTRING = 0x39,
+		OP_LOCALVARINT = 0x3A,
+		OP_LOCALVARBOOL = 0x3B,
+		OP_LOCALVARFLOAT = 0x3C,
+		OP_LOCALVARSTRING = 0x3D,
+		OP_TIMELEFT = 0x3E,
+		OP_SECONDSASCOUNTDOWN = 0x3F,
+		OP_TOINT = 0x40,
+		OP_TOSTRING = 0x41,
+		OP_TOFLOAT = 0x42,
+		OP_GAMETYPENAME = 0x43,
+		OP_GAMETYPE = 0x44,
+		OP_GAMETYPEDESCRIPTION = 0x45,
+		OP_SCORE = 0x46,
+		OP_FRIENDSONLINE = 0x47,
+		OP_FOLLOWING = 0x48,
+		OP_STATRANGEBITSSET = 0x49,
+		NUM_OPERATORS = 0x4A,
+	};
+
+	enum expDataType
+	{
+		VAL_INT = 0x0,
+		VAL_FLOAT = 0x1,
+		VAL_STRING = 0x2,
+	};
+
+	struct Operand
+	{
+		expDataType dataType;
+		operandInternalDataUnion internals;
+	};
+
+	union entryInternalData
+	{
+		operationEnum op;
+		Operand operand;
+	};
+
+	struct expressionEntry
+	{
+		int type;
+		entryInternalData data;
+	};
+
+	struct statement_s
+	{
+		int numEntries;
+		expressionEntry** entries;
+	};
+
+	struct columnInfo_s
+	{
+		int pos;
+		int width;
+		int maxChars;
+		int alignment;
+	};
+
+	struct listBoxDef_s
+	{
+		int startPos[4];
+		int endPos[4];
+		int drawPadding;
+		float elementWidth;
+		float elementHeight;
+		int elementStyle;
+		int numColumns;
+		columnInfo_s columnInfo[16];
+		const char* doubleClick;
+		int notselectable;
+		int noScrollBars;
+		int usePaging;
+		float selectBorder[4];
+		float disableColor[4];
+		Material* selectIcon;
+	};
+
+	struct editFieldDef_s
+	{
+		float minVal;
+		float maxVal;
+		float defVal;
+		float range;
+		int maxChars;
+		int maxCharsGotoNext;
+		int maxPaintChars;
+		int paintOffset;
+	};
+
+	struct multiDef_s
+	{
+		const char* dvarList[32];
+		const char* dvarStr[32];
+		float dvarValue[32];
+		int count;
+		int strDef;
+	};
+
+	union itemDefData_t
+	{
+		listBoxDef_s* listBox;
+		editFieldDef_s* editField;
+		multiDef_s* multi;
+		const char* enumDvarName;
+		void* data;
+	};
+
+	struct itemDef_s
+	{
+		windowDef_t window;
+		rectDef_s textRect[4];
+		int type;
+		int dataType;
+		int alignment;
+		int fontEnum;
+		int textAlignMode;
+		float textalignx;
+		float textaligny;
+		float textscale;
+		int textStyle;
+		int gameMsgWindowIndex;
+		int gameMsgWindowMode;
+		const char* text;
+		int textSavegameInfo;
+		struct menuDef_t* parent;
+		const char* mouseEnterText;
+		const char* mouseExitText;
+		const char* mouseEnter;
+		const char* mouseExit;
+		const char* action;
+		const char* onAccept;
+		const char* onFocus;
+		const char* leaveFocus;
+		const char* dvar;
+		const char* dvarTest;
+		ItemKeyHandler* onKey;
+		const char* enableDvar;
+		int dvarFlags;
+		snd_alias_list_t* focusSound;
+		float special;
+		int cursorPos[4];
+		itemDefData_t typeData;
+		int imageTrack;
+		statement_s visibleExp;
+		statement_s textExp;
+		statement_s materialExp;
+		statement_s rectXExp;
+		statement_s rectYExp;
+		statement_s rectWExp;
+		statement_s rectHExp;
+	};
+
+
+	struct menuDef_t
+	{
+		windowDef_t window;
+		const char* font;
+		int fullScreen;
+		int itemCount;
+		int fontIndex;
+		int cursorItem[4];
+		int fadeCycle;
+		float fadeClamp;
+		float fadeAmount;
+		float fadeInAmount;
+		float blurRadius;
+		const char* onOpen;
+		const char* onClose;
+		const char* onESC;
+		ItemKeyHandler* onKey;
+		statement_s visibleExp;
+		const char* allowedBinding;
+		const char* soundName;
+		int imageTrack;
+		float focusColor[4];
+		float disableColor[4];
+		statement_s rectXExp;
+		statement_s rectYExp;
+		itemDef_s** items;
+	};
+
+	struct MenuList
+	{
+		const char* name;
+		int menuCount;
+		menuDef_t** menus;
+	};
+
+	struct LocalizeEntry
+	{
+		const char* value;
+		const char* name;
+	};
+
+	enum weapClass_t
+	{
+		WEAPCLASS_RIFLE = 0x0,
+		WEAPCLASS_MG = 0x1,
+		WEAPCLASS_SMG = 0x2,
+		WEAPCLASS_SPREAD = 0x3,
+		WEAPCLASS_PISTOL = 0x4,
+		WEAPCLASS_GRENADE = 0x5,
+		WEAPCLASS_ROCKETLAUNCHER = 0x6,
+		WEAPCLASS_TURRET = 0x7,
+		WEAPCLASS_NON_PLAYER = 0x8,
+		WEAPCLASS_ITEM = 0x9,
+		WEAPCLASS_NUM = 0xA,
+	};
+
+	enum weapType_t
+	{
+		WEAPTYPE_BULLET = 0x0,
+		WEAPTYPE_GRENADE = 0x1,
+		WEAPTYPE_PROJECTILE = 0x2,
+		WEAPTYPE_BINOCULARS = 0x3,
+		WEAPTYPE_NUM = 0x4,
+	};
+
+	enum PenetrateType
+	{
+		PENETRATE_TYPE_NONE = 0x0,
+		PENETRATE_TYPE_SMALL = 0x1,
+		PENETRATE_TYPE_MEDIUM = 0x2,
+		PENETRATE_TYPE_LARGE = 0x3,
+		PENETRATE_TYPE_COUNT = 0x4,
+	};
+
+	enum ImpactType
+	{
+		IMPACT_TYPE_NONE = 0x0,
+		IMPACT_TYPE_BULLET_SMALL = 0x1,
+		IMPACT_TYPE_BULLET_LARGE = 0x2,
+		IMPACT_TYPE_BULLET_AP = 0x3,
+		IMPACT_TYPE_SHOTGUN = 0x4,
+		IMPACT_TYPE_GRENADE_BOUNCE = 0x5,
+		IMPACT_TYPE_GRENADE_EXPLODE = 0x6,
+		IMPACT_TYPE_ROCKET_EXPLODE = 0x7,
+		IMPACT_TYPE_PROJECTILE_DUD = 0x8,
+		IMPACT_TYPE_COUNT = 0x9,
+	};
+
+	enum weapInventoryType_t
+	{
+		WEAPINVENTORY_PRIMARY = 0x0,
+		WEAPINVENTORY_OFFHAND = 0x1,
+		WEAPINVENTORY_ITEM = 0x2,
+		WEAPINVENTORY_ALTMODE = 0x3,
+		WEAPINVENTORYCOUNT = 0x4,
+	};
+
+	enum weapFireType_t
+	{
+		WEAPON_FIRETYPE_FULLAUTO = 0x0,
+		WEAPON_FIRETYPE_SINGLESHOT = 0x1,
+		WEAPON_FIRETYPE_BURSTFIRE2 = 0x2,
+		WEAPON_FIRETYPE_BURSTFIRE3 = 0x3,
+		WEAPON_FIRETYPE_BURSTFIRE4 = 0x4,
+		WEAPON_FIRETYPECOUNT = 0x5,
+	};
+	
+	enum OffhandClass
+	{
+		OFFHAND_CLASS_NONE = 0x0,
+		OFFHAND_CLASS_FRAG_GRENADE = 0x1,
+		OFFHAND_CLASS_SMOKE_GRENADE = 0x2,
+		OFFHAND_CLASS_FLASH_GRENADE = 0x3,
+		OFFHAND_CLASS_COUNT = 0x4,
+	};
+
+	enum weapStance_t
+	{
+		WEAPSTANCE_STAND = 0x0,
+		WEAPSTANCE_DUCK = 0x1,
+		WEAPSTANCE_PRONE = 0x2,
+		WEAPSTANCE_NUM = 0x3,
+	};
+
+	enum activeReticleType_t
+	{
+		VEH_ACTIVE_RETICLE_NONE = 0x0,
+		VEH_ACTIVE_RETICLE_PIP_ON_A_STICK = 0x1,
+		VEH_ACTIVE_RETICLE_BOUNCING_DIAMOND = 0x2,
+		VEH_ACTIVE_RETICLE_COUNT = 0x3,
+	};
+
+	enum weaponIconRatioType_t
+	{
+		WEAPON_ICON_RATIO_1TO1 = 0x0,
+		WEAPON_ICON_RATIO_2TO1 = 0x1,
+		WEAPON_ICON_RATIO_4TO1 = 0x2,
+		WEAPON_ICON_RATIO_COUNT = 0x3,
+	};
+
+	enum ammoCounterClipType_t
+	{
+		AMMO_COUNTER_CLIP_NONE = 0x0,
+		AMMO_COUNTER_CLIP_MAGAZINE = 0x1,
+		AMMO_COUNTER_CLIP_SHORTMAGAZINE = 0x2,
+		AMMO_COUNTER_CLIP_SHOTGUN = 0x3,
+		AMMO_COUNTER_CLIP_ROCKET = 0x4,
+		AMMO_COUNTER_CLIP_BELTFED = 0x5,
+		AMMO_COUNTER_CLIP_ALTWEAPON = 0x6,
+		AMMO_COUNTER_CLIP_COUNT = 0x7,
+	};
+
+	enum weapOverlayReticle_t
+	{
+		WEAPOVERLAYRETICLE_NONE = 0x0,
+		WEAPOVERLAYRETICLE_CROSSHAIR = 0x1,
+		WEAPOVERLAYRETICLE_NUM = 0x2,
+	};
+
+	enum WeapOverlayInteface_t
+	{
+		WEAPOVERLAYINTERFACE_NONE = 0x0,
+		WEAPOVERLAYINTERFACE_JAVELIN = 0x1,
+		WEAPOVERLAYINTERFACE_TURRETSCOPE = 0x2,
+		WEAPOVERLAYINTERFACECOUNT = 0x3,
+	};
+
+	enum weapProjExposion_t
+	{
+		WEAPPROJEXP_GRENADE = 0x0,
+		WEAPPROJEXP_ROCKET = 0x1,
+		WEAPPROJEXP_FLASHBANG = 0x2,
+		WEAPPROJEXP_NONE = 0x3,
+		WEAPPROJEXP_DUD = 0x4,
+		WEAPPROJEXP_SMOKE = 0x5,
+		WEAPPROJEXP_HEAVY = 0x6,
+		WEAPPROJEXP_NUM = 0x7,
+	};
+
+	enum WeapStickinessType
+	{
+		WEAPSTICKINESS_NONE = 0x0,
+		WEAPSTICKINESS_ALL = 0x1,
+		WEAPSTICKINESS_GROUND = 0x2,
+		WEAPSTICKINESS_GROUND_WITH_YAW = 0x3,
+		WEAPSTICKINESS_COUNT = 0x4,
+	};
+
+	enum guidedMissileType_t
+	{
+		MISSILE_GUIDANCE_NONE = 0x0,
+		MISSILE_GUIDANCE_SIDEWINDER = 0x1,
+		MISSILE_GUIDANCE_HELLFIRE = 0x2,
+		MISSILE_GUIDANCE_JAVELIN = 0x3,
+		MISSILE_GUIDANCE_COUNT = 0x4,
+	};
+
+	struct WeaponDef
+	{
+		const char* szInternalName;
+		const char* szDisplayName;
+		const char* szOverlayName;
+		XModel* gunXModel[16];
+		XModel* handXModel;
+		const char* szXAnims[33];
+		const char* szModeName;
+		unsigned __int16 hideTags[8];
+		unsigned __int16 notetrackSoundMapKeys[16];
+		unsigned __int16 notetrackSoundMapValues[16];
+		int playerAnimType;
+		weapType_t weapType;
+		weapClass_t weapClass;
+		PenetrateType penetrateType;
+		ImpactType impactType;
+		weapInventoryType_t inventoryType;
+		weapFireType_t fireType;
+		OffhandClass offhandClass;
+		weapStance_t stance;
+		FxEffectDef* viewFlashEffect;
+		FxEffectDef* worldFlashEffect;
+		snd_alias_list_t* pickupSound;
+		snd_alias_list_t* pickupSoundPlayer;
+		snd_alias_list_t* ammoPickupSound;
+		snd_alias_list_t* ammoPickupSoundPlayer;
+		snd_alias_list_t* projectileSound;
+		snd_alias_list_t* pullbackSound;
+		snd_alias_list_t* pullbackSoundPlayer;
+		snd_alias_list_t* fireSound;
+		snd_alias_list_t* fireSoundPlayer;
+		snd_alias_list_t* fireLoopSound;
+		snd_alias_list_t* fireLoopSoundPlayer;
+		snd_alias_list_t* fireStopSound;
+		snd_alias_list_t* fireStopSoundPlayer;
+		snd_alias_list_t* fireLastSound;
+		snd_alias_list_t* fireLastSoundPlayer;
+		snd_alias_list_t* emptyFireSound;
+		snd_alias_list_t* emptyFireSoundPlayer;
+		snd_alias_list_t* meleeSwipeSound;
+		snd_alias_list_t* meleeSwipeSoundPlayer;
+		snd_alias_list_t* meleeHitSound;
+		snd_alias_list_t* meleeMissSound;
+		snd_alias_list_t* rechamberSound;
+		snd_alias_list_t* rechamberSoundPlayer;
+		snd_alias_list_t* reloadSound;
+		snd_alias_list_t* reloadSoundPlayer;
+		snd_alias_list_t* reloadEmptySound;
+		snd_alias_list_t* reloadEmptySoundPlayer;
+		snd_alias_list_t* reloadStartSound;
+		snd_alias_list_t* reloadStartSoundPlayer;
+		snd_alias_list_t* reloadEndSound;
+		snd_alias_list_t* reloadEndSoundPlayer;
+		snd_alias_list_t* detonateSound;
+		snd_alias_list_t* detonateSoundPlayer;
+		snd_alias_list_t* nightVisionWearSound;
+		snd_alias_list_t* nightVisionWearSoundPlayer;
+		snd_alias_list_t* nightVisionRemoveSound;
+		snd_alias_list_t* nightVisionRemoveSoundPlayer;
+		snd_alias_list_t* altSwitchSound;
+		snd_alias_list_t* altSwitchSoundPlayer;
+		snd_alias_list_t* raiseSound;
+		snd_alias_list_t* raiseSoundPlayer;
+		snd_alias_list_t* firstRaiseSound;
+		snd_alias_list_t* firstRaiseSoundPlayer;
+		snd_alias_list_t* putawaySound;
+		snd_alias_list_t* putawaySoundPlayer;
+		snd_alias_list_t** bounceSound;
+		FxEffectDef* viewShellEjectEffect;
+		FxEffectDef* worldShellEjectEffect;
+		FxEffectDef* viewLastShotEjectEffect;
+		FxEffectDef* worldLastShotEjectEffect;
+		Material* reticleCenter;
+		Material* reticleSide;
+		int iReticleCenterSize;
+		int iReticleSideSize;
+		int iReticleMinOfs;
+		activeReticleType_t activeReticleType;
+		float vStandMove[3];
+		float vStandRot[3];
+		float vDuckedOfs[3];
+		float vDuckedMove[3];
+		float vDuckedRot[3];
+		float vProneOfs[3];
+		float vProneMove[3];
+		float vProneRot[3];
+		float fPosMoveRate;
+		float fPosProneMoveRate;
+		float fStandMoveMinSpeed;
+		float fDuckedMoveMinSpeed;
+		float fProneMoveMinSpeed;
+		float fPosRotRate;
+		float fPosProneRotRate;
+		float fStandRotMinSpeed;
+		float fDuckedRotMinSpeed;
+		float fProneRotMinSpeed;
+		XModel* worldModel[16];
+		XModel* worldClipModel;
+		XModel* rocketModel;
+		XModel* knifeModel;
+		XModel* worldKnifeModel;
+		Material* hudIcon;
+		weaponIconRatioType_t hudIconRatio;
+		Material* ammoCounterIcon;
+		weaponIconRatioType_t ammoCounterIconRatio;
+		ammoCounterClipType_t ammoCounterClip;
+		int iStartAmmo;
+		const char* szAmmoName;
+		int iAmmoIndex;
+		const char* szClipName;
+		int iClipIndex;
+		int iMaxAmmo;
+		int iClipSize;
+		int shotCount;
+		const char* szSharedAmmoCapName;
+		int iSharedAmmoCapIndex;
+		int iSharedAmmoCap;
+		int damage;
+		int playerDamage;
+		int iMeleeDamage;
+		int iDamageType;
+		int iFireDelay;
+		int iMeleeDelay;
+		int meleeChargeDelay;
+		int iDetonateDelay;
+		int iFireTime;
+		int iRechamberTime;
+		int iRechamberBoltTime;
+		int iHoldFireTime;
+		int iDetonateTime;
+		int iMeleeTime;
+		int meleeChargeTime;
+		int iReloadTime;
+		int reloadShowRocketTime;
+		int iReloadEmptyTime;
+		int iReloadAddTime;
+		int iReloadStartTime;
+		int iReloadStartAddTime;
+		int iReloadEndTime;
+		int iDropTime;
+		int iRaiseTime;
+		int iAltDropTime;
+		int iAltRaiseTime;
+		int quickDropTime;
+		int quickRaiseTime;
+		int iFirstRaiseTime;
+		int iEmptyRaiseTime;
+		int iEmptyDropTime;
+		int sprintInTime;
+		int sprintLoopTime;
+		int sprintOutTime;
+		int nightVisionWearTime;
+		int nightVisionWearTimeFadeOutEnd;
+		int nightVisionWearTimePowerUp;
+		int nightVisionRemoveTime;
+		int nightVisionRemoveTimePowerDown;
+		int nightVisionRemoveTimeFadeInStart;
+		int fuseTime;
+		int aiFuseTime;
+		int requireLockonToFire;
+		int noAdsWhenMagEmpty;
+		float autoAimRange;
+		float aimAssistRange;
+		float aimAssistRangeAds;
+		float aimPadding;
+		float enemyCrosshairRange;
+		int crosshairColorChange;
+		float moveSpeedScale;
+		float adsMoveSpeedScale;
+		float sprintDurationScale;
+		float fAdsZoomFov;
+		float fAdsZoomInFrac;
+		float fAdsZoomOutFrac;
+		Material* overlayMaterial;
+		Material* overlayMaterialLowRes;
+		weapOverlayReticle_t overlayReticle;
+		WeapOverlayInteface_t overlayInterface;
+		float overlayWidth;
+		float overlayHeight;
+		float fAdsBobFactor;
+		float fAdsViewBobMult;
+		float fHipSpreadStandMin;
+		float fHipSpreadDuckedMin;
+		float fHipSpreadProneMin;
+		float hipSpreadStandMax;
+		float hipSpreadDuckedMax;
+		float hipSpreadProneMax;
+		float fHipSpreadDecayRate;
+		float fHipSpreadFireAdd;
+		float fHipSpreadTurnAdd;
+		float fHipSpreadMoveAdd;
+		float fHipSpreadDuckedDecay;
+		float fHipSpreadProneDecay;
+		float fHipReticleSidePos;
+		int iAdsTransInTime;
+		int iAdsTransOutTime;
+		float fAdsIdleAmount;
+		float fHipIdleAmount;
+		float adsIdleSpeed;
+		float hipIdleSpeed;
+		float fIdleCrouchFactor;
+		float fIdleProneFactor;
+		float fGunMaxPitch;
+		float fGunMaxYaw;
+		float swayMaxAngle;
+		float swayLerpSpeed;
+		float swayPitchScale;
+		float swayYawScale;
+		float swayHorizScale;
+		float swayVertScale;
+		float swayShellShockScale;
+		float adsSwayMaxAngle;
+		float adsSwayLerpSpeed;
+		float adsSwayPitchScale;
+		float adsSwayYawScale;
+		float adsSwayHorizScale;
+		float adsSwayVertScale;
+		int bRifleBullet;
+		int armorPiercing;
+		int bBoltAction;
+		int aimDownSight;
+		int bRechamberWhileAds;
+		float adsViewErrorMin;
+		float adsViewErrorMax;
+		int bCookOffHold;
+		int bClipOnly;
+		int adsFireOnly;
+		int cancelAutoHolsterWhenEmpty;
+		int enhanced;
+		int laserSightDuringNightvision;
+		Material* killIcon;
+		weaponIconRatioType_t killIconRatio;
+		int flipKillIcon;
+		Material* dpadIcon;
+		weaponIconRatioType_t dpadIconRatio;
+		int bNoPartialReload;
+		int bSegmentedReload;
+		int iReloadAmmoAdd;
+		int iReloadStartAdd;
+		const char* szAltWeaponName;
+		unsigned int altWeaponIndex;
+		int iDropAmmoMin;
+		int iDropAmmoMax;
+		int blocksProne;
+		int silenced;
+		int iExplosionRadius;
+		int iExplosionRadiusMin;
+		int iExplosionInnerDamage;
+		int iExplosionOuterDamage;
+		float damageConeAngle;
+		int iProjectileSpeed;
+		int iProjectileSpeedUp;
+		int iProjectileSpeedForward;
+		int iProjectileActivateDist;
+		float projLifetime;
+		float timeToAccelerate;
+		float projectileCurvature;
+		XModel* projectileModel;
+		weapProjExposion_t projExplosion;
+		FxEffectDef* projExplosionEffect;
+		int projExplosionEffectForceNormalUp;
+		FxEffectDef* projDudEffect;
+		snd_alias_list_t* projExplosionSound;
+		snd_alias_list_t* projDudSound;
+		int bProjImpactExplode;
+		WeapStickinessType stickiness;
+		int hasDetonator;
+		int timedDetonation;
+		int rotate;
+		int holdButtonToThrow;
+		int freezeMovementWhenFiring;
+		float parallelBounce[29];
+		float perpendicularBounce[29];
+		FxEffectDef* projTrailEffect;
+		float vProjectileColor[3];
+		guidedMissileType_t guidedMissileType;
+		float maxSteeringAccel;
+		int projIgnitionDelay;
+		FxEffectDef* projIgnitionEffect;
+		snd_alias_list_t* projIgnitionSound;
+		float fAdsAimPitch;
+		float fAdsCrosshairInFrac;
+		float fAdsCrosshairOutFrac;
+		int adsGunKickReducedKickBullets;
+		float adsGunKickReducedKickPercent;
+		float fAdsGunKickPitchMin;
+		float fAdsGunKickPitchMax;
+		float fAdsGunKickYawMin;
+		float fAdsGunKickYawMax;
+		float fAdsGunKickAccel;
+		float fAdsGunKickSpeedMax;
+		float fAdsGunKickSpeedDecay;
+		float fAdsGunKickStaticDecay;
+		float fAdsViewKickPitchMin;
+		float fAdsViewKickPitchMax;
+		float fAdsViewKickYawMin;
+		float fAdsViewKickYawMax;
+		float fAdsViewKickCenterSpeed;
+		float fAdsViewScatterMin;
+		float fAdsViewScatterMax;
+		float fAdsSpread;
+		int hipGunKickReducedKickBullets;
+		float hipGunKickReducedKickPercent;
+		float fHipGunKickPitchMin;
+		float fHipGunKickPitchMax;
+		float fHipGunKickYawMin;
+		float fHipGunKickYawMax;
+		float fHipGunKickAccel;
+		float fHipGunKickSpeedMax;
+		float fHipGunKickSpeedDecay;
+		float fHipGunKickStaticDecay;
+		float fHipViewKickPitchMin;
+		float fHipViewKickPitchMax;
+		float fHipViewKickYawMin;
+		float fHipViewKickYawMax;
+		float fHipViewKickCenterSpeed;
+		float fHipViewScatterMin;
+		float fHipViewScatterMax;
+		float fightDist;
+		float maxDist;
+		const char* accuracyGraphName[2];
+		float(*accuracyGraphKnots[2])[2];
+		float(*originalAccuracyGraphKnots[2])[2];
+		int accuracyGraphKnotCount[2];
+		int originalAccuracyGraphKnotCount[2];
+		int iPositionReloadTransTime;
+		float leftArc;
+		float rightArc;
+		float topArc;
+		float bottomArc;
+		float accuracy;
+		float aiSpread;
+		float playerSpread;
+		float minTurnSpeed[2];
+		float maxTurnSpeed[2];
+		float pitchConvergenceTime;
+		float yawConvergenceTime;
+		float suppressTime;
+		float maxRange;
+		float fAnimHorRotateInc;
+		float fPlayerPositionDist;
+		const char* szUseHintString;
+		const char* dropHintString;
+		int iUseHintStringIndex;
+		int dropHintStringIndex;
+		float horizViewJitter;
+		float vertViewJitter;
+		const char* szScript;
+		float fOOPosAnimLength[2];
+		int minDamage;
+		int minPlayerDamage;
+		float fMaxDamageRange;
+		float fMinDamageRange;
+		float destabilizationRateTime;
+		float destabilizationCurvatureMax;
+		int destabilizeDistance;
+		float locationDamageMultipliers[19];
+		const char* fireRumble;
+		const char* meleeImpactRumble;
+		float adsDofStart;
+		float adsDofEnd;
+		float hipDofStart;
+		float hipDofEnd;
+	};
+
+	struct XAUDIOREVERBSETTINGS
+	{
+		unsigned int ReflectionsDelay;
+		char ReverbDelay;
+		char RearDelay;
+		char PositionLeft;
+		char PositionRight;
+		char PositionMatrixLeft;
+		char PositionMatrixRight;
+		char EarlyDiffusion;
+		char LateDiffusion;
+		char LowEQGain;
+		char LowEQCutoff;
+		char HighEQGain;
+		char HighEQCutoff;
+		float RoomFilterFreq;
+		float RoomFilterMain;
+		float RoomFilterHF;
+		float ReflectionsGain;
+		float ReverbGain;
+		float DecayTime;
+		float Density;
+		float RoomSize;
+	};
+
+	struct XaReverbSettings
+	{
+		int presetOverridden;
+		XAUDIOREVERBSETTINGS reverbSettings;
+	};
+
+	struct SndDriverGlobals
+	{
+		XaReverbSettings* reverbSettings;
+		const char* name;
+	};
+
+	struct FxImpactEntry
+	{
+		FxEffectDef* nonflesh[29];
+		FxEffectDef* flesh[4];
+	};
+
+	struct FxImpactTable
+	{
+		const char* name;
+		FxImpactEntry* table;
+	};
+
+	struct RawFile
+	{
+		const char* name;
+		int len;
+		const char* buffer;
+	};
+
+	struct StringTable
+	{
+		const char* name;
+		int columnCount;
+		int rowCount;
+		const char** values;
+	};
+
+	union XAssetHeader
+	{
+		XModelPieces* xmodelPieces;
+		PhysPreset* physPreset;
+		XAnimParts* parts;
+		XModel* model;
+		Material* material;
+		MaterialPixelShader* pixelShader;
+		MaterialVertexShader* vertexShader;
+		MaterialTechniqueSet* techniqueSet;
+		GfxImage* image;
+		snd_alias_list_t* sound;
+		SndCurve* sndCurve;
+		clipMap_t* clipMap;
+		ComWorld* comWorld;
+		GameWorldSp* gameWorldSp;
+		GameWorldMp* gameWorldMp;
+		MapEnts* mapEnts;
+		GfxWorld* gfxWorld;
+		GfxLightDef* lightDef;
+		Font_s* font;
+		MenuList* menuList;
+		menuDef_t* menu;
+		LocalizeEntry* localize;
+		WeaponDef* weapon;
+		SndDriverGlobals* sndDriverGlobals;
+		FxEffectDef* fx;
+		FxImpactTable* impactFx;
+		RawFile* rawfile;
+		StringTable* stringTable;
+		void* data;
+	};
 }

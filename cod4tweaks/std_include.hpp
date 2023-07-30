@@ -23,3 +23,4 @@
 #include "modules/_renderer.hpp"
 #include "modules/com_redirect.hpp"
 #include "modules/dump_xassets.hpp"
+#include "modules/testclient.hpp"

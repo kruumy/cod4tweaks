@@ -169,4 +169,7 @@ namespace game::functions
     typedef void(__cdecl* Con_Clear_f_t)();
     const Con_Clear_f_t Con_Clear_f = reinterpret_cast<Con_Clear_f_t>(0x0045D050);
 
+    //SV_AddTestClient
+    typedef game::structs::gentity_s* (__cdecl* SV_AddTestClient_t)();
+    const SV_AddTestClient_t SV_AddTestClient = reinterpret_cast<SV_AddTestClient_t>(0x0052D370);
 }

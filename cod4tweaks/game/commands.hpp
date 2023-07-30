@@ -3,8 +3,8 @@
 
 namespace game::commands
 {
-	typedef void(__cdecl* cmd_callback)(const char** argv, const size_t argc);
-	std::map<std::string, cmd_callback> function_map;
+	typedef void(__cdecl* cmd_callback_t)(const char** argv, const size_t argc);
+	std::map<std::string, cmd_callback_t> function_map;
 
 	void callback_prefix()
 	{
@@ -17,7 +17,7 @@ namespace game::commands
 		}
 	}
 
-	game::structs::cmd_function_s* Register(const char* name, cmd_callback callback)
+	game::structs::cmd_function_s* Register(const char* name, cmd_callback_t callback)
 	{
 		const auto cmd = new game::structs::cmd_function_s;
 		function_map[name] = callback;
@@ -26,7 +26,7 @@ namespace game::commands
 		return cmd;
 	}
 
-	game::structs::cmd_function_s* Register(const char* name, const char* args, const char* desc, cmd_callback callback)
+	game::structs::cmd_function_s* Register(const char* name, const char* args, const char* desc, cmd_callback_t callback)
 	{
 		const auto cmd = new game::structs::cmd_function_s;
 		function_map[name] = callback;

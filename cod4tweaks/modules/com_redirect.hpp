@@ -10,5 +10,9 @@ namespace modules::com_redirect
         {
             utils::logger::info(msg);
         }
+        else
+        {
+            Com_PrintMessage_hk.GetOriginalFunc()(0,msg,0);
+        }
     }
 }

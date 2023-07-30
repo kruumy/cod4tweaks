@@ -50,6 +50,12 @@
     <ClInclude Include="modules\com_redirect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game\commands.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dump_xassets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="deps\libMinHook.x86.lib" />

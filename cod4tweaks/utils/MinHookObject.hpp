@@ -2,6 +2,7 @@
 
 namespace utils
 {
+	bool isInitialized = false;
 	template<typename T>
 	class MinHookObject
 	{
@@ -62,8 +63,5 @@ namespace utils
 		T pDetour;
 		T ppOriginal;
 		bool isEnabled;
-		static bool isInitialized;
 	};
-	template<typename T>
-	bool MinHookObject<T>::isInitialized = false;
 }

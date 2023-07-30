@@ -145,7 +145,7 @@ namespace game::functions
     typedef void(__cdecl* Cmd_ExecuteSingleCommand_t)(int controller, int a2, const char* cmd);
     const Cmd_ExecuteSingleCommand_t Cmd_ExecuteSingleCommand = reinterpret_cast<Cmd_ExecuteSingleCommand_t>(0x4F9AB0);
 
-    //Cmd_AddCommand, have to recreate because it is inlined in the binary
+    //Cmd_AddCommand, recreated because it is inlined in the binary
     void Cmd_AddCommand(const char* name, void(*callback)(), game::structs::cmd_function_s* data)
     {
         data->name = name;

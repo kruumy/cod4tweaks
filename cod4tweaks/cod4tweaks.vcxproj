@@ -92,7 +92,6 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="game\functions.cpp" />
-    <ClCompile Include="modules\handleargs.cpp" />
     <ClCompile Include="modules\renderer.cpp" />
     <ClCompile Include="modules\renderer.hpp" />
     <ClCompile Include="modules\windowed_fullscreen.cpp" />
@@ -103,7 +102,6 @@
     <ClInclude Include="game\functions.hpp" />
     <ClInclude Include="game\globals.hpp" />
     <ClInclude Include="game\structs.hpp" />
-    <ClInclude Include="modules\handleargs.hpp" />
     <ClInclude Include="modules\windowed_fullscreen.hpp" />
     <ClInclude Include="utils\cmdparser.hpp" />
     <ClInclude Include="logger.hpp" />

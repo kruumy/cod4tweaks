@@ -3776,4 +3776,22 @@ namespace game::structs
 		StringTable* stringTable;
 		void* data;
 	};
+
+	struct CmdArgs
+	{
+		int nesting;
+		int localClientNum[8];
+		int controllerIndex[8];
+		int argc[8];
+		const char** argv[8];
+	};
+
+	struct cmd_function_s
+	{
+		cmd_function_s* next;
+		const char* name;
+		const char* args;			//autoCompleteDir;
+		const char* description;	// autoCompleteExt
+		void(__cdecl* function)();
+	};
 }

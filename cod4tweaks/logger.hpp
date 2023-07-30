@@ -1,14 +1,13 @@
+#pragma once
+
 #include <format>
 #include <iostream>
 
 namespace logger
 {
     bool IsInitialized = false;
-
     template<typename... Args>
     using format_string_t = std::format_string<Args...>;
-
-
     template<typename... Args>
     void info(format_string_t<Args...> fmt, Args &&...args)
     {
@@ -25,4 +24,5 @@ namespace logger
         printf(fmt.get().data(), std::forward<Args>(args)...);
         printf("\n");
     }
+
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+
 namespace modules::windowed_fullscreen
 {
     void GetMainMonitorResolution(int& width, int& height);

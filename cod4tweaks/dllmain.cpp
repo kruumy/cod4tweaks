@@ -1,10 +1,7 @@
 #include <Windows.h>
-#include "modules/handleargs.hpp"
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {
-    modules::handleargs::ApplyArgs(utils::cmdparser(reinterpret_cast<char*>(GetCommandLineA())));
-
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {

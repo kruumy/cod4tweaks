@@ -1,6 +1,6 @@
 #pragma once
-#include "../utils/MinHookObject.hpp"
 #include "../game/structs.hpp"
+#include "../utils/MinHookObject.hpp"
 
 namespace modules::renderer
 {

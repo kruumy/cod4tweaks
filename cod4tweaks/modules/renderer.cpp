@@ -1,8 +1,6 @@
 #include "renderer.hpp"
-#include "../game/globals.hpp"
 #include "../game/dvars.hpp"
-#include <string>
-#include <cstdint>
+#include "../game/globals.hpp"
 
 // A lot of this comes from https://github.com/xoxor4d/iw3xo-dev/blob/develop/src/components/modules/_renderer.cpp
 

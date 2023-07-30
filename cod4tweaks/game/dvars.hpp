@@ -1,7 +1,7 @@
 #pragma once
+#include "structs.hpp"
 #include "functions.hpp"
 #include <vector>
-
 
 namespace game::dvars
 {
@@ -61,7 +61,6 @@ namespace game::dvars
 		r_techtype_enum.data(), 
 		game::structs::dvar_flags::none
 	);
-
 
 	const game::structs::dvar_s* r_player_material = game::functions::Dvar_RegisterString_Wrapped
 	(

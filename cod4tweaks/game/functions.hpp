@@ -1,12 +1,9 @@
 #pragma once
-
 #include "structs.hpp"
 #include <cstdint>
-#include <Windows.h>
 
 namespace game::functions
 {
-
     //Dvar_FindMalleableVar
     typedef game::structs::dvar_s* (__cdecl* Dvar_FindMalleableVar_t)();
     const Dvar_FindMalleableVar_t Dvar_FindMalleableVar_Internal = reinterpret_cast<Dvar_FindMalleableVar_t>(0x56B5D0);
@@ -66,4 +63,21 @@ namespace game::functions
     //Com_Printf
     typedef void(__cdecl* Com_Printf_t)(int channel, const char* Format, ...);
     const Com_Printf_t Com_Printf = reinterpret_cast<Com_Printf_t>(0x004FCBC0);
+
+    //Com_Error
+    typedef void(__cdecl* Com_Error_t)(int channel, const char* Format, ...);
+    const Com_Error_t Com_Error = reinterpret_cast<Com_Error_t>(0x004FD330);
+
+    //DB_FindXAssetHeader
+    typedef game::structs::XAssetHeader* (__cdecl* DB_FindXAssetHeader_t)(game::structs::XAssetType type, const char* name);
+    const DB_FindXAssetHeader_t DB_FindXAssetHeader = reinterpret_cast<DB_FindXAssetHeader_t>(0x00489570);
+
+    //Cmd_ExecuteSingleCommand
+    typedef void(__cdecl* Cmd_ExecuteSingleCommand_t)(int controller, int a2, const char* cmd);
+    const Cmd_ExecuteSingleCommand_t Cmd_ExecuteSingleCommand = reinterpret_cast<Cmd_ExecuteSingleCommand_t>(0x4F9AB0);
+
+    //Cmd_AddCommand
+    void Cmd_AddCommand(const char* name, void(*callback)(), game::structs::cmd_function_s* data);
+    void Cmd_AddCommand(const char* name, const char* args, const char* description, void(*callback)(), game::structs::cmd_function_s* data);
+
 }

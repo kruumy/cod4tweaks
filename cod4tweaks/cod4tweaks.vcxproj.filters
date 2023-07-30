@@ -21,9 +21,6 @@
     <ClCompile Include="game\functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="modules\handleargs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\windowed_fullscreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\structs.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\handleargs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="modules\windowed_fullscreen.hpp">

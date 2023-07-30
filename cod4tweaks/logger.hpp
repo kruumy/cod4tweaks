@@ -21,7 +21,7 @@ namespace logger
             IsInitialized = true;
             info("Initialized Logger");
         }
-        printf("[cod4plus] ");
+        printf("[cod4tweaks] ");
         printf(fmt.get().data(), std::forward<Args>(args)...);
         printf("\n");
     }

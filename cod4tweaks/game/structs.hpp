@@ -13,22 +13,22 @@ namespace game::structs
 
 	typedef struct entity_s
 	{
-		__int32 currentValid; //0x0000 
+		__int32 currentValid;
 		char _0x0004[24];
-		vec3_t lerpOrigin; //0x001C 
-		vec3_t lerpAngles; //0x0028 
+		vec3_t lerpOrigin;
+		vec3_t lerpAngles;
 		char _0x0034[64];
-		vec3_t oldOrigin; //0x0074 
+		vec3_t oldOrigin;
 		char _0x0080[76];
-		__int32 clientNum; //0x00CC 
-		__int32 eType; //0x00D0 
-		unsigned long eFlags; //0x00D4 
+		__int32 clientNum;
+		__int32 eType;
+		unsigned long eFlags;
 		char _0x00D8[12];
-		vec3_t newOrigin; //0x00E4 
+		vec3_t newOrigin;
 		char _0x00F0[160];
-		__int32 weapon; //0x0190 
+		__int32 weapon;
 		char _0x0194[44];
-		__int32 isAlive; //0x01C0 
+		__int32 isAlive;
 		char _0x01C4[24];
 	}entity_t;
 

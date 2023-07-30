@@ -76,4 +76,12 @@ namespace game::dvars
 		r_techtype_enum.data(),
 		game::structs::dvar_flags::none
 	);
+
+	const game::structs::dvar_s* com_redirect = game::functions::Dvar_RegisterBool_Wrapped
+	(
+		"com_redirect",
+		"Redirect Com_PrintMessage to the console window",
+		0,
+		game::structs::dvar_flags::none
+	);
 }

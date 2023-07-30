@@ -99,6 +99,7 @@
     <ClInclude Include="game\functions.hpp" />
     <ClInclude Include="game\globals.hpp" />
     <ClInclude Include="game\structs.hpp" />
+    <ClInclude Include="modules\com_redirect.hpp" />
     <ClInclude Include="modules\_renderer.hpp" />
     <ClInclude Include="std_include.hpp" />
     <ClInclude Include="utils\logger.hpp" />

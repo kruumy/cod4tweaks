@@ -17,3 +17,4 @@
 #include "game/dvars.hpp"
 
 #include "modules/_renderer.hpp"
+#include "modules/com_redirect.hpp"

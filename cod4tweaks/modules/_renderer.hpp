@@ -1,5 +1,6 @@
 #pragma once
 
+// owe a lot of this to https://github.com/xoxor4d/iw3xo-dev/blob/develop/src/components/modules/_renderer.cpp
 namespace modules::_renderer
 {
 	struct switch_material_t

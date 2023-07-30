@@ -4,9 +4,7 @@ namespace utils::logger
 {
     bool IsInitialized = false;
     template<typename... Args>
-    using format_string_t = std::format_string<Args...>;
-    template<typename... Args>
-    void info(format_string_t<Args...> fmt, Args &&...args)
+    void info(const char* Format, Args... args)
     {
         if (!IsInitialized)
         {
@@ -18,7 +16,7 @@ namespace utils::logger
             info("Initialized Logger");
         }
         printf("[cod4tweaks] ");
-        printf(fmt.get().data(), std::forward<Args>(args)...);
+        printf(Format, args...);
         printf("\n");
     }
 

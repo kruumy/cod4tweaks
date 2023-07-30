@@ -62,6 +62,8 @@ namespace utils
 		T pDetour;
 		T ppOriginal;
 		bool isEnabled;
-		static inline bool isInitialized = false;
+		static bool isInitialized;
 	};
+	template<typename T>
+	bool MinHookObject<T>::isInitialized = false;
 }

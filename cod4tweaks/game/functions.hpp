@@ -1,13 +1,15 @@
 #pragma once
-#include "structs.hpp"
-#include <cstdint>
 
 namespace game::functions
 {
     //Dvar_FindMalleableVar
     typedef game::structs::dvar_s* (__cdecl* Dvar_FindMalleableVar_t)();
     const Dvar_FindMalleableVar_t Dvar_FindMalleableVar_Internal = reinterpret_cast<Dvar_FindMalleableVar_t>(0x56B5D0);
-    game::structs::dvar_s* Dvar_FindMalleableVar(const char* dvar);
+    game::structs::dvar_s* Dvar_FindMalleableVar(const char* dvar)
+    {
+        __asm mov edi, dvar
+        return Dvar_FindMalleableVar_Internal();
+    }
 
     //CL_Vid_Restart_f
     typedef int (*CL_Vid_Restart_f_t)();
@@ -20,7 +22,16 @@ namespace game::functions
     //Cbuf_AddText
     typedef void (*Cbuf_AddText_t)(); // __usercall const char* text <eax>, int local_client_num <ecx>
     const Cbuf_AddText_t Cbuf_AddText_Internal = reinterpret_cast<Cbuf_AddText_t>(0x4F8D90);
-    void Cbuf_AddText(const char* text, int local_client_num);
+    void Cbuf_AddText(const char* text, int local_client_num) 
+    {
+        const static uint32_t Cbuf_AddText_func = (uint32_t)Cbuf_AddText_Internal;
+        __asm
+        {
+            mov		ecx, local_client_num;
+            mov		eax, text;
+            call	Cbuf_AddText_func;
+        }
+    }
 
     //ClientConnect
     typedef char* (__cdecl* ClientConnect_t)(int clientNum, unsigned __int16 scriptPersID);
@@ -41,12 +52,34 @@ namespace game::functions
     //Dvar_RegisterString
     typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterString_t)(const char* dvar_name, game::structs::dvar_type type_string, std::uint16_t flags, const char* description, const char* default_value, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t null4, std::int32_t null5);
     const Dvar_RegisterString_t Dvar_RegisterString = reinterpret_cast<Dvar_RegisterString_t>(0x56C130);
-    game::structs::dvar_s* Dvar_RegisterString_Wrapped(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags);
+    game::structs::dvar_s* Dvar_RegisterString_Wrapped(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags)
+    {
+        const auto dvar = game::functions::Dvar_FindMalleableVar(dvar_name);
+        if (!dvar)
+        {
+            return game::functions::Dvar_RegisterString(dvar_name, game::structs::string, flags, description, default_value, 0, 0, 0, 0, 0);
+        }
+        else
+        {
+            return dvar;
+        }
+    }
 
     //Dvar_RegisterEnum
     typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterEnum_t)(const char* dvar_name, game::structs::dvar_type type_enum, std::uint16_t flags, const char* description, std::int32_t default_index, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t enumSize, const char** enum_data);
     const Dvar_RegisterEnum_t Dvar_RegisterEnum = reinterpret_cast<Dvar_RegisterEnum_t>(0x56C130);
-    game::structs::dvar_s* Dvar_RegisterEnum_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags);
+    game::structs::dvar_s* Dvar_RegisterEnum_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags)
+    {
+        const auto dvar = game::functions::Dvar_FindMalleableVar(dvar_name);
+        if (!dvar)
+        {
+            return game::functions::Dvar_RegisterEnum(dvar_name, game::structs::enumeration, flags, description, default_value, 0, 0, 0, enum_size, enum_data);
+        }
+        else
+        {
+            return dvar;
+        }
+    }
 
     //DB_GetAllXAssetOfType
     typedef void(__cdecl* DB_GetAllXAssetOfType_t)(game::structs::XAssetType type, game::structs::XAssetHeader* assets, int maxCount);
@@ -77,7 +110,25 @@ namespace game::functions
     const Cmd_ExecuteSingleCommand_t Cmd_ExecuteSingleCommand = reinterpret_cast<Cmd_ExecuteSingleCommand_t>(0x4F9AB0);
 
     //Cmd_AddCommand
-    void Cmd_AddCommand(const char* name, void(*callback)(), game::structs::cmd_function_s* data);
-    void Cmd_AddCommand(const char* name, const char* args, const char* description, void(*callback)(), game::structs::cmd_function_s* data);
+    void Cmd_AddCommand(const char* name, void(*callback)(), game::structs::cmd_function_s* data)
+    {
+        data->name = name;
+        data->args = nullptr;
+        data->description = nullptr;
+        data->function = callback;
+        data->next = *game::globals::cmd_ptr;
+
+        *game::globals::cmd_ptr = data;
+    }
+    void Cmd_AddCommand(const char* name, const char* args, const char* description, void(*callback)(), game::structs::cmd_function_s* data)
+    {
+        data->name = name;
+        data->args = args;
+        data->description = description;
+        data->function = callback;
+        data->next = *game::globals::cmd_ptr;
+
+        *game::globals::cmd_ptr = data;
+    }
 
 }

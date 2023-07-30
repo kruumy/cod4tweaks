@@ -1,8 +1,5 @@
 #pragma once
 
-#include <format>
-#include <iostream>
-
 namespace utils::logger
 {
     bool IsInitialized = false;

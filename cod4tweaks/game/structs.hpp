@@ -1,5 +1,4 @@
 #pragma once
-#include <d3d9.h>
 
 #define	MAX_STRING_CHARS	1024
 #define	MAX_PLAYERS_IN_GAME	64

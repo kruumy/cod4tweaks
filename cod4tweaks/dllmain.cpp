@@ -1,4 +1,4 @@
-#include <Windows.h>
+#include "std_include.hpp"
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {

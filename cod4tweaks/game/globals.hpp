@@ -1,5 +1,4 @@
 #pragma once
-#include "structs.hpp"
 
 namespace game::globals
 {

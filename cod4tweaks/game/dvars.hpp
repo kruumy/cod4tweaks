@@ -1,7 +1,4 @@
 #pragma once
-#include "structs.hpp"
-#include "functions.hpp"
-#include <vector>
 
 namespace game::dvars
 {

@@ -53,11 +53,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;cod4tweaks_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>std_include.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\Users\pauls\source\repos\cod4tweaks\cod4tweaks\deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\pauls\source\repos\cod4tweaks\cod4tweaks;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,11 +74,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;cod4tweaks_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>std_include.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\Users\pauls\source\repos\cod4tweaks\cod4tweaks\deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\pauls\source\repos\cod4tweaks\cod4tweaks;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,10 +91,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="game\functions.cpp" />
-    <ClCompile Include="modules\renderer.cpp" />
-    <ClCompile Include="modules\renderer.hpp" />
-    <ClCompile Include="modules\windowed_fullscreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\MinHook.h" />
@@ -102,8 +98,8 @@
     <ClInclude Include="game\functions.hpp" />
     <ClInclude Include="game\globals.hpp" />
     <ClInclude Include="game\structs.hpp" />
-    <ClInclude Include="modules\windowed_fullscreen.hpp" />
-    <ClInclude Include="utils\cmdparser.hpp" />
+    <ClInclude Include="modules\_renderer.hpp" />
+    <ClInclude Include="std_include.hpp" />
     <ClInclude Include="utils\logger.hpp" />
     <ClInclude Include="utils\MinHookObject.hpp" />
   </ItemGroup>

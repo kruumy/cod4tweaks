@@ -159,7 +159,6 @@
     <ClCompile Include="modules\renderer.cpp" />
     <ClCompile Include="modules\renderer.hpp" />
     <ClCompile Include="modules\windowed_fullscreen.cpp" />
-    <ClCompile Include="utils\console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\MinHook.h" />
@@ -170,7 +169,7 @@
     <ClInclude Include="modules\handleargs.hpp" />
     <ClInclude Include="modules\windowed_fullscreen.hpp" />
     <ClInclude Include="utils\cmdparser.hpp" />
-    <ClInclude Include="utils\console.hpp" />
+    <ClInclude Include="logger.hpp" />
     <ClInclude Include="utils\MinHookObject.hpp" />
   </ItemGroup>
   <ItemGroup>

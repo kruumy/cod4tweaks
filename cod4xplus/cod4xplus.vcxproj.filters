@@ -27,9 +27,6 @@
     <ClCompile Include="modules\windowed_fullscreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils\console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\renderer.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,13 +56,13 @@
     <ClInclude Include="utils\cmdparser.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils\console.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utils\MinHookObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\globals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

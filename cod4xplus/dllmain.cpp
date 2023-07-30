@@ -1,23 +1,9 @@
 #include <Windows.h>
-#include <iostream>
-#include <string>
-#include "game/structs.hpp"
-#include "game/functions.hpp"
-#include "utils/console.hpp"
-#include "utils/cmdparser.hpp"
 #include "modules/handleargs.hpp"
-#include "deps/MinHook.h"
-#include "utils/MinHookObject.hpp"
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {
-    //utils::console::Init();
-    //std::cout << "Console Initialized" << std::endl;
     modules::handleargs::ApplyArgs(utils::cmdparser(reinterpret_cast<char*>(GetCommandLineA())));
-    std::cout << "Arguments Applied" << std::endl;
-
-   
-
 
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))

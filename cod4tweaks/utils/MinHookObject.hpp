@@ -1,6 +1,6 @@
 #pragma once
 #include <MinHook.h>
-#include "../logger.hpp"
+#include "logger.hpp"
 
 namespace utils
 {

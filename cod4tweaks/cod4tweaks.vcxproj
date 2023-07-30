@@ -104,7 +104,7 @@
     <ClInclude Include="game\structs.hpp" />
     <ClInclude Include="modules\windowed_fullscreen.hpp" />
     <ClInclude Include="utils\cmdparser.hpp" />
-    <ClInclude Include="logger.hpp" />
+    <ClInclude Include="utils\logger.hpp" />
     <ClInclude Include="utils\MinHookObject.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 #include <format>
 #include <iostream>
 
-namespace logger
+namespace utils::logger
 {
     bool IsInitialized = false;
     template<typename... Args>

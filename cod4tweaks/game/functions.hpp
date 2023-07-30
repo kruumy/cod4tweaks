@@ -165,4 +165,8 @@ namespace game::functions
         *game::globals::cmd_ptr = data;
     }
 
+    //Con_Clear_f
+    typedef void(__cdecl* Con_Clear_f_t)();
+    const Con_Clear_f_t Con_Clear_f = reinterpret_cast<Con_Clear_f_t>(0x0045D050);
+
 }

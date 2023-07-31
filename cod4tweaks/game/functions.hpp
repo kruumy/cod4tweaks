@@ -205,4 +205,7 @@ namespace game::functions
     typedef game::structs::gentity_s*(__cdecl* G_Spawn_t)();
     const  G_Spawn_t G_Spawn = reinterpret_cast<G_Spawn_t>(0x4E37F0);
 
+    //CG_SetNextSnap
+    typedef int (__cdecl* CG_SetNextSnap_t)(int localClientNum, game::structs::snapshot_s* snap);
+    const  CG_SetNextSnap_t CG_SetNextSnap = reinterpret_cast<CG_SetNextSnap_t>(0x0044D860);
 }

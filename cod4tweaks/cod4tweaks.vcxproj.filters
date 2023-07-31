@@ -65,6 +65,9 @@
     <ClInclude Include="utils\clipboard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="modules\demorecorder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="deps\libMinHook.x86.lib" />

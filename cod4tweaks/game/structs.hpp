@@ -5151,4 +5151,16 @@ namespace game::structs
 		float color[4];
 	};
 
+	struct snapshot_s
+	{
+		int snapFlags;
+		int ping;
+		int serverTime;
+		playerState_s ps;
+		int numEntities;
+		int numClients;
+		entityState_s entities[512];
+		clientState_s clients[64];
+		int serverCommandSequence;
+	};
 }

@@ -21,4 +21,5 @@ namespace game::globals
 	const game::structs::playerState_s* ps_loc = reinterpret_cast<game::structs::playerState_s*>(0x13255A8);
 	const game::structs::pmove_t* pmove = reinterpret_cast<game::structs::pmove_t*>(0x8C9C90);
 	const game::structs::Console* con = reinterpret_cast<game::structs::Console*>(0x8DC8C0);
+	const bool* is_recording = reinterpret_cast<bool*>(0x00934E70);
 }

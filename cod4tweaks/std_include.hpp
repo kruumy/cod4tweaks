@@ -26,3 +26,4 @@
 #include "modules/dump_xassets.hpp"
 #include "modules/testclient.hpp"
 #include "modules/copyip.hpp"
+#include "modules/demorecorder.hpp"

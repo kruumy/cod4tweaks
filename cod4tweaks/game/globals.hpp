@@ -9,5 +9,6 @@ namespace game::globals
 	const game::structs::r_globals_t* rg = reinterpret_cast<game::structs::r_globals_t*>(0xCC9D150);
 	const game::structs::r_global_permanent_t* rgp = reinterpret_cast<game::structs::r_global_permanent_t*>(0xCC98280);
 	game::structs::CmdArgs* cmd_args = reinterpret_cast<game::structs::CmdArgs*>(0x1410B40);
-	game::structs::cmd_function_s** cmd_ptr = reinterpret_cast< game::structs::cmd_function_s**>(0x1410B3C);
+	game::structs::cmd_function_s** cmd_ptr = reinterpret_cast<game::structs::cmd_function_s**>(0x1410B3C);
+	const char* current_server_ip = reinterpret_cast<char*>(0x00956D88);
 }

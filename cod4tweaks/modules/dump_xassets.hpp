@@ -56,7 +56,7 @@ namespace modules::dump_xassets
     }
 
     void listxasset_f(const char** argv, const size_t argc)
-    {
+    {       
         game::structs::XAssetType xasset_type;
         if (GetXAssetTypeFromStr(argv[1], &xasset_type))
         {

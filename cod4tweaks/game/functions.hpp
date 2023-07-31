@@ -192,4 +192,8 @@ namespace game::functions
     //R_SetMaterial
     typedef int(__cdecl* R_SetMaterial_t)(game::structs::GfxCmdBufContext* context, game::structs::GfxDrawSurf* drawSurf); // MaterialTechniqueType techType <esi>
     const  R_SetMaterial_t R_SetMaterial = reinterpret_cast<R_SetMaterial_t>(0x00648F10);
+
+    //Jump_ApplySlowdown
+    typedef void(__cdecl* Jump_ApplySlowdown_t)(game::structs::playerState_s* ps);
+    const  Jump_ApplySlowdown_t Jump_ApplySlowdown = reinterpret_cast<Jump_ApplySlowdown_t>(0x00407990);
 }

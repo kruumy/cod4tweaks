@@ -10,6 +10,7 @@
 
 
 #include "utils/logger.hpp"
+#include "utils/clipboard.hpp"
 
 #include "deps/MinHook.h"
 #include "utils/MinHookObject.hpp"
@@ -24,3 +25,4 @@
 #include "modules/com_redirect.hpp"
 #include "modules/dump_xassets.hpp"
 #include "modules/testclient.hpp"
+#include "modules/copyip.hpp"

@@ -47,7 +47,9 @@ namespace game::dvars
 		"TECHNIQUE_SHADOWCOOKIE_RECEIVER",
 		"TECHNIQUE_DEBUG_BUMPMAP",
 		"TECHNIQUE_DEBUG_BUMPMAP_INSTANCED",
-		"TECHNIQUE_COUNT"
+		"TECHNIQUE_COUNT",
+		"TECHNIQUE_TOTAL_COUNT",
+		"TECHNIQUE_NONE"
 	};
 	const game::structs::dvar_s* r_world_techtype = game::functions::Dvar_RegisterEnum_Wrapped
 	(

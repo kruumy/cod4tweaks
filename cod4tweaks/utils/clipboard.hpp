@@ -2,9 +2,9 @@
 
 namespace utils::clipboard
 {
-    void CopyToClipboard(const char* text)
+    bool CopyToClipboard(const char* text)
     {
-        if (OpenClipboard(nullptr)) 
+        if (OpenClipboard(nullptr))
         {
             HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, strlen(text) + 1);
             if (hMem)
@@ -16,9 +16,16 @@ namespace utils::clipboard
                     GlobalUnlock(hMem);
                     EmptyClipboard();
                     SetClipboardData(CF_TEXT, hMem);
+                    CloseClipboard();
+                    return true;
                 }
+                GlobalFree(hMem);
             }
             CloseClipboard();
         }
+
+        return false;
     }
+
+
 }

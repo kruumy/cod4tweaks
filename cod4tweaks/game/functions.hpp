@@ -180,4 +180,16 @@ namespace game::functions
     //CG_Obituary
     typedef void (__cdecl* CG_Obituary_t)(); // int localClientNum  esi, entityState_s*
     const CG_Obituary_t CG_Obituary = reinterpret_cast<CG_Obituary_t>(0x00435620);
+
+    //ClientSpawn
+    typedef void(__cdecl* ClientSpawn_t)(game::structs::gentity_s* ent, const float* spawn_origin, const float* spawn_angles);
+    const  ClientSpawn_t ClientSpawn = reinterpret_cast<ClientSpawn_t>(0x004AAE40);
+
+    //PlayerCmd_giveWeapon
+    typedef void(__cdecl* PlayerCmd_giveWeapon_t)(void* entref); // scr_entref_t*
+    const  PlayerCmd_giveWeapon_t PlayerCmd_giveWeapon = reinterpret_cast<PlayerCmd_giveWeapon_t>(0x004AB9C0);
+
+    //R_SetMaterial
+    typedef int(__cdecl* R_SetMaterial_t)(game::structs::GfxCmdBufContext* context, game::structs::GfxDrawSurf* drawSurf); // MaterialTechniqueType techType <esi>
+    const  R_SetMaterial_t R_SetMaterial = reinterpret_cast<R_SetMaterial_t>(0x00648F10);
 }

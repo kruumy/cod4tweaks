@@ -210,8 +210,8 @@ namespace modules::_renderer
 	}
 	__declspec(naked) void R_SetMaterial_stub()
 	{
-		const static uint32_t rtn_to_set_shadowable_light = 0x648F92;
-		const static uint32_t retn_to_retn = 0x648F48;
+		const static uint32_t rtn_to_set_shadowable_light = reinterpret_cast<uint32_t>(game::functions::R_SetMaterial) + 0x82;
+		const static uint32_t retn_to_retn = reinterpret_cast<uint32_t>(game::functions::R_SetMaterial) + 0x38;
 		__asm
 		{
 			push	esi;		// techType
@@ -227,5 +227,5 @@ namespace modules::_renderer
 			jmp		retn_to_retn;
 		}
 	}
-	utils::MinHookObject<LPVOID> hook(reinterpret_cast<LPVOID>(0x648F86), &R_SetMaterial_stub, true);
+	utils::MinHookObject<LPVOID> hook(reinterpret_cast<LPVOID>(reinterpret_cast<uint32_t>(game::functions::R_SetMaterial) + 0x76), &R_SetMaterial_stub, true);
 }

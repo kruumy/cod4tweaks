@@ -196,4 +196,13 @@ namespace game::functions
     //Jump_ApplySlowdown
     typedef void(__cdecl* Jump_ApplySlowdown_t)(game::structs::playerState_s* ps);
     const  Jump_ApplySlowdown_t Jump_ApplySlowdown = reinterpret_cast<Jump_ApplySlowdown_t>(0x00407990);
+
+    //CL_Connect_f
+    typedef void(__cdecl* CL_Connect_f_t)();
+    const  CL_Connect_f_t CL_Connect_f = reinterpret_cast<CL_Connect_f_t>(0x00471050);
+
+    //G_Spawn
+    typedef game::structs::gentity_s*(__cdecl* G_Spawn_t)();
+    const  G_Spawn_t G_Spawn = reinterpret_cast<G_Spawn_t>(0x4E37F0);
+
 }

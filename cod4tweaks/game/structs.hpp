@@ -4914,5 +4914,241 @@ namespace game::structs
 	};
 #pragma pack(pop)
 
+	struct SpawnVar
+	{
+		bool spawnVarsValid;
+		int numSpawnVars;
+		char* spawnVars[64][2];
+		int numSpawnVarChars;
+		char spawnVarChars[2048];
+	};
+
+	struct trigger_info_t
+	{
+		unsigned __int16 entnum;
+		unsigned __int16 otherEntnum;
+		int useCount;
+		int otherUseCount;
+	};
+
+	struct com_parse_mark_t
+	{
+		int lines;
+		const char* text;
+		int ungetToken;
+		int backup_lines;
+		const char* backup_text;
+	};
+
+	struct cached_tag_mat_t
+	{
+		int time;
+		int entnum;
+		unsigned __int16 name;
+		float tagMat[4][3];
+	};
+
+	struct level_locals_t
+	{
+		gclient_s* clients;
+		gentity_s* gentities;
+		int gentitySize;
+		int num_entities;
+		gentity_s* firstFreeEnt;
+		gentity_s* lastFreeEnt;
+		int logFile;
+		int initializing;
+		int clientIsSpawning;
+		objective_t objectives[16];
+		int maxclients;
+		int framenum;
+		int time;
+		int previousTime;
+		int frametime;
+		int startTime;
+		int teamScores[4];
+		int lastTeammateHealthTime;
+		int bUpdateScoresForIntermission;
+		bool teamHasRadar[4];
+		int manualNameChange;
+		int numConnectedClients;
+		int sortedClients[64];
+		char voteString[1024];
+		char voteDisplayString[1024];
+		int voteTime;
+		int voteExecuteTime;
+		int voteYes;
+		int voteNo;
+		int numVotingClients;
+		SpawnVar spawnVar;
+		int savepersist;
+		EntHandle droppedWeaponCue[32];
+		float fFogOpaqueDist;
+		float fFogOpaqueDistSqrd;
+		int remapCount;
+		int currentPlayerClone;
+		trigger_info_t pendingTriggerList[256];
+		trigger_info_t currentTriggerList[256];
+		int pendingTriggerListSize;
+		int currentTriggerListSize;
+		int finished;
+		int bPlayerIgnoreRadiusDamage;
+		int bPlayerIgnoreRadiusDamageLatched;
+		int registerWeapons;
+		int bRegisterItems;
+		int currentEntityThink;
+		int openScriptIOFileHandles[1];
+		char* openScriptIOFileBuffers[1];
+		com_parse_mark_t currentScriptIOLineMark[1];
+		cached_tag_mat_t cachedTagMat;
+		int scriptPrintChannel;
+		float compassMapUpperLeft[2];
+		float compassMapWorldSize[2];
+		float compassNorth[2];
+		scr_vehicle_s* vehicles;
+	};
+
+	struct XBlock
+	{
+		char* data;
+		unsigned int size;
+	};
+
+	struct XZoneMemory
+	{
+		XBlock blocks[9];
+		char* lockedVertexData;
+		char* lockedIndexData;
+		void* vertexBuffer;
+		void* indexBuffer;
+	};
+
+	struct XZone
+	{
+		char name[64];
+		int flags;
+		int allocType;
+		XZoneMemory mem;
+		int fileSize;
+		char modZone;
+	};
+
+	struct XAsset
+	{
+		XAssetType type;
+		XAssetHeader header;
+	};
+
+	struct XAssetEntry
+	{
+		XAsset asset;
+		char zoneIndex;
+		char inuse;
+		unsigned __int16 nextHash;
+		unsigned __int16 nextOverride;
+		unsigned __int16 usageFrame;
+	};
+
+	struct pmove_t
+	{
+		playerState_s* ps;
+		usercmd_s cmd;
+		usercmd_s oldcmd;
+		int tracemask;
+		int numtouch;
+		int touchents[32];
+		float mins[3];
+		float maxs[3];
+		float xyspeed;
+		int proneChange;
+		float maxSprintTimeMultiplier;
+		bool mantleStarted;
+		float mantleEndPos[3];
+		int mantleDuration;
+		int viewChangeTime;
+		float viewChange;
+		char handler;
+	};
+
+	struct Message
+	{
+		int startTime;
+		int endTime;
+	};
+
+	struct MessageLine
+	{
+		int messageIndex;
+		int textBufPos;
+		int textBufSize;
+		int typingStartTime;
+		int lastTypingSoundTime;
+		int flags;
+	};
+
+	struct MessageWindow
+	{
+		MessageLine* lines;
+		Message* messages;
+		char* circularTextBuffer;
+		int textBufSize;
+		int lineCount;
+		int padding;
+		int scrollTime;
+		int fadeIn;
+		int fadeOut;
+		int textBufPos;
+		int firstLineIndex;
+		int activeLineCount;
+		int messageIndex;
+	};
+
+	struct MessageBuffer
+	{
+		char gamemsgText[4][2048];
+		MessageWindow gamemsgWindows[4];
+		MessageLine gamemsgLines[4][12];
+		Message gamemsgMessages[4][12];
+		char miniconText[4096];
+		MessageWindow miniconWindow;
+		MessageLine miniconLines[100];
+		Message miniconMessages[100];
+		char errorText[1024];
+		MessageWindow errorWindow;
+		MessageLine errorLines[5];
+		Message errorMessages[5];
+	};
+
+	struct field_t
+	{
+		int cursor;
+		int scroll;
+		int drawWidth;
+		int widthInPixels;
+		float charHeight;
+		int fixedSize;
+		char buffer[256];
+	};
+
+	struct Console
+	{
+		int initialized;
+		MessageWindow consoleWindow;
+		MessageLine consoleLines[1024];
+		Message consoleMessages[1024];
+		char consoleText[32768];
+		char textTempLine[512];
+		unsigned int lineOffset;
+		int displayLineOffset;
+		int prevChannel;
+		bool outputVisible;
+		int fontHeight;
+		int visibleLineCount;
+		int visiblePixelWidth;
+		float screenMin[2];
+		float screenMax[2];
+		MessageBuffer messageBuffer[1];
+		float color[4];
+	};
 
 }

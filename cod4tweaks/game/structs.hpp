@@ -4751,4 +4751,168 @@ namespace game::structs
 		gentity_s* nextFree;
 	};
 
+#pragma pack(push, 4)
+	struct CEntPlayerInfo
+	{
+		clientControllers_t* control;
+		char tag[6];
+	};
+#pragma pack(pop)
+
+	struct CEntTurretAngles
+	{
+		float pitch;
+		float yaw;
+	};
+
+
+	union $FAB97167803560EC0457328032896A3E
+	{
+		CEntTurretAngles angles;
+		const float* viewAngles;
+	};
+
+	struct CEntTurretInfo
+	{
+		$FAB97167803560EC0457328032896A3E ___u0;
+		float barrelPitch;
+		bool playerUsing;
+		char tag_aim;
+		char tag_aim_animated;
+		char tag_flash;
+	};
+
+#pragma pack(push, 4)
+	struct CEntVehicleInfo
+	{
+		__int16 pitch;
+		__int16 yaw;
+		__int16 roll;
+		__int16 barrelPitch;
+		float barrelRoll;
+		__int16 steerYaw;
+		float time;
+		unsigned __int16 wheelFraction[4];
+		char wheelBoneIndex[4];
+		char tag_body;
+		char tag_turret;
+		char tag_barrel;
+	};
+#pragma pack(pop)
+
+	struct FxBoltAndSortOrder
+	{
+		int _bf0;
+	};
+
+	struct FxSpatialFrame
+	{
+		float quat[4];
+		float origin[3];
+	};
+
+	struct FxEffect
+	{
+		FxEffectDef* def;
+		volatile int status;
+		unsigned __int16 firstElemHandle[3];
+		unsigned __int16 firstSortedElemHandle;
+		unsigned __int16 firstTrailHandle;
+		unsigned __int16 randomSeed;
+		unsigned __int16 owner;
+		unsigned __int16 packedLighting;
+		FxBoltAndSortOrder boltAndSortOrder;
+		volatile int frameCount;
+		int msecBegin;
+		int msecLastUpdate;
+		FxSpatialFrame frameAtSpawn;
+		FxSpatialFrame frameNow;
+		FxSpatialFrame framePrev;
+		float distanceTraveled;
+	};
+
+	struct CEntFx
+	{
+		int triggerTime;
+		FxEffect* effect;
+	};
+
+	union $1FDB7094A69B8E896A15A99EA584326D
+	{
+		CEntPlayerInfo player;
+		CEntTurretInfo turret;
+		CEntVehicleInfo vehicle;
+		CEntFx fx;
+	};
+
+#pragma pack(push, 4)
+	struct cpose_t
+	{
+		unsigned __int16 lightingHandle;
+		char eType;
+		char eTypeUnion;
+		char localClientNum;
+		int cullIn;
+		char isRagdoll;
+		int ragdollHandle;
+		int killcamRagdollHandle;
+		int physObjId;
+		float origin[3];
+		float angles[3];
+		$1FDB7094A69B8E896A15A99EA584326D ___u11;
+	};
+#pragma pack(pop)
+
+	struct XAnimParent
+	{
+		unsigned __int16 flags;
+		unsigned __int16 children;
+	};
+
+	union $C64BF0E2E445847BA8C25E12A01DD591
+	{
+		XAnimParts* parts;
+		XAnimParent animParent;
+	};
+
+	struct XAnimEntry
+	{
+		unsigned __int16 numAnims;
+		unsigned __int16 parent;
+		$C64BF0E2E445847BA8C25E12A01DD591 ___u2;
+	};
+
+	struct XAnim_s
+	{
+		const char* debugName;
+		unsigned int size;
+		const char** debugAnimNames;
+		XAnimEntry entries[1];
+	};
+
+#pragma pack(push, 4)
+	struct XAnimTree_s
+	{
+		XAnim_s* anims;
+		unsigned __int16 children;
+	};
+#pragma pack(pop)
+
+#pragma pack(push, 2)
+	struct centity_s
+	{
+		cpose_t pose;
+		LerpEntityState currentState;
+		entityState_s nextState;
+		bool nextValid;
+		bool bMuzzleFlash;
+		bool bTrailMade;
+		int previousEventSequence;
+		int miscTime;
+		vec3_t lightingOrigin[3];
+		XAnimTree_s* tree;
+	};
+#pragma pack(pop)
+
+
 }

@@ -172,4 +172,12 @@ namespace game::functions
     //SV_AddTestClient
     typedef game::structs::gentity_s* (__cdecl* SV_AddTestClient_t)();
     const SV_AddTestClient_t SV_AddTestClient = reinterpret_cast<SV_AddTestClient_t>(0x0052D370);
+
+    //CG_Respawn
+    typedef void (__cdecl* CG_Respawn_t)(); // int localClientNum  esi 
+    const CG_Respawn_t CG_Respawn = reinterpret_cast<CG_Respawn_t>(0x00445FA0);
+    
+    //CG_Obituary
+    typedef void (__cdecl* CG_Obituary_t)(); // int localClientNum  esi, entityState_s*
+    const CG_Obituary_t CG_Obituary = reinterpret_cast<CG_Obituary_t>(0x00435620);
 }

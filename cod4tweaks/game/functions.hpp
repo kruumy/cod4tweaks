@@ -49,15 +49,17 @@ namespace game::functions
 	typedef game::structs::Material* (__cdecl* Material_RegisterHandle_t)(const char* fontName, int fontSize);
 	const Material_RegisterHandle_t Material_RegisterHandle = reinterpret_cast<Material_RegisterHandle_t>(0x5F2A80);
 
+	//Dvar_RegisterNew
+	typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterNew_t)(const char* dvar_name, game::structs::dvar_type type, std::uint16_t flags, const char* description, int x, int y, int z, int w, int min, int max);
+	const Dvar_RegisterNew_t Dvar_RegisterNew = reinterpret_cast<Dvar_RegisterNew_t>(0x56C130);
+
 	//Dvar_RegisterString
-	typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterString_t)(const char* dvar_name, game::structs::dvar_type type_string, std::uint16_t flags, const char* description, const char* default_value, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t null4, std::int32_t null5);
-	const Dvar_RegisterString_t Dvar_RegisterString = reinterpret_cast<Dvar_RegisterString_t>(0x56C130);
-	game::structs::dvar_s* Dvar_RegisterString_Wrapped(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags)
+	game::structs::dvar_s* Dvar_RegisterString(const char* dvar_name, const char* description, const char* default_value, std::uint16_t flags)
 	{
 		const auto dvar = game::functions::Dvar_FindMalleableVar(dvar_name);
 		if (!dvar)
 		{
-			return game::functions::Dvar_RegisterString(dvar_name, game::structs::dvar_type::string, flags, description, default_value, 0, 0, 0, 0, 0);
+			return Dvar_RegisterNew(dvar_name, game::structs::dvar_type::string, flags, description, reinterpret_cast<int>(default_value), 0, 0, 0, 0, 0);
 		}
 		else
 		{
@@ -65,53 +67,61 @@ namespace game::functions
 		}
 	}
 
-	//Dvar_RegisterEnum
-	typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterEnum_t)(const char* dvar_name, game::structs::dvar_type type_enum, std::uint16_t flags, const char* description, std::int32_t default_index, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t enumSize, const char** enum_data);
-	const Dvar_RegisterEnum_t Dvar_RegisterEnum = reinterpret_cast<Dvar_RegisterEnum_t>(0x56C130);
-	game::structs::dvar_s* Dvar_RegisterEnum_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags)
+	//Dvar_ReregisterInt
+	typedef int(__cdecl* Dvar_ReregisterInt_t)(const char* dvar_name, game::structs::dvar_type type, const char* description, int x, int y, int z, int w, int min, int max); // game::structs::dvar_s* dvar <eax>, std::uint32_t flags <edi>, 
+	const  Dvar_ReregisterInt_t Dvar_ReregisterInt_Internal = reinterpret_cast<Dvar_ReregisterInt_t>(0x56BFF0);
+	void Dvar_ReregisterInt(game::structs::dvar_s* dvar, std::uint32_t flags, const char* dvar_name, game::structs::dvar_type dvar_type, const char* description, int x, int y, int z, int w, int min, int max)
 	{
-		const auto dvar = game::functions::Dvar_FindMalleableVar(dvar_name);
+		__asm
+		{
+			pushad;
+			push	max;
+			push	min;
+			push	w;
+			push	z;
+			push	y;
+			push	x;
+			push	description;
+			push	dvar_type;
+			push	dvar_name;
+
+			mov		edi, flags;
+			mov		eax, [dvar];
+
+			call	Dvar_ReregisterInt_Internal;
+			add		esp, 24h;
+			popad;
+		}
+	}
+	game::structs::dvar_s* Dvar_ReregisterInt_Wrapped(const char* dvar_name, game::structs::dvar_type type, std::uint16_t flags, const char* description, int x, int y, int z, int w, int min, int max)
+	{
+		const auto dvar = Dvar_FindMalleableVar(dvar_name);
 		if (!dvar)
 		{
-			return game::functions::Dvar_RegisterEnum(dvar_name, game::structs::dvar_type::enumeration, flags, description, default_value, 0, 0, 0, enum_size, enum_data);
+			return Dvar_RegisterNew(dvar_name, type, flags, description, x, y, z, w, min, max);
 		}
-		else
-		{
-			return dvar;
-		}
+		Dvar_ReregisterInt(dvar, flags, dvar_name, type, description, x, y, z, w, min, max);
+		return dvar;
 	}
 
 	//Dvar_RegisterInt
-	typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterInt_t)(const char* dvarName, game::structs::dvar_type typeInt, std::uint16_t flags, const char* description, std::int32_t defaultValue, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t minValue, std::int32_t maxValue);
-	const Dvar_RegisterInt_t Dvar_RegisterInt = reinterpret_cast<Dvar_RegisterInt_t>(0x56C130);
-	game::structs::dvar_s* Dvar_RegisterInt_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t min_value, std::int32_t max_value, std::uint16_t flags)
+	game::structs::dvar_s* Dvar_RegisterInt(const char* dvar_name, const char* description, std::int32_t default_value, int minValue, int maxValue, std::uint16_t flags)
 	{
-		const auto dvar = game::functions::Dvar_FindMalleableVar(dvar_name);
-		if (!dvar)
-		{
-			return game::functions::Dvar_RegisterInt(dvar_name, game::structs::dvar_type::integer, flags, description, default_value, 0, 0, 0, min_value, max_value);
-		}
-		else
-		{
-			return dvar;
-		}
+		return Dvar_ReregisterInt_Wrapped(dvar_name, game::structs::dvar_type::boolean, flags, description, default_value, 0, 0, 0, minValue, maxValue);
 	}
 
 	//Dvar_RegisterBool
-	typedef game::structs::dvar_s* (__cdecl* Dvar_RegisterBool_t)(const char* dvar_name, game::structs::dvar_type type_bool, std::uint16_t flags, const char* description, std::int32_t default_value, std::int32_t null1, std::int32_t null2, std::int32_t null3, std::int32_t null4, std::int32_t null5);
-	const Dvar_RegisterBool_t Dvar_RegisterBool = reinterpret_cast<Dvar_RegisterBool_t>(0x56C130);
-	game::structs::dvar_s* Dvar_RegisterBool_Wrapped(const char* dvar_name, const char* description, std::int32_t default_value, std::uint16_t flags)
+	game::structs::dvar_s* Dvar_RegisterBool(const char* dvar_name, const char* description, std::int32_t default_value, std::uint16_t flags)
 	{
-		const auto dvar = game::functions::Dvar_FindMalleableVar(dvar_name);
-		if (!dvar)
-		{
-			return game::functions::Dvar_RegisterBool(dvar_name, game::structs::dvar_type::boolean, flags, description, default_value, 0, 0, 0, 0, 0);
-		}
-		else
-		{
-			return dvar;
-		}
+		return Dvar_ReregisterInt_Wrapped(dvar_name,game::structs::dvar_type::boolean, flags, description, default_value, 0,0,0,0,1 );
 	}
+
+	//Dvar_RegisterEnum
+	game::structs::dvar_s* Dvar_RegisterEnum(const char* dvar_name, const char* description, std::int32_t default_value, std::int32_t enum_size, const char** enum_data, std::uint16_t flags)
+	{
+		return Dvar_ReregisterInt_Wrapped(dvar_name, game::structs::dvar_type::enumeration, flags, description, default_value, 0, 0, 0, enum_size, reinterpret_cast<int>(enum_data));
+	}
+
 
 	//DB_GetAllXAssetOfType
 	typedef void(__cdecl* DB_GetAllXAssetOfType_t)(game::structs::XAssetType type, game::structs::XAssetHeader* assets, int maxCount);

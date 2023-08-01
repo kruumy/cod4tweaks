@@ -2,7 +2,7 @@
 
 namespace game::dvars
 {
-	const game::structs::dvar_s* r_world_material = game::functions::Dvar_RegisterString_Wrapped
+	const game::structs::dvar_s* r_world_material = game::functions::Dvar_RegisterString
 	(
 		"r_world_material",
 		"Change world rendering material",
@@ -51,7 +51,7 @@ namespace game::dvars
 		"TECHNIQUE_TOTAL_COUNT",
 		"TECHNIQUE_NONE"
 	};
-	const game::structs::dvar_s* r_world_techtype = game::functions::Dvar_RegisterEnum_Wrapped
+	const game::structs::dvar_s* r_world_techtype = game::functions::Dvar_RegisterEnum
 	(
 		"r_world_techtype",
 		"Change world rendering technique", 
@@ -61,7 +61,7 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	const game::structs::dvar_s* r_player_material = game::functions::Dvar_RegisterString_Wrapped
+	const game::structs::dvar_s* r_player_material = game::functions::Dvar_RegisterString
 	(
 		"r_player_material",
 		"Change player rendering material",
@@ -69,7 +69,7 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	const game::structs::dvar_s* r_player_techtype = game::functions::Dvar_RegisterEnum_Wrapped
+	const game::structs::dvar_s* r_player_techtype = game::functions::Dvar_RegisterEnum
 	(
 		"r_player_techtype",
 		"Change player rendering technique",
@@ -79,7 +79,7 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	const game::structs::dvar_s* com_redirect = game::functions::Dvar_RegisterBool_Wrapped
+	const game::structs::dvar_s* com_redirect = game::functions::Dvar_RegisterBool
 	(
 		"com_redirect",
 		"Redirect Com_PrintMessage to the console window",
@@ -87,7 +87,7 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	const game::structs::dvar_s* cl_autorecord = game::functions::Dvar_RegisterBool_Wrapped
+	const game::structs::dvar_s* cl_autorecord = game::functions::Dvar_RegisterBool
 	(
 		"cl_autorecord",
 		"Auto record a demo by spawn",
@@ -95,7 +95,7 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	const game::structs::dvar_s* r_windowedfullscreen = game::functions::Dvar_RegisterBool_Wrapped
+	const game::structs::dvar_s* r_windowedfullscreen = game::functions::Dvar_RegisterBool
 	(
 		"r_windowedfullscreen",
 		"Set Windowed Fullscreen",

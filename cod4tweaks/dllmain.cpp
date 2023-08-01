@@ -2,6 +2,7 @@
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {   
+
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {

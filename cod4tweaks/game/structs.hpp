@@ -1538,7 +1538,7 @@ namespace game::structs
 		void* (__cdecl* AllocXAnim) (int);
 		clientInfo_t clientinfo[64];
 	} bgs_t;
-
+#define MAX_CLIENTS 64
 #pragma pack(push, 4)
 	typedef struct
 	{
@@ -1632,7 +1632,7 @@ namespace game::structs
 		int teamScores[4];
 		int teamPings[4];
 		int teamPlayers[4];
-		score_t scores[64];
+		score_t scores[MAX_CLIENTS];
 		int scoreLimit;
 		int scoreFadeTime;
 		int scoresTop;
@@ -2139,7 +2139,7 @@ namespace game::structs
 #define MAX_STRING_CHARS 1024
 #define MAX_STRING_TOKENS 1024
 #define MAX_TOKEN_CHARS 1024
-#define MAX_CLIENTS 64
+
 
 	typedef struct
 	{

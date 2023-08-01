@@ -90,7 +90,7 @@ namespace game::dvars
 	const game::structs::dvar_s* cl_autorecord = game::functions::Dvar_RegisterBool_Wrapped
 	(
 		"cl_autorecord",
-		"Auto record a demo by death",
+		"Auto record a demo by spawn",
 		0,
 		game::structs::dvar_flags::none
 	);

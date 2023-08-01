@@ -55,7 +55,7 @@ namespace modules::dump_xassets
         return false;
     }
 
-    void listxasset_f(const char** argv, const size_t argc)
+    void listassets_f(const char** argv, const size_t argc)
     {       
         game::structs::XAssetType xasset_type;
         if (GetXAssetTypeFromStr(argv[1], &xasset_type))
@@ -64,6 +64,6 @@ namespace modules::dump_xassets
         }
     }
 
-	const game::structs::cmd_function_s* listxasset = game::commands::Register("listxasset", &listxasset_f);
+	const game::structs::cmd_function_s* listassets = game::commands::Register("listassets", &listassets_f);
 	
 }

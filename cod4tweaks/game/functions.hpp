@@ -72,6 +72,7 @@ namespace game::functions
 	const  Dvar_ReregisterInt_t Dvar_ReregisterInt_Internal = reinterpret_cast<Dvar_ReregisterInt_t>(0x56BFF0);
 	void Dvar_ReregisterInt(game::structs::dvar_s* dvar, std::uint32_t flags, const char* dvar_name, game::structs::dvar_type dvar_type, const char* description, int x, int y, int z, int w, int min, int max)
 	{
+		// https://github.com/xoxor4d/iw3xo-dev/blob/develop/src/game/functions.cpp#L1110
 		__asm
 		{
 			pushad;

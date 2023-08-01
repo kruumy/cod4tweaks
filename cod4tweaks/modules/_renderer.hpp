@@ -219,7 +219,7 @@ namespace modules::_renderer
 			pop		esi;
 			add     esp, 10h;
 
-			test    eax, eax;	// do not return BOOL if you test 4 byte sized registers :>
+			test    eax, eax;
 			jz      memes;
 			jmp		rtn_to_set_shadowable_light;
 

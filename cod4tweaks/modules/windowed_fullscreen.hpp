@@ -30,7 +30,7 @@ namespace modules::windowed_fullscreen
 	BOOL __stdcall ShowWindow_hk(HWND hWnd, int nCmdShow)
 	{
 		const BOOL ret = hook.GetOriginalFunc()(hWnd, nCmdShow);
-        if (game::dvars::r_windowedfullscreen && game::dvars::r_windowedfullscreen->latched.enabled)
+        if (game::dvars::r_windowedfullscreen && (game::dvars::r_windowedfullscreen->latched.enabled || game::dvars::r_windowedfullscreen->current.enabled))
         {
             WindowFullscreen(hWnd);
             game::dvars::r_windowedfullscreen->current.enabled = game::dvars::r_windowedfullscreen->latched.enabled;

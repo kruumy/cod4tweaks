@@ -36,7 +36,6 @@ namespace modules::demorecorder
 			{"map", std::string(game::globals::cgs->visionNameNaked) }, // TODO use map not vision name
 			{"time", std::to_string(game::globals::cgs->time) },
 			{"clientNum", std::to_string(game::globals::cgs->clientNum) },
-			{"killcam", std::to_string(!game::globals::cgs->inKillCam)}
 		};
 		std::stringstream ret;
 

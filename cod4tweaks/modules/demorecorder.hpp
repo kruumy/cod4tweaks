@@ -4,12 +4,10 @@
 
 namespace modules::demorecorder
 {
-#include <string>
-#include <cstdio>
-
-	std::string GetDefaultDemoName()
+	// recreation of 0x468A3A
+	std::string GetNonConflictingDemoNumber(std::string baseDemoName)
 	{
-		// recreation of 0x468A3A
+		
 		const int maxdemos = 0x270F;
 		char Destination[64];
 		char ArgList[MAX_OSPATH];
@@ -17,7 +15,7 @@ namespace modules::demorecorder
 		int doesFileExist;
 		for (int i = 0; i <= maxdemos; ++i)
 		{
-			std::sprintf(Destination, "demo%04i", i);
+			std::sprintf(Destination, (baseDemoName + "%04i").c_str(), i);
 			std::sprintf(ArgList, "demos/%s.dm_%d", Destination, 1);
 			__asm
 			{
@@ -27,11 +25,8 @@ namespace modules::demorecorder
 			}
 			if (!doesFileExist) break;
 		}
-		return std::string(ArgList);
+		return std::string(Destination);
 	}
-
-
-
 
 	std::string ParseOutputTemplate(const std::string raw)
 	{
@@ -39,7 +34,7 @@ namespace modules::demorecorder
 		const char exit_variable_token = '>';
 		std::unordered_map<std::string, std::string> variable_map
 		{
-			{"map", std::string(game::globals::cgs->visionNameNaked) },
+			{"map", std::string(game::globals::cgs->visionNameNaked) }, // TODO use map not vision name
 			{"time", std::to_string(game::globals::cgs->time) },
 			{"clientNum", std::to_string(game::globals::cgs->clientNum) },
 		};
@@ -67,18 +62,11 @@ namespace modules::demorecorder
 
 		return ret.str();
 	}
-	void AppendNumberIfFileExists(std::string& name)
-	{
-		
-		
-	}
 
 	void Record()
 	{
-		//std::string demoname = ParseOutputTemplate("demo_<map>");
-		//AppendNumberIfFileExists(demoname);
-		//game::functions::Cbuf_AddText(("record " + demoname + '\n').c_str(), 0);
-		game::functions::Cbuf_AddText("record\n", 0);
+		std::string demoname = GetNonConflictingDemoNumber(ParseOutputTemplate("demo_<map>_<clientNum>"));
+		game::functions::Cbuf_AddText(("record " + demoname + '\n').c_str(), 0);
 	}
 
 	void StopRecord()

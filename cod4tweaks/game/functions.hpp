@@ -223,5 +223,4 @@ namespace game::functions
 	//DrawXModelSkinnedCached
 	typedef void(*DrawXModelSkinnedCached_t)(int a1, int a2, int a3);
 	const DrawXModelSkinnedCached_t DrawXModelSkinnedCached = reinterpret_cast<DrawXModelSkinnedCached_t>(0x646870);
-
 }

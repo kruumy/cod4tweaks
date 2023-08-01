@@ -9,6 +9,8 @@
 #include <iostream>
 #include <d3d9.h>
 #include <map>
+#include <unordered_map>
+#include <sstream>
 
 
 #include "utils/logger.hpp"

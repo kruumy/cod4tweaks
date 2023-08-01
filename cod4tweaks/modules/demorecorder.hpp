@@ -4,6 +4,35 @@
 
 namespace modules::demorecorder
 {
+#include <string>
+#include <cstdio>
+
+	std::string GetDefaultDemoName()
+	{
+		// recreation of 0x468A3A
+		const int maxdemos = 0x270F;
+		char Destination[64];
+		char ArgList[MAX_OSPATH];
+		uint32_t sub_55B190 = 0x55B190;
+		int doesFileExist;
+		for (int i = 0; i <= maxdemos; ++i)
+		{
+			std::sprintf(Destination, "demo%04i", i);
+			std::sprintf(ArgList, "demos/%s.dm_%d", Destination, 1);
+			__asm
+			{
+				lea     eax, [ArgList]
+				call    sub_55B190
+				mov     doesFileExist, eax
+			}
+			if (!doesFileExist) break;
+		}
+		return std::string(ArgList);
+	}
+
+
+
+
 	std::string ParseOutputTemplate(const std::string raw)
 	{
 		const char enter_variable_token = '<';

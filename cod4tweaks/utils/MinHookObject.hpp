@@ -19,7 +19,7 @@ namespace utils
 				logger::info("Initialized MinHook");
 			}
 			MH_CreateHook((LPVOID)pTarget, (LPVOID)pDetour, reinterpret_cast<LPVOID*>(&ppOriginal));
-			logger::info("Created Hook 0x%i", pTarget);
+			logger::info("Created Hook 0x%0X", pTarget);
 			if (enable)
 			{
 				EnableHook();
@@ -36,7 +36,7 @@ namespace utils
 			{
 				MH_EnableHook((LPVOID)pTarget);
 				isEnabled = true;
-				logger::info("Enabled Hook 0x%i", pTarget);
+				logger::info("Enabled Hook 0x%0X", pTarget);
 			}
 		}
 

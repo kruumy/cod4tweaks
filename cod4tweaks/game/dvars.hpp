@@ -94,4 +94,12 @@ namespace game::dvars
 		0,
 		game::structs::dvar_flags::none
 	);
+
+	const game::structs::dvar_s* r_windowedfullscreen = game::functions::Dvar_RegisterBool_Wrapped
+	(
+		"r_windowedfullscreen",
+		"Set Windowed Fullscreen",
+		0,
+		game::structs::dvar_flags::none
+	);
 }

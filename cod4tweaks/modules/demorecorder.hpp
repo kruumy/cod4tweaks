@@ -36,6 +36,7 @@ namespace modules::demorecorder
 			{"map", std::string(game::globals::cgs->visionNameNaked) }, // TODO use map not vision name
 			{"time", std::to_string(game::globals::cgs->time) },
 			{"clientNum", std::to_string(game::globals::cgs->clientNum) },
+			{"killcam", (game::globals::cgs->inKillCam != 0) ? "KILLCAM" : ""}
 		};
 		std::stringstream ret;
 
@@ -85,14 +86,36 @@ namespace modules::demorecorder
 		}
 	}
 	
-	__declspec(naked) void CG_SetNextSnap_stub()
+	
+
+	bool snap_is_respawn = false;
+	__declspec(naked) void CG_SetNextSnap_InRespawn_stub()
 	{
-		const static uint32_t LABEL_63 = reinterpret_cast<uint32_t>(game::functions::CG_SetNextSnap) + 0x62E;
+		const static uint32_t CG_Respawn = reinterpret_cast<uint32_t>(game::functions::CG_Respawn);
+		const static uint32_t continuer = reinterpret_cast<uint32_t>(game::functions::CG_SetNextSnap) + 0x636;
+		snap_is_respawn = true;
 		__asm
 		{
-			call	OnPlayerSpawn
-			jmp		LABEL_63
+			call    CG_Respawn
+			jmp		continuer
 		}
 	}
-	utils::MinHookObject<LPVOID> hook(reinterpret_cast<LPVOID>(reinterpret_cast<uint32_t>(game::functions::CG_SetNextSnap) + 0x5A8), &CG_SetNextSnap_stub, true);
+
+	__declspec(naked) void CG_SetNextSnap_End_stub()
+	{
+		if (snap_is_respawn)
+		{
+			snap_is_respawn = false;
+			OnPlayerSpawn();
+		}
+		__asm
+		{
+			add     esp, 0ACh
+			retn
+		}
+	}
+
+	utils::MinHookObject<LPVOID> hook_InRespawn(reinterpret_cast<LPVOID>(reinterpret_cast<uint32_t>(game::functions::CG_SetNextSnap) + 0x631), &CG_SetNextSnap_InRespawn_stub, true);
+	utils::MinHookObject<LPVOID> hook_End(reinterpret_cast<LPVOID>(reinterpret_cast<uint32_t>(game::functions::CG_SetNextSnap) + 0xA45), &CG_SetNextSnap_End_stub, true);
+	
 }

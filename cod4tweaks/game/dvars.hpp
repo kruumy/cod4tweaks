@@ -99,7 +99,7 @@ namespace game::dvars
 	(
 		"cl_autorecord_output",
 		"Change the autorecord output template",
-		"demo_<map>_",
+		"demo_<map>_<killcam>_",
 		game::structs::dvar_flags::none
 	);
 

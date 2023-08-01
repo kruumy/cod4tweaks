@@ -21,8 +21,8 @@ namespace modules::demorecorder
 
 	void Record()
 	{
-		std::string recordCommand = "record " + GetCustomDemoName() + '\n';
-		game::functions::Cbuf_AddText(recordCommand.c_str(), 0);
+		//std::string recordCommand = "record " + GetCustomDemoName() + '\n';
+		game::functions::Cbuf_AddText("record\n", 0);
 	}
 
 	void StopRecord()

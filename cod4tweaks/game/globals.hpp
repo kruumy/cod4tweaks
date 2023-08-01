@@ -22,4 +22,5 @@ namespace game::globals
 	const game::structs::Console* con = reinterpret_cast<game::structs::Console*>(0x8DC8C0);
 	const bool* is_recording = reinterpret_cast<bool*>(0x00934E70);
 	const game::structs::cg_s* cgs = reinterpret_cast<game::structs::cg_s*>(0x74E338);
+	const IDirect3DDevice9* D3DDevice = *reinterpret_cast<IDirect3DDevice9**>(0xCC9A408);
 }

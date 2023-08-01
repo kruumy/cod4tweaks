@@ -3,25 +3,47 @@
 
 namespace modules::demorecorder
 {
-	std::string GetCustomDemoName()
+	std::string ParseOutputTemplate(const std::string raw)
 	{
-		if (game::globals::cgs)
+		const char enter_variable_token = '<';
+		const char exit_variable_token = '>';
+		const std::vector<std::pair<std::string, std::string>> variable_map
 		{
-			std::stringstream ret;
-			ret << game::globals::cgs->visionNameNaked << '_';
-			ret << game::globals::cgs->clientNum << '_';
-			ret << game::globals::cgs->time;
-			return ret.str();
-		}
-		else
+			{"map", std::string(game::globals::cgs->visionNameNaked) },
+			{"time", std::to_string(game::globals::cgs->time) },
+			{"clientNum", std::to_string(game::globals::cgs->clientNum) },
+		};
+		std::stringstream ret;
+
+		for (size_t i = 0; i < raw.length(); i++)
 		{
-			return "";
+			if (raw[i] == enter_variable_token)
+			{
+				i++;
+				for (size_t j = 0; j < variable_map.size(); j++)
+				{
+					if (raw.substr(i, variable_map[j].first.length()) == variable_map[j].first)
+					{
+						ret << variable_map[j].second;
+						break;
+					}
+				}
+				while (raw[i] != exit_variable_token)
+				{
+					i++;
+				}
+				continue;
+			}
+			ret << raw[i];
 		}
+
+		return ret.str();
 	}
+
 
 	void Record()
 	{
-		//std::string recordCommand = "record " + GetCustomDemoName() + '\n';
+		std::string recordCommand = "record " + ParseOutputTemplate("demo_<map>_<time>") + '\n';
 		game::functions::Cbuf_AddText("record\n", 0);
 	}
 

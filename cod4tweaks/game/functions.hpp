@@ -194,29 +194,34 @@ namespace game::functions
 
 	//ClientSpawn
 	typedef void(__cdecl* ClientSpawn_t)(game::structs::gentity_s* ent, const float* spawn_origin, const float* spawn_angles);
-	const  ClientSpawn_t ClientSpawn = reinterpret_cast<ClientSpawn_t>(0x004AAE40);
+	const ClientSpawn_t ClientSpawn = reinterpret_cast<ClientSpawn_t>(0x004AAE40);
 
 	//PlayerCmd_giveWeapon
 	typedef void(__cdecl* PlayerCmd_giveWeapon_t)(void* entref); // scr_entref_t*
-	const  PlayerCmd_giveWeapon_t PlayerCmd_giveWeapon = reinterpret_cast<PlayerCmd_giveWeapon_t>(0x004AB9C0);
+	const PlayerCmd_giveWeapon_t PlayerCmd_giveWeapon = reinterpret_cast<PlayerCmd_giveWeapon_t>(0x004AB9C0);
 
 	//R_SetMaterial
 	typedef int(__cdecl* R_SetMaterial_t)(); // MaterialTechniqueType techType <esi>
-	const  R_SetMaterial_t R_SetMaterial = reinterpret_cast<R_SetMaterial_t>(0x00648F10);
+	const R_SetMaterial_t R_SetMaterial = reinterpret_cast<R_SetMaterial_t>(0x00648F10);
 
 	//Jump_ApplySlowdown
 	typedef void(__cdecl* Jump_ApplySlowdown_t)(game::structs::playerState_s* ps);
-	const  Jump_ApplySlowdown_t Jump_ApplySlowdown = reinterpret_cast<Jump_ApplySlowdown_t>(0x00407990);
+	const Jump_ApplySlowdown_t Jump_ApplySlowdown = reinterpret_cast<Jump_ApplySlowdown_t>(0x00407990);
 
 	//CL_Connect_f
 	typedef void(__cdecl* CL_Connect_f_t)();
-	const  CL_Connect_f_t CL_Connect_f = reinterpret_cast<CL_Connect_f_t>(0x00471050);
+	const CL_Connect_f_t CL_Connect_f = reinterpret_cast<CL_Connect_f_t>(0x00471050);
 
 	//G_Spawn
 	typedef game::structs::gentity_s* (__cdecl* G_Spawn_t)();
-	const  G_Spawn_t G_Spawn = reinterpret_cast<G_Spawn_t>(0x4E37F0);
+	const G_Spawn_t G_Spawn = reinterpret_cast<G_Spawn_t>(0x4E37F0);
 
 	//CG_SetNextSnap
 	typedef int(__cdecl* CG_SetNextSnap_t)(int localClientNum, game::structs::snapshot_s* snap);
-	const  CG_SetNextSnap_t CG_SetNextSnap = reinterpret_cast<CG_SetNextSnap_t>(0x0044D860);
+	const CG_SetNextSnap_t CG_SetNextSnap = reinterpret_cast<CG_SetNextSnap_t>(0x0044D860);
+
+	//DrawXModelSkinnedCached
+	typedef void(*DrawXModelSkinnedCached_t)(int a1, int a2, int a3);
+	const DrawXModelSkinnedCached_t DrawXModelSkinnedCached = reinterpret_cast<DrawXModelSkinnedCached_t>(0x646870);
+
 }

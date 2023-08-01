@@ -3711,4 +3711,72 @@ namespace game::structs
 		MaterialTechniqueType origTechType;
 	};
 #pragma pack(pop)
+	
+	struct fileInIwd_s
+	{
+		unsigned int pos;
+		char* name;
+		fileInIwd_s* next;
+	};
+
+	struct iwd_t
+	{
+		char iwdFilename[256];
+		char iwdBasename[256];
+		char iwdGamename[256];
+		char* handle;
+		int checksum;
+		int pure_checksum;
+		volatile int hasOpenFile;
+		int numfiles;
+		char referenced;
+		unsigned int hashSize;
+		fileInIwd_s** hashTable;
+		fileInIwd_s* buildBuffer;
+	};
+
+	typedef struct fileInPack_s
+	{
+		unsigned long	pos;	// file info position in zip
+		char* name;	// name of the file
+		struct	fileInPack_s* next;	// next file in the hash
+	} fileInPack_t;
+
+#define	MAX_OSPATH 256	
+
+	typedef struct TagunzFile__ { int unused; } unzFile__;
+	typedef unzFile__* unzFile;
+
+	typedef struct pack_t 
+	{
+		char pakFilename[MAX_OSPATH];
+		char pakBasename[MAX_OSPATH];
+		char pakGamename[MAX_OSPATH];
+		unzFile	handle;
+		int	checksum;	
+		int	pure_checksum;
+		int	hasOpenFile;
+		int	numFiles;	
+		int	referenced;	
+		int	hashSize;	
+		fileInPack_t** hashTable;	
+		fileInPack_t* buildBuffer;
+	} pack_t;
+
+	typedef struct 
+	{
+		char	path[MAX_OSPATH];
+		char	gamedir[MAX_OSPATH];
+	} directory_t;
+
+	typedef struct searchpath_s 
+	{
+		struct searchpath_s* next;
+		pack_t* pack;
+		directory_t* dir;
+		bool bLocalized;
+		int ignore;
+		int ignorePureCheck;
+		int language;
+	} searchpath_t;
 }

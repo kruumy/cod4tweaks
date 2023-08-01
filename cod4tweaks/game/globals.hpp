@@ -23,4 +23,6 @@ namespace game::globals
 	const bool* is_recording = reinterpret_cast<bool*>(0x00934E70);
 	const game::structs::cg_s* cgs = reinterpret_cast<game::structs::cg_s*>(0x74E338);
 	const IDirect3DDevice9* D3DDevice = *reinterpret_cast<IDirect3DDevice9**>(0xCC9A408);
+	const char* fs_gamedir = reinterpret_cast<const char*>(0xCB19898);
+	game::structs::searchpath_s* fs_searchpaths = reinterpret_cast<game::structs::searchpath_s*>(0xD5EC4DC);
 }

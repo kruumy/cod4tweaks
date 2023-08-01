@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include <unordered_map>
 
 namespace modules::demorecorder
 {
@@ -7,7 +8,7 @@ namespace modules::demorecorder
 	{
 		const char enter_variable_token = '<';
 		const char exit_variable_token = '>';
-		const std::vector<std::pair<std::string, std::string>> variable_map
+		std::unordered_map<std::string, std::string> variable_map
 		{
 			{"map", std::string(game::globals::cgs->visionNameNaked) },
 			{"time", std::to_string(game::globals::cgs->time) },
@@ -19,19 +20,17 @@ namespace modules::demorecorder
 		{
 			if (raw[i] == enter_variable_token)
 			{
-				i++;
-				for (size_t j = 0; j < variable_map.size(); j++)
+				int j = i; 
+				do 
 				{
-					if (raw.substr(i, variable_map[j].first.length()) == variable_map[j].first)
-					{
-						ret << variable_map[j].second;
-						break;
-					}
-				}
-				while (raw[i] != exit_variable_token)
+					j++;
+				} while (raw[j] != exit_variable_token);
+				std::string query = raw.substr(i + 1, j - i - 1);
+				if (variable_map.contains(query))
 				{
-					i++;
+					ret << variable_map[ query ];
 				}
+				i = j;
 				continue;
 			}
 			ret << raw[i];
@@ -39,11 +38,17 @@ namespace modules::demorecorder
 
 		return ret.str();
 	}
-
+	void AppendNumberIfFileExists(std::string& name)
+	{
+		
+		
+	}
 
 	void Record()
 	{
-		std::string recordCommand = "record " + ParseOutputTemplate("demo_<map>_<time>") + '\n';
+		//std::string demoname = ParseOutputTemplate("demo_<map>");
+		//AppendNumberIfFileExists(demoname);
+		//game::functions::Cbuf_AddText(("record " + demoname + '\n').c_str(), 0);
 		game::functions::Cbuf_AddText("record\n", 0);
 	}
 

@@ -95,11 +95,19 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	const game::structs::dvar_s* r_windowedfullscreen = game::functions::Dvar_RegisterBool
+	const game::structs::dvar_s* cl_autorecord_output = game::functions::Dvar_RegisterString
+	(
+		"cl_autorecord_output",
+		"Change the autorecord output template",
+		"demo_<map>_",
+		game::structs::dvar_flags::none
+	);
+
+	game::structs::dvar_s* r_windowedfullscreen = game::functions::Dvar_RegisterBool
 	(
 		"r_windowedfullscreen",
 		"Set Windowed Fullscreen",
 		0,
-		game::structs::dvar_flags::none
+		game::structs::dvar_flags::latched
 	);
 }

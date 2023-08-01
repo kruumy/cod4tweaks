@@ -7,7 +7,6 @@ namespace modules::demorecorder
 	// recreation of 0x468A3A
 	std::string GetNonConflictingDemoNumber(std::string baseDemoName)
 	{
-		
 		const int maxdemos = 0x270F;
 		char Destination[64];
 		char ArgList[MAX_OSPATH];
@@ -15,7 +14,7 @@ namespace modules::demorecorder
 		int doesFileExist;
 		for (int i = 0; i <= maxdemos; ++i)
 		{
-			std::sprintf(Destination, (baseDemoName + "%04i").c_str(), i);
+			std::sprintf(Destination, (baseDemoName + "%i").c_str(), i);
 			std::sprintf(ArgList, "demos/%s.dm_%d", Destination, 1);
 			__asm
 			{
@@ -37,6 +36,7 @@ namespace modules::demorecorder
 			{"map", std::string(game::globals::cgs->visionNameNaked) }, // TODO use map not vision name
 			{"time", std::to_string(game::globals::cgs->time) },
 			{"clientNum", std::to_string(game::globals::cgs->clientNum) },
+			{"killcam", std::to_string(!game::globals::cgs->inKillCam)}
 		};
 		std::stringstream ret;
 
@@ -65,7 +65,7 @@ namespace modules::demorecorder
 
 	void Record()
 	{
-		std::string demoname = GetNonConflictingDemoNumber(ParseOutputTemplate("demo_<map>_<clientNum>"));
+		std::string demoname = GetNonConflictingDemoNumber(ParseOutputTemplate(game::dvars::cl_autorecord_output->current.string));
 		game::functions::Cbuf_AddText(("record " + demoname + '\n').c_str(), 0);
 	}
 

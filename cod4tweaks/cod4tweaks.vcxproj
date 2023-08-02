@@ -109,6 +109,7 @@
     <ClInclude Include="modules\_renderer.hpp" />
     <ClInclude Include="std_include.hpp" />
     <ClInclude Include="utils\clipboard.hpp" />
+    <ClInclude Include="utils\cstring.hpp" />
     <ClInclude Include="utils\logger.hpp" />
     <ClInclude Include="utils\MinHookObject.hpp" />
   </ItemGroup>

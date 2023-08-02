@@ -2,11 +2,12 @@
 
 namespace game::dvars
 {
+	constexpr const char* r_material_default = "none";
 	const game::structs::dvar_s* r_world_material = game::functions::Dvar_RegisterString
 	(
 		"r_world_material",
 		"Change world rendering material",
-		"none",
+		r_material_default,
 		game::structs::dvar_flags::none
 	);
 
@@ -65,7 +66,7 @@ namespace game::dvars
 	(
 		"r_player_material",
 		"Change player rendering material",
-		"none",
+		r_material_default,
 		game::structs::dvar_flags::none
 	);
 
@@ -99,7 +100,7 @@ namespace game::dvars
 	(
 		"cl_autorecord_output",
 		"Change the autorecord output template",
-		"<name>_<map>_<team>_",
+		"<name>_<map>_",
 		game::structs::dvar_flags::none
 	);
 

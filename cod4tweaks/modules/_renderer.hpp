@@ -66,37 +66,28 @@ namespace modules::_renderer
 	{
 		switch_material(swm, game::functions::Material_RegisterHandle(material_name, 3));
 	}
-	inline bool is_material_for_xmodel(game::structs::Material* material) 
+
+	inline bool is_material_for_xmodel(game::structs::Material* material)
 	{
-		return std::string(material->info.name).starts_with("mc/");
+		return utils::cstring::starts_with(material->info.name, "mc/");
 	}
+
 	inline bool is_material_for_skybox(game::structs::Material* material)
 	{
-		return std::string(material->info.name).starts_with("wc/sky");
+		return utils::cstring::starts_with(material->info.name, "wc/sky");
 	}
+
 	bool is_material_not_players(game::structs::Material* material) 
 	{
-		std::string nameStr(material->info.name);
-		return nameStr.find("weapon") == std::string::npos &&
-			nameStr.find("wpn") == std::string::npos &&
-			nameStr.find("viewmodel") == std::string::npos &&
-			!nameStr.starts_with("scope_overlay") &&
-			nameStr.find("gmz") == std::string::npos &&
-			!nameStr.starts_with("mc/mtl_usmc") &&
-			!nameStr.starts_with("mc/mtl_arab") &&
-			!nameStr.starts_with("mc/mtl_opforce") &&
-			!nameStr.starts_with("mc/mtl_op_force") &&
-			!nameStr.starts_with("mc/mtl_sas") &&
-			!nameStr.starts_with("mc/mtl_desert_") &&
-			!nameStr.starts_with("mc/mtl_viewhands") &&
-			!nameStr.starts_with("mc/mtl_viewsleeves") &&
-			!nameStr.starts_with("mc/mtl_marine") &&
-			!nameStr.starts_with("mc/mtl_wpn") &&
-			!nameStr.starts_with("mc/mtl_ghillie") &&
-			!nameStr.starts_with("mc/mtl_head") &&
-			!nameStr.starts_with("mc/mtl_bodies") &&
-			nameStr.find("_sp") == std::string::npos &&
-			nameStr.find("_mp") == std::string::npos;
+		const char* forbiddenSubstrings[] = 
+		{
+			"weapon", "wpn", "viewmodel", "gmz", "scope_overlay",
+			"mc/mtl_usmc", "mc/mtl_arab", "mc/mtl_opforce", "mc/mtl_op_force",
+			"mc/mtl_sas", "mc/mtl_desert_", "mc/mtl_viewhands", "mc/mtl_viewsleeves",
+			"mc/mtl_marine", "mc/mtl_wpn", "mc/mtl_ghillie", "mc/mtl_head", "mc/mtl_bodies"
+		};
+		constexpr size_t forbiddenSubstringsCount = sizeof(forbiddenSubstrings) / sizeof(forbiddenSubstrings[0]);
+		return !utils::cstring::contains_any(material->info.name, forbiddenSubstrings, forbiddenSubstringsCount);
 	}
 
 	int R_SetMaterial(game::structs::MaterialTechniqueType techType, game::structs::GfxCmdBufSourceState* src, game::structs::GfxCmdBufState* state, game::structs::GfxDrawSurf drawSurf)
@@ -113,13 +104,12 @@ namespace modules::_renderer
 			//world
 			if (game::dvars::r_world_material && game::dvars::r_world_material->current.string)
 			{
-				std::string selected_material_name(game::dvars::r_world_material->current.string);
-				if (selected_material_name != "none")
+				if (strcmp(game::dvars::r_world_material->current.string, game::dvars::r_material_default) != 0)
 				{
 					if (is_material_not_players(mat.current_material))
 					{
 						mat.technique_type = game::structs::TECHNIQUE_UNLIT;
-						switch_material(&mat, selected_material_name.c_str());
+						switch_material(&mat, game::dvars::r_world_material->current.string);
 					}
 				}
 			}
@@ -138,13 +128,12 @@ namespace modules::_renderer
 			//player
 			if (game::dvars::r_player_material && game::dvars::r_player_material->current.string)
 			{
-				std::string selected_material_name(game::dvars::r_player_material->current.string);
-				if (selected_material_name != "none")
+				if (strcmp(game::dvars::r_player_material->current.string, game::dvars::r_material_default) != 0)
 				{
 					if (!is_material_not_players(mat.current_material))
 					{
 						mat.technique_type = game::structs::TECHNIQUE_UNLIT;
-						switch_material(&mat, selected_material_name.c_str());
+						switch_material(&mat, game::dvars::r_player_material->current.string);
 					}
 				}
 			}

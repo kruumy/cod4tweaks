@@ -14,6 +14,7 @@
 
 
 #include "utils/logger.hpp"
+#include "utils/cstring.hpp"
 #include "utils/clipboard.hpp"
 
 #include "deps/MinHook.h"

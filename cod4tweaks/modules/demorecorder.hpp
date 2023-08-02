@@ -66,7 +66,6 @@ namespace modules::demorecorder
 
 	void Record()
 	{
-		
 		std::string demoname = ParseOutputTemplate(game::dvars::cl_autorecord_output->current.string);
 		std::replace(demoname.begin(), demoname.end(), ' ', '_');
 		demoname = GetNonConflictingDemoNumber(demoname);

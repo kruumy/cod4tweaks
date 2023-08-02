@@ -11,7 +11,7 @@ namespace utils::cstring
 
 	inline bool contains_any(const char* target, const char* const* subjects, size_t subjectCount)
 	{
-		for (size_t i = 0; i < subjectCount; ++i)
+		for (size_t i = 0; i < subjectCount; i++)
 		{
 			if (strstr(target, subjects[i]) != nullptr)
 			{
@@ -19,5 +19,16 @@ namespace utils::cstring
 			}
 		}
 		return false;
+	}
+
+	void replace_all(char* str, const char target, const char replacement) 
+	{
+		for (int i = 0; str[i] != '\0'; i++)
+		{
+			if (str[i] == target)
+			{
+				str[i] = replacement;
+			}
+		}
 	}
 }

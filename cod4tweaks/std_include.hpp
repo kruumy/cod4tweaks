@@ -11,6 +11,7 @@
 #include <map>
 #include <unordered_map>
 #include <sstream>
+#include <algorithm>
 
 
 #include "utils/logger.hpp"

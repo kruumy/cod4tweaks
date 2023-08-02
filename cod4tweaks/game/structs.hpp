@@ -3779,4 +3779,25 @@ namespace game::structs
 		int ignorePureCheck;
 		int language;
 	} searchpath_t;
+
+	struct pmove_t
+	{
+		playerState_s* ps;
+		usercmd_s cmd;
+		usercmd_s oldcmd;
+		int tracemask;
+		int numtouch;
+		int touchents[32];
+		float mins[3];
+		float maxs[3];
+		float xyspeed;
+		int proneChange;
+		float maxSprintTimeMultiplier;
+		bool mantleStarted;
+		float mantleEndPos[3];
+		int mantleDuration;
+		int viewChangeTime;
+		float viewChange;
+		char handler;
+	};
 }

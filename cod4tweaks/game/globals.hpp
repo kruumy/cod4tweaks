@@ -4,7 +4,7 @@ namespace game::globals
 {
 	const int* cg_maxPlayers = reinterpret_cast<int*>(0x74AA48);
 	const int* cg_currentPlayer = reinterpret_cast<int*>(0x74E338);
-	const game::structs::gentity_s* cg_Entities = reinterpret_cast<game::structs::gentity_s*>(0x84F2D8);
+	const game::structs::centity_t* cg_Entities = reinterpret_cast<game::structs::centity_t*>(0x84F2D8);
 	const game::structs::clientInfo_t* clientInfo = reinterpret_cast<game::structs::clientInfo_t*>(0x839270);
 	const game::structs::r_globals_t* rg = reinterpret_cast<game::structs::r_globals_t*>(0xCC9D150);
 	const game::structs::r_global_permanent_t* rgp = reinterpret_cast<game::structs::r_global_permanent_t*>(0xCC98280);
@@ -24,5 +24,7 @@ namespace game::globals
 	const game::structs::cg_s* cgs = reinterpret_cast<game::structs::cg_s*>(0x74E338);
 	const IDirect3DDevice9* D3DDevice = *reinterpret_cast<IDirect3DDevice9**>(0xCC9A408);
 	const char* fs_gamedir = reinterpret_cast<const char*>(0xCB19898);
-	game::structs::searchpath_s* fs_searchpaths = reinterpret_cast<game::structs::searchpath_s*>(0xD5EC4DC);
+	const game::structs::searchpath_s* fs_searchpaths = reinterpret_cast<game::structs::searchpath_s*>(0xD5EC4DC);
+	game::structs::WeaponDef** bg_weaponDefs = reinterpret_cast<game::structs::WeaponDef**>(0x00736DB8);
+	const game::structs::pmove_t* pmove = reinterpret_cast<game::structs::pmove_t*>(0x8C9C90);
 }

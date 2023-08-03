@@ -13,5 +13,8 @@
 * `r_world_techtype <index>`
 * `r_player_material <name>`
 * `r_player_techtype <index>`
+* `mvm_bind_addnode <key>`
+* `mvm_bind_playdolly <key>`
+* `mvm_bind_clearnodes <key>`
 
 #### Auto Record Output Template

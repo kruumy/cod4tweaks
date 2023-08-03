@@ -33,7 +33,7 @@ namespace modules::demorecorder
 		{
 			{"map", std::string(game::globals::cgs->visionNameNaked) }, // TODO use map not vision name
 			{"time", std::to_string(game::globals::cgs->time) },
-			{"clientNum", std::to_string(game::globals::cgs->clientNum) },
+			{"clientnum", std::to_string(game::globals::cgs->clientNum) },
 			{"killcam", game::globals::cgs->inKillCam != 0 ? "KILLCAM" : ""},
 			{"ip", game::globals::current_server_ip },
 			{"team", game::globals::clientInfo[game::globals::cgs->clientNum].team == game::structs::team_t::TEAM_RED ? "axis" : game::globals::clientInfo[game::globals::cgs->clientNum].team == game::structs::team_t::TEAM_BLUE ? "allies" : game::globals::clientInfo[game::globals::cgs->clientNum].team == game::structs::team_t::TEAM_SPECTATOR ? "spectator" : ""},

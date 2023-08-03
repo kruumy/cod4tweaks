@@ -224,7 +224,54 @@ namespace game::functions
 	typedef void(*DrawXModelSkinnedCached_t)(int a1, int a2, int a3);
 	const DrawXModelSkinnedCached_t DrawXModelSkinnedCached = reinterpret_cast<DrawXModelSkinnedCached_t>(0x646870);
 
-	//iw3mvm_OnKeyDown
+	//iw3mvm_OnKeyEvent
 	typedef char(*iw3mvm_OnKeyEvent_t)(int a1, int key, int a3, int a4);
 	const iw3mvm_OnKeyEvent_t iw3mvm_OnKeyEvent = reinterpret_cast<iw3mvm_OnKeyEvent_t>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0x16550 : NULL);
+
+	//iw3mvm_printf
+	typedef char(*iw3mvm_printf_t)(int color, const char* Format, ...);
+	const iw3mvm_printf_t iw3mvm_printf = reinterpret_cast<iw3mvm_printf_t>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0x1F10 : NULL);
+
+	//iw3mvm_AddNode
+	typedef char(*iw3mvm_AddNode_t)();
+	const iw3mvm_AddNode_t iw3mvm_AddNode = reinterpret_cast<iw3mvm_AddNode_t>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0x9850 : NULL);
+
+	//iw3mvm_PlayDolly
+	typedef char(*iw3mvm_PlayDolly_t)();
+	const iw3mvm_PlayDolly_t iw3mvm_PlayDolly = reinterpret_cast<iw3mvm_PlayDolly_t>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0x9590 : NULL);
+	void iw3mvm_PlayDolly_Wrapped()
+	{
+		unsigned char* byte_10064B98 = reinterpret_cast<unsigned char*>(game::globals::hiw3mvm + 0x64B98);
+		unsigned int* dword_100663D8 = reinterpret_cast<unsigned int*>(game::globals::hiw3mvm + 0x663D8);
+		if (*game::globals::iw3mvm_isInDolly)
+		{
+			// stop dolly
+			unsigned int v6 = *dword_100663D8;
+			*game::globals::iw3mvm_isInDolly = false;
+			if (*dword_100663D8 == 1)
+			{
+				v6 = 2;
+			}
+			*byte_10064B98 = 1;
+			*dword_100663D8 = v6;
+			iw3mvm_printf(4, "Stopped dolly!");
+		}
+		else
+		{
+			iw3mvm_PlayDolly();
+		}
+	}
+	
+	//iw3mvm_ClearNodes
+	typedef char(*iw3mvm_ClearNodes_t)();
+	const iw3mvm_ClearNodes_t iw3mvm_ClearNodes = reinterpret_cast<iw3mvm_ClearNodes_t>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0xBA20 : NULL);
+	void iw3mvm_ClearNodes_Wrapped()
+	{
+		if (!*game::globals::iw3mvm_isInDolly)
+		{
+			iw3mvm_ClearNodes();
+			iw3mvm_printf(3, "Nodes cleared!");
+		}
+	}
+	
 }

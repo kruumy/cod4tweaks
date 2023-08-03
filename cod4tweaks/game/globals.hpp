@@ -28,4 +28,5 @@ namespace game::globals
 	game::structs::WeaponDef** bg_weaponDefs = reinterpret_cast<game::structs::WeaponDef**>(0x00736DB8);
 	const game::structs::pmove_t* pmove = reinterpret_cast<game::structs::pmove_t*>(0x8C9C90);
 	const uint32_t hiw3mvm = reinterpret_cast<uint32_t>(GetModuleHandle(L"iw3mvm.dll"));
+	bool* iw3mvm_isInDolly = reinterpret_cast<bool*>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0x661EC : NULL);
 }

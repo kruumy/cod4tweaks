@@ -13,19 +13,22 @@ namespace modules::iw3mvm_binds
 		const static uint32_t switch_CE = reinterpret_cast<uint32_t>(game::functions::iw3mvm_OnKeyEvent) + 0x1A3;
 		const static uint32_t switch_default = reinterpret_cast<uint32_t>(game::functions::iw3mvm_OnKeyEvent) + 0x1F0;
 
-		if (game::dvars::mvm_bind_playdolly && key == game::dvars::mvm_bind_playdolly->current.string[0])
+		if ( game::dvars::mvm_usedefaultbinds && game::dvars::mvm_usedefaultbinds->current.enabled )
 		{
-			__asm jmp	switch_J // Play Campath
+			if (key == 'j')
+			{
+				__asm jmp	switch_J // Play Campath
+			}
+			else if (key == 'k')
+			{
+				__asm jmp	switch_K // Add Node
+			}
+			else if (key == 'l')
+			{
+				__asm jmp	switch_L // Clear Nodes
+			}
 		}
-		else if (game::dvars::mvm_bind_addnode && key == game::dvars::mvm_bind_addnode->current.string[0])
-		{
-			__asm jmp	switch_K // Add Node
-		}
-		else if (game::dvars::mvm_bind_clearnodes && key == game::dvars::mvm_bind_clearnodes->current.string[0])
-		{
-			__asm jmp	switch_L // Clear Nodes
-		}
-		else if (key == 0xC8)
+		if (key == 0xC8)
 		{
 			__asm jmp	switch_C8
 		}
@@ -44,6 +47,12 @@ namespace modules::iw3mvm_binds
 		__asm jmp	continuer
 	}
 	utils::MinHookObject<LPVOID> hook(reinterpret_cast<LPVOID>(game::functions::iw3mvm_OnKeyEvent ? reinterpret_cast<uint32_t>(game::functions::iw3mvm_OnKeyEvent) + 0x42 : NULL), &OnKeyEvent_stub, true);
+
+	const game::structs::cmd_function_s* mvm_addnode = game::commands::Register("mvm_addnode", (game::commands::cmd_callback_t)game::functions::iw3mvm_AddNode);
+
+	const game::structs::cmd_function_s* mvm_playdolly = game::commands::Register("mvm_playdolly", (game::commands::cmd_callback_t)game::functions::iw3mvm_PlayDolly_Wrapped);
+
+	const game::structs::cmd_function_s* mvm_clearnodes = game::commands::Register("mvm_clearnodes", (game::commands::cmd_callback_t)game::functions::iw3mvm_ClearNodes_Wrapped);
 
 	
 }

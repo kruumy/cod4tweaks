@@ -112,27 +112,11 @@ namespace game::dvars
 		game::structs::dvar_flags::latched
 	);
 
-	game::structs::dvar_s* mvm_bind_addnode = game::functions::Dvar_RegisterString
+	game::structs::dvar_s* mvm_usedefaultbinds = game::functions::Dvar_RegisterBool
 	(
-		"mvm_bind_addnode",
-		"The key to add a cam path node.",
-		"k",
-		game::structs::dvar_flags::none
-	);
-
-	game::structs::dvar_s* mvm_bind_clearnodes = game::functions::Dvar_RegisterString
-	(
-		"mvm_bind_clearnodes",
-		"The key to add clear all cam path nodes.",
-		"l",
-		game::structs::dvar_flags::none
-	);
-
-	game::structs::dvar_s* mvm_bind_playdolly = game::functions::Dvar_RegisterString
-	(
-		"mvm_bind_playdolly",
-		"The key to play the current path.",
-		"j",
+		"mvm_usedefaultbinds",
+		"Whether to use the default mvm binds. ( J, K, L )",
+		true,
 		game::structs::dvar_flags::none
 	);
 }

@@ -12,37 +12,42 @@ namespace utils
 			this->pTarget = pTarget;
 			this->pDetour = pDetour;
 			this->isEnabled = false;
-			if (!isInitialized)
+			if (pTarget && pDetour)
 			{
-				MH_Initialize();
-				isInitialized = true;
-				logger::info("Initialized MinHook");
-			}
-			MH_CreateHook((LPVOID)pTarget, (LPVOID)pDetour, reinterpret_cast<LPVOID*>(&ppOriginal));
-			logger::info("Created Hook 0x%0X", pTarget);
-			if (enable)
-			{
-				EnableHook();
+				if (!isInitialized)
+				{
+					MH_Initialize();
+					isInitialized = true;
+					logger::info("Initialized MinHook");
+				}
+				MH_CreateHook((LPVOID)pTarget, (LPVOID)pDetour, reinterpret_cast<LPVOID*>(&ppOriginal));
+				logger::info("Created Hook 0x%0X", pTarget);
+				if (enable)
+				{
+					EnableHook();
+				}
 			}
 		}
 		~MinHookObject()
 		{
-			DisableHook();
-			MH_RemoveHook((LPVOID)pTarget);
+			if (pTarget)
+			{
+				DisableHook();
+				MH_RemoveHook((LPVOID)pTarget);
+			}
 		}
 		void EnableHook()
 		{
-			if (!isEnabled)
+			if (!isEnabled && pTarget)
 			{
 				MH_EnableHook((LPVOID)pTarget);
 				isEnabled = true;
 				logger::info("Enabled Hook 0x%0X", pTarget);
 			}
 		}
-
 		void DisableHook()
 		{
-			if (isEnabled)
+			if (isEnabled && pTarget)
 			{
 				MH_DisableHook((LPVOID)pTarget);
 				isEnabled = false;

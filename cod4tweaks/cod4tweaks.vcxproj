@@ -104,6 +104,7 @@
     <ClInclude Include="modules\copyip.hpp" />
     <ClInclude Include="modules\demorecorder.hpp" />
     <ClInclude Include="modules\dump_xassets.hpp" />
+    <ClInclude Include="modules\iw3mvm_binds.hpp" />
     <ClInclude Include="modules\testclient.hpp" />
     <ClInclude Include="modules\windowed_fullscreen.hpp" />
     <ClInclude Include="modules\_renderer.hpp" />

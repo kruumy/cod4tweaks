@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <sstream>
 #include <algorithm>
-
+#include <limits>
 
 #include "utils/logger.hpp"
 #include "utils/cstring.hpp"
@@ -34,3 +34,4 @@
 #include "modules/copyip.hpp"
 #include "modules/demorecorder.hpp"
 #include "modules/windowed_fullscreen.hpp"
+#include "modules/iw3mvm_binds.hpp"

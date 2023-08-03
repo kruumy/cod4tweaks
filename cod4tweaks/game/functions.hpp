@@ -108,7 +108,7 @@ namespace game::functions
 	//Dvar_RegisterInt
 	game::structs::dvar_s* Dvar_RegisterInt(const char* dvar_name, const char* description, std::int32_t default_value, int minValue, int maxValue, std::uint16_t flags)
 	{
-		return Dvar_ReregisterInt_Wrapped(dvar_name, game::structs::dvar_type::boolean, flags, description, default_value, 0, 0, 0, minValue, maxValue);
+		return Dvar_ReregisterInt_Wrapped(dvar_name, game::structs::dvar_type::integer, flags, description, default_value, 0, 0, 0, minValue, maxValue);
 	}
 
 	//Dvar_RegisterBool
@@ -223,4 +223,8 @@ namespace game::functions
 	//DrawXModelSkinnedCached
 	typedef void(*DrawXModelSkinnedCached_t)(int a1, int a2, int a3);
 	const DrawXModelSkinnedCached_t DrawXModelSkinnedCached = reinterpret_cast<DrawXModelSkinnedCached_t>(0x646870);
+
+	//iw3mvm_OnKeyDown
+	typedef char(*iw3mvm_OnKeyEvent_t)(int a1, int key, int a3, int a4);
+	const iw3mvm_OnKeyEvent_t iw3mvm_OnKeyEvent = reinterpret_cast<iw3mvm_OnKeyEvent_t>(game::globals::hiw3mvm ? game::globals::hiw3mvm + 0x16550 : NULL);
 }

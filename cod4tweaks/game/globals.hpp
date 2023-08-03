@@ -27,4 +27,5 @@ namespace game::globals
 	const game::structs::searchpath_s* fs_searchpaths = reinterpret_cast<game::structs::searchpath_s*>(0xD5EC4DC);
 	game::structs::WeaponDef** bg_weaponDefs = reinterpret_cast<game::structs::WeaponDef**>(0x00736DB8);
 	const game::structs::pmove_t* pmove = reinterpret_cast<game::structs::pmove_t*>(0x8C9C90);
+	const uint32_t hiw3mvm = reinterpret_cast<uint32_t>(GetModuleHandle(L"iw3mvm.dll"));
 }

@@ -9,6 +9,8 @@ namespace game::structs
 	typedef vec_t vec4_t[4];
 	typedef vec_t vec5_t[5];
 
+	constexpr float SCOPE_FOV = 15.0;
+
 	typedef enum
 	{
 		OBJST_EMPTY = 0x0,

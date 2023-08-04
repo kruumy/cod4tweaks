@@ -120,11 +120,21 @@ namespace game::dvars
 		game::structs::dvar_flags::none
 	);
 
-	game::structs::dvar_s* cg_lockfov = game::functions::Dvar_RegisterInt
+	game::structs::dvar_s* cg_fovlock = game::functions::Dvar_RegisterInt
 	(
-		"cg_lockfov",
+		"cg_fovlock",
 		"Custom field of view to lock to. 0 = default/unlocked.",
 		0,
+		0,
+		180,
+		game::structs::dvar_flags::none
+	);
+
+	game::structs::dvar_s* cg_fovscope = game::functions::Dvar_RegisterInt // TODO use registerfloat instead
+	(
+		"cg_fovscope",
+		"Custom field of view to for sniper scopes.",
+		game::structs::SCOPE_FOV,
 		0,
 		180,
 		game::structs::dvar_flags::none

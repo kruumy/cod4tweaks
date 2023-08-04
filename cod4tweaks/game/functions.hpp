@@ -273,5 +273,9 @@ namespace game::functions
 			iw3mvm_printf(3, "Nodes cleared!");
 		}
 	}
+
+	//GetCalculatedFOV
+	typedef double(*GetCalculatedFOV_t)();
+	const GetCalculatedFOV_t GetCalculatedFOV = reinterpret_cast<GetCalculatedFOV_t>(0x004503A0);
 	
 }

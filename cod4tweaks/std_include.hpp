@@ -35,3 +35,4 @@
 #include "modules/demorecorder.hpp"
 #include "modules/windowed_fullscreen.hpp"
 #include "modules/iw3mvm_binds.hpp"
+#include "modules/customfov.hpp"

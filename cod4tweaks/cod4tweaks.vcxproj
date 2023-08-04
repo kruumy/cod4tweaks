@@ -102,6 +102,7 @@
     <ClInclude Include="game\structs.hpp" />
     <ClInclude Include="modules\com_redirect.hpp" />
     <ClInclude Include="modules\copyip.hpp" />
+    <ClInclude Include="modules\customfov.hpp" />
     <ClInclude Include="modules\demorecorder.hpp" />
     <ClInclude Include="modules\dump_xassets.hpp" />
     <ClInclude Include="modules\iw3mvm_binds.hpp" />

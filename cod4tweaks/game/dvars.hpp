@@ -119,4 +119,14 @@ namespace game::dvars
 		true,
 		game::structs::dvar_flags::none
 	);
+
+	game::structs::dvar_s* cg_lockfov = game::functions::Dvar_RegisterInt
+	(
+		"cg_lockfov",
+		"Custom field of view to lock to. 0 = default/unlocked.",
+		0,
+		0,
+		180,
+		game::structs::dvar_flags::none
+	);
 }

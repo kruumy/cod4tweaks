@@ -17,6 +17,7 @@
 * `r_player_material <name>`
 * `r_player_techtype <index>`
 * `mvm_usedefaultbinds [1/0]`
+* `cg_lockfov <value>`
 
 ##### [IW3MVM](https://codmvm.com/mod/iw3mvm) must be injected before cod4tweaks for `mvm` prefixed commands and dvars to work!
 

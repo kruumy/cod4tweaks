@@ -6,18 +6,20 @@ namespace modules::customfov
 	utils::MinHookObject<game::functions::GetCalculatedFOV_t> replacement_hook(game::functions::GetCalculatedFOV, &GetCalculatedFOV, true);
 	double GetCalculatedFOV()
 	{
-		double fov = replacement_hook.GetOriginalFunc()();
 		if (game::dvars::cg_fovlock && game::dvars::cg_fovlock->current.integer)
 		{
-			fov = game::dvars::cg_fovlock->current.integer;
+			return game::dvars::cg_fovlock->current.integer;
 		}
-		return fov;
+		else
+		{
+			return replacement_hook.GetOriginalFunc()();
+		}
 	}
 
 
 	__declspec(naked) void GetCalculatedFOV_ads_stub()
 	{
-		const static uint32_t retn_to_set_fov = 0x00450419;
+		const static uint32_t retn_to_set_fov = reinterpret_cast<uint32_t>(game::functions::GetCalculatedFOV) + 0x79;
 		static float weaponadsfov;
 		__asm
 		{
